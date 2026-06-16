@@ -1,0 +1,130 @@
+﻿* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #061f24;
+  color: #f4f4f4;
+}
+
+.hero {
+  background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)),
+    url("assets/hero-marino.svg");
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 15px;
+}
+
+header h1 {
+  font-size: 52px;
+  margin: 0;
+}
+
+header p {
+  font-size: 20px;
+  margin: 15px auto;
+  max-width: 700px;
+}
+
+nav {
+  background: #031417;
+  padding: 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+section {
+  max-width: 1050px;
+  margin: auto;
+  padding: 35px 20px;
+}
+
+.card {
+  background: #102f35;
+  padding: 28px;
+  margin: 22px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.item {
+  background: #123b42;
+  padding: 22px;
+  border-radius: 14px;
+  border-left: 5px solid #00b4d8;
+}
+
+.boton {
+  display: inline-block;
+  background: #00b4d8;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.whatsapp {
+  background: #25D366;
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #25D366;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+}
+
+footer {
+  background: #031417;
+  text-align: center;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 34px;
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+}

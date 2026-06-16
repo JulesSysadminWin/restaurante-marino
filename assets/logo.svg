@@ -1,0 +1,6 @@
+﻿<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="90" cy="90" r="82" fill="#006d77"/>
+  <circle cx="90" cy="90" r="68" fill="#08343a"/>
+  <text x="90" y="82" font-size="42" fill="#ffffff" text-anchor="middle" font-family="Arial" font-weight="bold">RM</text>
+  <text x="90" y="115" font-size="16" fill="#90e0ef" text-anchor="middle" font-family="Arial">MARINO</text>
+</svg>
