@@ -1,41 +1,21 @@
 # Cevichería Encanto Marino D'Miriam
 
-Versión v6 ajustada a la operación real del local.
+Versión v7: filtro no fijo.
 
 ## Cambios
 
-- Se quitó delivery.
-- Se mantienen solo 3 tipos de atención:
+- Se corrigió el problema donde el bloque de filtros podía tapar la carta en celular.
+- El filtro ya no queda pegado/fijo al hacer scroll.
+- El cliente ve los filtros arriba y luego baja normalmente a la carta.
+- Se mantiene la lógica sin delivery:
   - Atención en mesa
   - Pedido anticipado / reserva
   - Para llevar / recojo
-- Para atención en mesa: el cliente consulta en el local y paga normalmente al final.
-- Para pedido anticipado / reserva: se solicita cantidad de personas y hora; el local confirma total y datos de Yape/Plin para separar mesa e ir preparando la comida.
-- Para recojo: el cliente pide, paga y pasa a recoger.
-- Se mantiene personalización por plato:
-  - Normal
+- Se mantiene personalización:
+  - Picante normal
   - Sin picante
   - Poco picante
   - Bien picante
-  - Consultar
-- Se mantiene observación por plato y observación general.
-
-## Actualizar precios
-
-Editar:
-
-```text
-data/menu-data.js
-```
-
-Cambiar:
-
-```js
-precio: null
-```
-
-por:
-
-```js
-precio: 20
-```
+  - Observación por plato
+  - Observación general
+- QR separado en `qr-imprimir.html`.

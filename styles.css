@@ -57,7 +57,7 @@ footer{background:#03191e;color:var(--muted);text-align:center;padding:30px 18px
 .menu-hero{background:linear-gradient(rgba(3,20,25,.48),rgba(3,20,25,.82)),url("assets/fotos/triple-marino.webp");background-size:cover;background-position:center;min-height:44vh;display:flex;align-items:center;text-align:center}
 .menu-hero .hero-inner{display:block;padding:58px 18px}
 .notice{background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.35);color:#fff7c2;border-radius:16px;padding:14px 16px;margin-bottom:18px}
-.toolbar{background:rgba(5,38,45,.96);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:16px;position:sticky;top:64px;z-index:40;box-shadow:var(--shadow)}
+.toolbar{background:rgba(5,38,45,.96);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:16px;position:relative;top:auto;z-index:1;box-shadow:var(--shadow)}
 .search-row{display:grid;grid-template-columns:1fr auto;gap:10px}
 input[type="search"]{width:100%;min-height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);color:white;padding:0 16px;font-size:16px;outline:none}
 .chips,.allergy-grid{display:flex;gap:9px;overflow-x:auto;padding-top:11px}
@@ -205,5 +205,37 @@ input[type="search"]{width:100%;min-height:48px;border-radius:999px;border:1px s
 @media(max-width:900px){
   .order-options {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* Ajuste v7: el filtro ya no queda fijo encima de la carta */
+.toolbar {
+  position: relative !important;
+  top: auto !important;
+  z-index: 1 !important;
+}
+
+.menu-meta {
+  padding-top: 6px;
+}
+
+@media(max-width:640px){
+  .toolbar {
+    position: relative !important;
+    top: auto !important;
+    margin-bottom: 16px;
+  }
+
+  .chips {
+    padding-bottom: 4px;
+  }
+
+  .order-options {
+    margin-top: 12px;
+  }
+
+  .menu-meta {
+    margin-top: 18px;
   }
 }

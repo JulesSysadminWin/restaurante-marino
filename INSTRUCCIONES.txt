@@ -8,7 +8,7 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Ajustar atencion mesa reserva y recojo"
+   git commit -m "Corregir filtro que tapa la carta"
    git push
 
 4. Prueba con Ctrl + F5.
