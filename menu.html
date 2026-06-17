@@ -1,46 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Carta Digital - Encanto Marino D'Miriam</title><link rel="stylesheet" href="styles.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta Digital - Encanto Marino D'Miriam</title>
+  <meta name="description" content="Carta digital interactiva de Cevichería Encanto Marino D'Miriam.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-<header class="hero" style="min-height:46vh;"><div class="hero-content"><img src="assets/logo.svg" alt="Logo Cevichería Encanto Marino D'Miriam" class="logo"><h1>Carta Digital</h1><p>Encanto Marino D'Miriam</p></div></header>
-<nav><a href="index.html">Inicio</a><a href="menu.html">Carta</a><a href="#qr">QR</a><a href="index.html#ubicacion">Ubicación</a></nav>
+
+<nav class="topbar">
+  <a href="index.html">Inicio</a>
+  <a class="active" href="menu.html">Carta</a>
+  <a href="#alergias">Alergias</a>
+  <a href="#qr">QR</a>
+  <a class="js-maps" target="_blank" href="#">Ubicación</a>
+</nav>
+
+<header class="menu-hero">
+  <div>
+    <img src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam" class="logo">
+    <div class="eyebrow">Carta digital interactiva</div>
+    <h1>Escoge, filtra y pide</h1>
+    <p>Busca platos, revisa alérgenos y arma tu pedido para enviarlo por WhatsApp.</p>
+  </div>
+</header>
+
 <section>
-<div class="notice">Carta en actualización. Los precios finales deben ser confirmados con el local antes de publicar o imprimir el QR.</div>
-<div class="card menu-section"><h2>Ceviches</h2><div class="menu-list"><div class="menu-row"><span>Ceviche de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Ceviche especial</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Ceviche mixto</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Ceviche con chicharrón de pota</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Ceviche con chicharrón de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Ronda marina</span><span>Por confirmar</span></div></div></div>
-<div class="card menu-section"><h2>Entradas y piqueos</h2><div class="menu-list"><div class="menu-row"><span>Leche de tigre</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Leche de tigre VIP</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Sopa salvaje</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Causa de atún</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Causa acevichada</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Dúo marino</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Triple marino</span><span>Por confirmar</span></div></div></div>
-<div class="card menu-section"><h2>Arroces</h2><div class="menu-list"><div class="menu-row"><span>Arroz con mariscos</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Arroz con mariscos + leche de tigre</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Arroz chaufa con mariscos</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Arroz chaufa con langostinos</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Arroz chaufa de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Pescado a lo macho</span><span>Por confirmar</span></div></div></div>
-<div class="card menu-section"><h2>Chicharrones y jaleas</h2><div class="menu-list"><div class="menu-row"><span>Chicharrón de pota</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chicharrón de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chicharrón de calamar en aros</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Jalea mixta</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Jalea especial</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Jalea El Encanto Marino</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Filete frito</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Pescado frito</span><span>Por confirmar</span></div></div></div>
-<div class="card menu-section"><h2>Sopas, sudados y chupes</h2><div class="menu-list"><div class="menu-row"><span>Parihuela de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Sudado de pescado entero</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Filete de pescado</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chupe de camarones</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chupe de pescado en trozos</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chilcano normal</span><span>Por confirmar</span></div>
-<div class="menu-row"><span>Chilcano especial</span><span>Por confirmar</span></div></div></div>
-<div class="card"><h2>Fotos de carta referencial</h2><p>Estas imágenes son solo referencia hasta confirmar precios finales.</p><div class="gallery"><img src="assets/cartas-referencia/carta-referencia-1.webp" alt="Carta referencial 1"><img src="assets/cartas-referencia/carta-referencia-2.webp" alt="Carta referencial 2"><img src="assets/cartas-referencia/carta-referencia-3.webp" alt="Carta referencial 3"><img src="assets/cartas-referencia/carta-referencia-4.webp" alt="Carta referencial 4"></div></div>
-<div class="card qr-card" id="qr"><h2>QR de la carta</h2><p>Este QR apunta directamente a esta carta digital.</p><img src="assets/qr-carta.png" alt="QR de la carta digital"><p><a class="boton" href="menu.html">Abrir carta digital</a></p></div>
-<div class="card"><h2>Pedidos por WhatsApp</h2><p>Consulta precios actualizados o disponibilidad.</p><a class="boton whatsapp" href="https://wa.me/51977430832?text=Hola%2C%20quiero%20consultar%20la%20carta%20de%20Encanto%20Marino%20D%27Miriam" target="_blank">Escribir por WhatsApp</a></div>
-</section><a class="whatsapp-float" href="https://wa.me/51977430832?text=Hola%2C%20quiero%20consultar%20la%20carta" target="_blank">WhatsApp</a><footer><p>Cevichería Encanto Marino D'Miriam © 2026</p></footer></body></html>
+  <div class="notice">
+    ⚠️ Carta en actualización. Los precios finales deben confirmarse con el local antes de imprimir QR o publicar versión final.
+  </div>
+
+  <div class="toolbar">
+    <div class="search-line">
+      <input id="searchInput" type="search" placeholder="Buscar ceviche, jalea, arroz, sopa, pescado...">
+      <button id="clearFilters" class="btn ghost">Limpiar filtros</button>
+    </div>
+
+    <div id="categoryChips" class="chips"></div>
+
+    <div id="alergias" class="switch-line">
+      <strong>Evitar si soy alérgico a:</strong>
+      <span>Selecciona una o más opciones</span>
+    </div>
+    <div id="allergyFilters" class="allergy-grid"></div>
+
+    <label class="switch-line">
+      <input id="toggleRiesgo" type="checkbox">
+      Ocultar platos que coincidan con mis alergias seleccionadas
+    </label>
+  </div>
+
+  <div class="menu-meta">
+    <span id="resultCount">0 platos</span>
+    <span>Toque un plato para ver detalle</span>
+  </div>
+
+  <div id="menuGrid" class="menu-grid"></div>
+
+  <div class="card" style="margin-top: 28px;">
+    <h2>Consideración importante sobre alergias</h2>
+    <p>
+      Esta carta solo brinda referencias generales. Si presenta alergias alimentarias,
+      consulte directamente con el personal antes de realizar su pedido.
+      Los platos pueden tener contacto cruzado con pescado, mariscos, huevo, gluten u otros ingredientes.
+    </p>
+  </div>
+
+  <div class="card" id="qr">
+    <div class="location-grid">
+      <div>
+        <h2>QR de carta digital</h2>
+        <p>Este QR apunta directamente a esta carta. Puede usarse para mesas, entrada o mostrador.</p>
+        <div class="actions">
+          <a class="boton" href="qr-imprimir.html">Ver formato para imprimir</a>
+          <a class="boton ghost" href="assets/qr-carta-imprimir.png" download>Descargar PNG</a>
+        </div>
+      </div>
+      <div class="qr-box">
+        <img src="assets/qr-carta.png" alt="QR de carta digital">
+        <p>Escanea y abre la carta</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="cartBar" class="cart-bar"></div>
+<a class="whatsapp-float js-whatsapp" href="#">WhatsApp</a>
+
+<div id="dishModal" class="modal">
+  <div class="modal-card">
+    <div class="modal-grid">
+      <img id="modalImage" src="" alt="">
+      <div class="modal-content">
+        <button id="modalClose" class="modal-close">×</button>
+        <h2 id="modalTitle"></h2>
+        <strong id="modalPrice" class="price"></strong>
+        <p id="modalDesc"></p>
+        <h3>Etiquetas</h3>
+        <div id="modalTags" class="tag-list"></div>
+        <h3>Puede contener</h3>
+        <div id="modalAllergens" class="allergen-list"></div>
+        <p class="notice">Confirmar ingredientes y disponibilidad con el local.</p>
+        <button id="modalAdd" class="btn">Agregar al pedido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p>
+</footer>
+
+<script src="data/menu-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,13 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cevichería Encanto Marino D'Miriam</title><link rel="stylesheet" href="styles.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cevichería Encanto Marino D'Miriam</title>
+  <meta name="description" content="Carta digital y página web de Cevichería Encanto Marino D'Miriam en el Callao.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-<header class="hero"><div class="hero-content"><img src="assets/logo.svg" alt="Logo Cevichería Encanto Marino D'Miriam" class="logo"><h1>Encanto Marino D'Miriam</h1><p>Cevichería con sabor marino, platos frescos y atención en el Callao.</p><div class="hero-actions"><a class="boton" href="menu.html">Ver carta digital</a><a class="boton secundario" href="#ubicacion">Ver ubicación</a></div></div></header>
-<nav><a href="index.html">Inicio</a><a href="menu.html">Carta</a><a href="#galeria">Platos</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a></nav>
+
+<nav class="topbar">
+  <a class="active" href="index.html">Inicio</a>
+  <a href="menu.html">Carta digital</a>
+  <a href="#destacados">Destacados</a>
+  <a href="#galeria">Galería</a>
+  <a href="#ubicacion">Ubicación</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-copy">
+    <img src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam" class="logo">
+    <div class="eyebrow">🐟 Cevichería en el Callao</div>
+    <h1>Encanto Marino D'Miriam</h1>
+    <p>Sabores marinos, platos frescos y carta digital lista para escanear desde el celular.</p>
+    <div class="hero-actions">
+      <a class="boton" href="menu.html">Ver carta digital</a>
+      <a class="boton ghost js-whatsapp" href="#">Consultar por WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="hero-showcase">
+    <div class="stat-card">
+      <strong>Carta QR</strong>
+      <span>Ideal para mesas, mostrador y clientes desde celular.</span>
+    </div>
+    <div class="photo-card photo-main">
+      <img src="assets/fotos/combinado-marino.webp" alt="Combinado marino">
+    </div>
+    <div class="photo-card photo-small-1">
+      <img src="assets/fotos/ceviche-fresco.webp" alt="Ceviche fresco">
+    </div>
+    <div class="photo-card photo-small-2">
+      <img src="assets/fotos/arroz-mariscos.webp" alt="Arroz con mariscos">
+    </div>
+  </div>
+</header>
+
 <section>
-<div class="card"><h2 class="section-title">Bienvenidos</h2><p>En Cevichería Encanto Marino D'Miriam encontrarás ceviches, jaleas, arroces marinos, sopas y platos criollos con sabor de casa.</p></div>
-<div class="card"><h2 class="section-title">Especialidades</h2><div class="grid"><div class="item"><h3>Ceviches</h3><p>Pescado fresco, limón, cebolla y el toque marino de la casa.</p></div><div class="item"><h3>Jaleas y chicharrones</h3><p>Opciones crocantes para compartir en mesa.</p></div><div class="item"><h3>Arroces marinos</h3><p>Arroz con mariscos y chaufa de mariscos.</p></div><div class="item"><h3>Sopas y sudados</h3><p>Preparaciones calientes con sabor marino.</p></div></div></div>
-<div class="card" id="galeria"><h2 class="section-title">Galería de platos</h2><div class="gallery"><img src="assets/fotos/plato-duo-marino.webp" alt="Dúo marino"><img src="assets/fotos/plato-sudado.webp" alt="Sudado de pescado"><img src="assets/fotos/plato-pescado-frito.webp" alt="Pescado frito"><img src="assets/fotos/plato-triple-marino.webp" alt="Triple marino"><img src="assets/fotos/plato-ceviche.webp" alt="Ceviche"><img src="assets/fotos/plato-arroz-mariscos.webp" alt="Arroz con mariscos"></div></div>
-<div class="card" id="ubicacion"><h2 class="section-title">Ubicación</h2><p><strong>Av. Alameda, Mercado Amarillo, puesto - Callao</strong></p><p>Referencia: Mercado Amarillo, Callao.</p><a class="boton secundario" href="https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20Callao%20Av.%20Alameda" target="_blank">Abrir en Google Maps</a></div>
-<div class="card" id="contacto"><h2 class="section-title">Pedidos y consultas</h2><p>Consulta disponibilidad, precios actualizados o realiza tu pedido por WhatsApp.</p><a class="boton whatsapp" href="https://wa.me/51977430832?text=Hola%2C%20quiero%20consultar%20la%20carta%20de%20Encanto%20Marino%20D%27Miriam" target="_blank">Escribir por WhatsApp</a></div>
-</section><a class="whatsapp-float" href="https://wa.me/51977430832?text=Hola%2C%20quiero%20consultar%20la%20carta" target="_blank">WhatsApp</a><footer><p>Cevichería Encanto Marino D'Miriam © 2026</p></footer></body></html>
+  <div class="feature-grid">
+    <div class="feature"><span>📱</span><h3>Mobile first</h3><p>Diseñada principalmente para clientes en celular.</p></div>
+    <div class="feature"><span>🔎</span><h3>Carta interactiva</h3><p>Buscador, filtros y categorías rápidas.</p></div>
+    <div class="feature"><span>⚠️</span><h3>Alergias</h3><p>Indicadores de pescado, mariscos, huevo, gluten y picante.</p></div>
+    <div class="feature"><span>🧾</span><h3>Pedido por WhatsApp</h3><p>El cliente arma su pedido y lo envía por WhatsApp.</p></div>
+  </div>
+</section>
+
+<section id="destacados">
+  <div class="section-head">
+    <div>
+      <h2>Platos destacados</h2>
+      <p>Una selección visual de platos para mostrar lo mejor del local.</p>
+    </div>
+    <a class="boton ghost" href="menu.html">Ver todo</a>
+  </div>
+  <div id="homeDestacados" class="dish-mini-grid"></div>
+</section>
+
+<section id="galeria">
+  <div class="section-head">
+    <div>
+      <h2>Galería</h2>
+      <p>Fotos reales del local para dar confianza al cliente.</p>
+    </div>
+  </div>
+  <div class="gallery">
+    <img src="assets/fotos/duo-marino.webp" alt="Dúo marino">
+    <img src="assets/fotos/sudado-pescado.webp" alt="Sudado de pescado">
+    <img src="assets/fotos/pescado-frito.webp" alt="Pescado frito">
+    <img src="assets/fotos/triple-marino.webp" alt="Triple marino">
+    <img src="assets/fotos/ceviche-fresco.webp" alt="Ceviche">
+    <img src="assets/fotos/arroz-mariscos.webp" alt="Arroz con mariscos">
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="location-grid">
+    <div class="card">
+      <h2 class="section-title">Ubicación</h2>
+      <p><strong>Av. Alameda, Mercado Amarillo, puesto - Callao</strong></p>
+      <p>Referencia: Mercado Amarillo, Callao.</p>
+      <div class="actions">
+        <a class="boton js-maps" target="_blank" href="#">Abrir Google Maps</a>
+        <a class="boton ghost" href="menu.html#qr">Ver QR</a>
+      </div>
+    </div>
+    <div class="qr-box">
+      <h3>QR de la carta</h3>
+      <img src="assets/qr-carta.png" alt="QR carta digital">
+      <p id="qrUrl"></p>
+    </div>
+  </div>
+</section>
+
+<a class="whatsapp-float js-whatsapp" href="#">WhatsApp</a>
+
+<footer>
+  <p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p>
+  <p>Precios y disponibilidad sujetos a confirmación del local.</p>
+</footer>
+
+<script src="data/menu-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

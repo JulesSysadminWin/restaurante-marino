@@ -1,24 +1,32 @@
-INSTRUCCIONES RÁPIDAS
+INSTRUCCIONES PARA USAR ESTA VERSIÓN
 
 1. Descomprime este ZIP.
-2. Copia todo el contenido dentro de:
+
+2. Copia TODO el contenido dentro de:
    C:\Linux-Lab\restaurante-web
 
-3. En PowerShell:
+3. Acepta reemplazar archivos.
+
+4. En PowerShell:
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Actualizar web con datos reales de Encanto Marino"
+   git commit -m "Crear carta interactiva profesional"
    git push
 
-4. Abre:
+5. Revisa:
    https://julessysadminwin.github.io/restaurante-marino/
 
-5. Carta:
+6. Carta:
    https://julessysadminwin.github.io/restaurante-marino/menu.html
 
-6. QR para imprimir:
+7. QR para imprimir:
    https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html
 
+ARCHIVO MÁS IMPORTANTE PARA EL FUTURO:
+   data\menu-data.js
+
+Ahí se actualizan nombre, teléfono, ubicación, categorías, platos, alergias y precios.
+
 IMPORTANTE:
-Los precios están como "Por confirmar" porque se indicó que la carta enviada es anterior y tiene precios diferentes.
+Los precios están como "Por confirmar" porque la carta final aún no fue confirmada.

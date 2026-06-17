@@ -1,0 +1,15 @@
+{
+  "name": "Encanto Marino D'Miriam",
+  "short_name": "D'Miriam",
+  "start_url": "./menu.html",
+  "display": "standalone",
+  "background_color": "#041b20",
+  "theme_color": "#0891b2",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
