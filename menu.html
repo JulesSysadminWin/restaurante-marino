@@ -1,89 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carta Digital - Encanto Marino D'Miriam</title>
-  <meta name="description" content="Carta digital interactiva de Cevichería Encanto Marino D'Miriam.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<nav class="topbar">
-  <a href="index.html">Inicio</a>
-  <a class="active" href="menu.html">Carta</a>
-  <a href="#alergias">Alergias</a>
-  <a href="#qr">QR</a>
-  <a class="js-maps" target="_blank" href="#">Ubicación</a>
-</nav>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Logo"><span>Encanto Marino</span></a>
+  <div class="links"><a href="index.html">Inicio</a><a class="active" href="menu.html">Carta</a><a href="#alergias">Alergias</a><a class="js-maps" target="_blank" href="#">Ubicación</a></div>
+</div></nav>
 
 <header class="menu-hero">
-  <div>
-    <img src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam" class="logo">
-    <div class="eyebrow">Carta digital interactiva</div>
+  <div class="hero-inner">
+    <img class="logo" src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam">
+    <div class="badge">Carta digital interactiva</div>
     <h1>Escoge, filtra y pide</h1>
-    <p>Busca platos, revisa alérgenos y arma tu pedido para enviarlo por WhatsApp.</p>
+    <p>Busca platos, revisa alérgenos y arma tu pedido referencial para enviarlo por WhatsApp.</p>
   </div>
 </header>
 
 <section>
-  <div class="notice">
-    ⚠️ Carta en actualización. Los precios finales deben confirmarse con el local antes de imprimir QR o publicar versión final.
-  </div>
+  <div class="notice">⚠️ Carta en actualización. Los precios finales deben confirmarse con el local antes de imprimir el QR final.</div>
 
   <div class="toolbar">
-    <div class="search-line">
+    <div class="search-row">
       <input id="searchInput" type="search" placeholder="Buscar ceviche, jalea, arroz, sopa, pescado...">
-      <button id="clearFilters" class="btn ghost">Limpiar filtros</button>
+      <button id="clearFilters" class="btn secondary">Limpiar</button>
     </div>
-
     <div id="categoryChips" class="chips"></div>
-
-    <div id="alergias" class="switch-line">
-      <strong>Evitar si soy alérgico a:</strong>
-      <span>Selecciona una o más opciones</span>
-    </div>
+    <div id="alergias" class="switch-line"><strong>Evitar si soy alérgico a:</strong><span>Selecciona una o más opciones</span></div>
     <div id="allergyFilters" class="allergy-grid"></div>
-
-    <label class="switch-line">
-      <input id="toggleRiesgo" type="checkbox">
-      Ocultar platos que coincidan con mis alergias seleccionadas
-    </label>
+    <label class="switch-line"><input id="toggleRiesgo" type="checkbox"> Ocultar platos que coincidan con mis alergias</label>
   </div>
 
-  <div class="menu-meta">
-    <span id="resultCount">0 platos</span>
-    <span>Toque un plato para ver detalle</span>
-  </div>
-
+  <div class="menu-meta"><span id="resultCount">0 platos</span><span>Toque un plato para ver detalle</span></div>
   <div id="menuGrid" class="menu-grid"></div>
 
-  <div class="card" style="margin-top: 28px;">
-    <h2>Consideración importante sobre alergias</h2>
-    <p>
-      Esta carta solo brinda referencias generales. Si presenta alergias alimentarias,
-      consulte directamente con el personal antes de realizar su pedido.
-      Los platos pueden tener contacto cruzado con pescado, mariscos, huevo, gluten u otros ingredientes.
-    </p>
-  </div>
-
-  <div class="card" id="qr">
-    <div class="location-grid">
-      <div>
-        <h2>QR de carta digital</h2>
-        <p>Este QR apunta directamente a esta carta. Puede usarse para mesas, entrada o mostrador.</p>
-        <div class="actions">
-          <a class="boton" href="qr-imprimir.html">Ver formato para imprimir</a>
-          <a class="boton ghost" href="assets/qr-carta-imprimir.png" download>Descargar PNG</a>
-        </div>
-      </div>
-      <div class="qr-box">
-        <img src="assets/qr-carta.png" alt="QR de carta digital">
-        <p>Escanea y abre la carta</p>
-      </div>
-    </div>
+  <div class="card" style="margin-top:24px">
+    <h2>Consideración sobre alergias</h2>
+    <p class="lead">Esta carta brinda referencias generales. Si presenta alergias alimentarias, consulte directamente con el personal antes de realizar su pedido. Puede existir contacto cruzado con pescado, mariscos, huevo, gluten u otros ingredientes.</p>
   </div>
 </section>
 
@@ -99,10 +56,8 @@
         <h2 id="modalTitle"></h2>
         <strong id="modalPrice" class="price"></strong>
         <p id="modalDesc"></p>
-        <h3>Etiquetas</h3>
-        <div id="modalTags" class="tag-list"></div>
-        <h3>Puede contener</h3>
-        <div id="modalAllergens" class="allergen-list"></div>
+        <h3>Etiquetas</h3><div id="modalTags" class="tag-list"></div>
+        <h3>Puede contener</h3><div id="modalAllergens" class="allergen-list"></div>
         <p class="notice">Confirmar ingredientes y disponibilidad con el local.</p>
         <button id="modalAdd" class="btn">Agregar al pedido</button>
       </div>
@@ -110,11 +65,7 @@
   </div>
 </div>
 
-<footer>
-  <p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p>
-</footer>
-
-<script src="data/menu-data.js"></script>
-<script src="script.js"></script>
+<footer><p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p></footer>
+<script src="data/menu-data.js"></script><script src="script.js"></script>
 </body>
 </html>

@@ -1,86 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cevichería Encanto Marino D'Miriam</title>
-  <meta name="description" content="Carta digital y página web de Cevichería Encanto Marino D'Miriam en el Callao.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<nav class="topbar">
-  <a class="active" href="index.html">Inicio</a>
-  <a href="menu.html">Carta digital</a>
-  <a href="#destacados">Destacados</a>
-  <a href="#galeria">Galería</a>
-  <a href="#ubicacion">Ubicación</a>
-</nav>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Logo"><span>Encanto Marino</span></a>
+  <div class="links"><a class="active" href="index.html">Inicio</a><a href="menu.html">Carta digital</a><a href="#destacados">Platos</a><a href="#galeria">Galería</a><a href="#ubicacion">Ubicación</a></div>
+</div></nav>
 
 <header class="hero">
-  <div class="hero-copy">
-    <img src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam" class="logo">
-    <div class="eyebrow">🐟 Cevichería en el Callao</div>
-    <h1>Encanto Marino D'Miriam</h1>
-    <p>Sabores marinos, platos frescos y carta digital lista para escanear desde el celular.</p>
-    <div class="hero-actions">
-      <a class="boton" href="menu.html">Ver carta digital</a>
-      <a class="boton ghost js-whatsapp" href="#">Consultar por WhatsApp</a>
+  <div class="hero-inner">
+    <div>
+      <img class="logo" src="assets/logo.svg" alt="Logo Encanto Marino D'Miriam">
+      <div class="badge">🐟 Cevichería en el Callao</div>
+      <h1>Encanto Marino D'Miriam</h1>
+      <p>Sabores marinos, platos frescos y carta digital pensada para celular, mesas y pedidos por WhatsApp.</p>
+      <div class="actions">
+        <a class="btn" href="menu.html">Ver carta digital</a>
+        <a class="btn secondary js-whatsapp" href="#">Consultar por WhatsApp</a>
+      </div>
     </div>
-  </div>
-
-  <div class="hero-showcase">
-    <div class="stat-card">
-      <strong>Carta QR</strong>
-      <span>Ideal para mesas, mostrador y clientes desde celular.</span>
-    </div>
-    <div class="photo-card photo-main">
-      <img src="assets/fotos/combinado-marino.webp" alt="Combinado marino">
-    </div>
-    <div class="photo-card photo-small-1">
-      <img src="assets/fotos/ceviche-fresco.webp" alt="Ceviche fresco">
-    </div>
-    <div class="photo-card photo-small-2">
-      <img src="assets/fotos/arroz-mariscos.webp" alt="Arroz con mariscos">
+    <div class="hero-card">
+      <img src="assets/fotos/combinado-marino.webp" alt="Plato marino destacado">
     </div>
   </div>
 </header>
 
 <section>
-  <div class="feature-grid">
-    <div class="feature"><span>📱</span><h3>Mobile first</h3><p>Diseñada principalmente para clientes en celular.</p></div>
-    <div class="feature"><span>🔎</span><h3>Carta interactiva</h3><p>Buscador, filtros y categorías rápidas.</p></div>
+  <div class="grid">
+    <div class="feature"><span>📱</span><h3>Mobile first</h3><p>Diseñada para que el cliente escanee y navegue fácil desde celular.</p></div>
+    <div class="feature"><span>🔎</span><h3>Carta interactiva</h3><p>Buscador, filtros por categoría y detalle de platos.</p></div>
     <div class="feature"><span>⚠️</span><h3>Alergias</h3><p>Indicadores de pescado, mariscos, huevo, gluten y picante.</p></div>
-    <div class="feature"><span>🧾</span><h3>Pedido por WhatsApp</h3><p>El cliente arma su pedido y lo envía por WhatsApp.</p></div>
+    <div class="feature"><span>🧾</span><h3>Pedido por WhatsApp</h3><p>El cliente arma su pedido y lo envía para confirmar.</p></div>
   </div>
 </section>
 
 <section id="destacados">
-  <div class="section-head">
-    <div>
-      <h2>Platos destacados</h2>
-      <p>Una selección visual de platos para mostrar lo mejor del local.</p>
-    </div>
-    <a class="boton ghost" href="menu.html">Ver todo</a>
-  </div>
+  <div class="section-head"><div><h2>Platos destacados</h2><p class="lead">Una selección visual para mostrar lo mejor del local.</p></div><a class="btn secondary" href="menu.html">Ver todo</a></div>
   <div id="homeDestacados" class="dish-mini-grid"></div>
 </section>
 
 <section id="galeria">
-  <div class="section-head">
-    <div>
-      <h2>Galería</h2>
-      <p>Fotos reales del local para dar confianza al cliente.</p>
-    </div>
-  </div>
+  <div class="section-head"><div><h2>Galería</h2><p class="lead">Fotos reales del local para dar confianza al cliente.</p></div></div>
   <div class="gallery">
     <img src="assets/fotos/duo-marino.webp" alt="Dúo marino">
     <img src="assets/fotos/sudado-pescado.webp" alt="Sudado de pescado">
     <img src="assets/fotos/pescado-frito.webp" alt="Pescado frito">
     <img src="assets/fotos/triple-marino.webp" alt="Triple marino">
-    <img src="assets/fotos/ceviche-fresco.webp" alt="Ceviche">
+    <img src="assets/fotos/ceviche-fresco.webp" alt="Ceviche fresco">
     <img src="assets/fotos/arroz-mariscos.webp" alt="Arroz con mariscos">
   </div>
 </section>
@@ -88,30 +59,21 @@
 <section id="ubicacion">
   <div class="location-grid">
     <div class="card">
-      <h2 class="section-title">Ubicación</h2>
+      <h2>Ubicación</h2>
       <p><strong>Av. Alameda, Mercado Amarillo, puesto - Callao</strong></p>
-      <p>Referencia: Mercado Amarillo, Callao.</p>
-      <div class="actions">
-        <a class="boton js-maps" target="_blank" href="#">Abrir Google Maps</a>
-        <a class="boton ghost" href="menu.html#qr">Ver QR</a>
-      </div>
+      <p class="lead">Referencia: Mercado Amarillo, Callao.</p>
+      <div class="actions"><a class="btn js-maps" target="_blank" href="#">Abrir Google Maps</a><a class="btn secondary js-whatsapp" href="#">Consultar</a></div>
     </div>
-    <div class="qr-box">
-      <h3>QR de la carta</h3>
-      <img src="assets/qr-carta.png" alt="QR carta digital">
-      <p id="qrUrl"></p>
+    <div class="card">
+      <h2>Para el local</h2>
+      <p class="lead">El QR para imprimir está separado de la carta digital, para usarlo en mesas o mostrador.</p>
+      <a class="btn secondary" href="qr-imprimir.html">Ver QR imprimible</a>
     </div>
   </div>
 </section>
 
 <a class="whatsapp-float js-whatsapp" href="#">WhatsApp</a>
-
-<footer>
-  <p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p>
-  <p>Precios y disponibilidad sujetos a confirmación del local.</p>
-</footer>
-
-<script src="data/menu-data.js"></script>
-<script src="script.js"></script>
+<footer><p>Cevichería Encanto Marino D'Miriam © <span id="year"></span></p><p>Precios y disponibilidad sujetos a confirmación del local.</p></footer>
+<script src="data/menu-data.js"></script><script src="script.js"></script>
 </body>
 </html>

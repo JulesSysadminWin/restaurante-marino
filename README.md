@@ -1,29 +1,24 @@
 # Cevichería Encanto Marino D'Miriam
 
-Web profesional para carta digital, QR e interacción por WhatsApp.
+Versión limpia y profesional de la web/carta digital.
 
-## Funciones
+## Qué corrige esta versión
 
-- Diseño mobile-first para clientes que escanean QR en el local.
-- Carta interactiva con buscador.
-- Filtros por categoría.
-- Filtro por alergias/restricciones.
-- Modal de detalle por plato.
-- Carrito de pedido referencial.
-- Envío de pedido por WhatsApp.
-- QR imprimible.
-- Fotos reales optimizadas en WebP.
-- Estructura preparada para solo actualizar precios en el futuro.
+- Se eliminó el QR visible dentro de la carta digital.
+- El QR queda solo en `qr-imprimir.html`.
+- Se corrigió el diseño responsive para celular.
+- Se evitaron imágenes gigantes y desordenadas en móvil.
+- Se mantiene buscador, filtros, alergias y pedido por WhatsApp.
 
 ## Para actualizar precios
 
-Editar el archivo:
+Editar:
 
 ```text
 data/menu-data.js
 ```
 
-Buscar el plato y cambiar:
+Cambiar:
 
 ```js
 precio: null
@@ -35,20 +30,10 @@ por:
 precio: 20
 ```
 
-Luego subir cambios:
+Luego:
 
 ```powershell
-git status
 git add .
-git commit -m "Actualizar precios de carta"
+git commit -m "Actualizar precios"
 git push
 ```
-
-## Rutas principales
-
-- Inicio: `index.html`
-- Carta digital: `menu.html`
-- QR para imprimir: `qr-imprimir.html`
-- Datos editables: `data/menu-data.js`
-- Estilos: `styles.css`
-- Interactividad: `script.js`
