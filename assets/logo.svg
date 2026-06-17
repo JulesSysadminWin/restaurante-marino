@@ -1,6 +1,8 @@
-﻿<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="90" cy="90" r="82" fill="#006d77"/>
-  <circle cx="90" cy="90" r="68" fill="#08343a"/>
-  <text x="90" y="82" font-size="42" fill="#ffffff" text-anchor="middle" font-family="Arial" font-weight="bold">RM</text>
-  <text x="90" y="115" font-size="16" fill="#90e0ef" text-anchor="middle" font-family="Arial">MARINO</text>
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#00b4d8"/><stop offset="100%" stop-color="#005f73"/></linearGradient></defs>
+  <circle cx="110" cy="110" r="102" fill="url(#g)"/>
+  <circle cx="110" cy="110" r="84" fill="#052c33" opacity="0.95"/>
+  <text x="110" y="92" font-size="31" fill="#ffffff" text-anchor="middle" font-family="Arial" font-weight="700">D'MIRIAM</text>
+  <text x="110" y="123" font-size="18" fill="#90e0ef" text-anchor="middle" font-family="Arial" font-weight="700">ENCANTO</text>
+  <text x="110" y="146" font-size="18" fill="#90e0ef" text-anchor="middle" font-family="Arial" font-weight="700">MARINO</text>
 </svg>

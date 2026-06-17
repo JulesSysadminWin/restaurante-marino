@@ -1,0 +1,24 @@
+INSTRUCCIONES RÁPIDAS
+
+1. Descomprime este ZIP.
+2. Copia todo el contenido dentro de:
+   C:\Linux-Lab\restaurante-web
+
+3. En PowerShell:
+   cd C:\Linux-Lab\restaurante-web
+   git status
+   git add .
+   git commit -m "Actualizar web con datos reales de Encanto Marino"
+   git push
+
+4. Abre:
+   https://julessysadminwin.github.io/restaurante-marino/
+
+5. Carta:
+   https://julessysadminwin.github.io/restaurante-marino/menu.html
+
+6. QR para imprimir:
+   https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html
+
+IMPORTANTE:
+Los precios están como "Por confirmar" porque se indicó que la carta enviada es anterior y tiene precios diferentes.
