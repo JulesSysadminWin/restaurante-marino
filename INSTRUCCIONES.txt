@@ -1,24 +1,20 @@
 INSTRUCCIONES
 
-1. Descomprime este ZIP.
-2. Copia TODO el contenido dentro de:
+1. Descomprime el ZIP.
+2. Copia todo el contenido dentro de:
    C:\Linux-Lab\restaurante-web
 
-3. En PowerShell:
+3. Ejecuta en PowerShell:
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Corregir diseño responsive y limpiar QR"
+   git commit -m "Mejorar pedido con alergias y preferencias"
    git push
 
-4. En navegador prueba con:
-   Ctrl + F5
-
-5. En celular, si sigue viéndose la versión anterior:
-   abrir en incógnito o borrar datos del sitio.
-   Esto puede pasar por cache/service worker de la versión previa.
+4. Prueba con Ctrl + F5.
+5. En celular, usar incógnito si queda caché de la versión anterior.
 
 Rutas:
-- Página: https://julessysadminwin.github.io/restaurante-marino/
+- Inicio: https://julessysadminwin.github.io/restaurante-marino/
 - Carta: https://julessysadminwin.github.io/restaurante-marino/menu.html
-- QR imprimir: https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html
+- QR: https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html

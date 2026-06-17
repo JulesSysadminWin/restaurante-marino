@@ -5,7 +5,13 @@ const normalizar = (txt) => String(txt || "").toLowerCase().normalize("NFD").rep
 const precio = (v) => (v === null || v === undefined || v === "") ? "Por confirmar" : `S/ ${Number(v).toFixed(2)}`;
 const nombreAlergeno = (id) => ALERGENOS.find(a => a.id === id)?.nombre || id;
 
-const estado = { categoria:"todos", busqueda:"", alergenos:new Set(), ocultarRiesgo:false, carrito:{} };
+const estado = {
+  categoria:"todos",
+  busqueda:"",
+  alergenos:new Set(),
+  ocultarRiesgo:false,
+  carrito:[]
+};
 
 function limpiarCacheVieja() {
   if ("serviceWorker" in navigator) {
@@ -50,6 +56,8 @@ function initMenu() {
   $("#clearFilters").addEventListener("click", () => {
     estado.categoria="todos"; estado.busqueda=""; estado.alergenos.clear(); estado.ocultarRiesgo=false;
     $("#searchInput").value=""; $("#toggleRiesgo").checked=false;
+    if ($("#generalNote")) $("#generalNote").value = "";
+    if ($("#serviceType")) $("#serviceType").value = "Por confirmar";
     renderCategorias(); renderAlergenos(); renderMenu();
   });
   $("#modalClose").addEventListener("click", cerrarModal);
@@ -102,39 +110,82 @@ function renderMenu(){
       </div>
     </article>`;
   }).join("");
-  grid.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => agregar(b.dataset.add)));
+  grid.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => agregar(b.dataset.add, "Normal", "")));
   grid.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => abrirModal(b.dataset.view)));
 }
 
-function agregar(id){ estado.carrito[id]=(estado.carrito[id]||0)+1; renderCarrito(); }
-function cambiarCantidad(id, d){ estado.carrito[id]=(estado.carrito[id]||0)+d; if(estado.carrito[id]<=0) delete estado.carrito[id]; renderCarrito(); }
+function agregar(id, picante="Normal", nota=""){
+  const p = PLATOS.find(x => x.id === id);
+  if (!p) return;
+
+  const existente = estado.carrito.find(i => i.id === id && i.picante === picante && i.nota === nota);
+  if (existente) existente.cantidad += 1;
+  else estado.carrito.push({ lineId: Date.now() + Math.random(), id, cantidad:1, picante, nota });
+
+  renderCarrito();
+}
+
+function cambiarCantidad(lineId, d){
+  const item = estado.carrito.find(i => String(i.lineId) === String(lineId));
+  if (!item) return;
+  item.cantidad += d;
+  if (item.cantidad <= 0) estado.carrito = estado.carrito.filter(i => String(i.lineId) !== String(lineId));
+  renderCarrito();
+}
 window.cambiarCantidad = cambiarCantidad;
 
 function renderCarrito(){
   const bar = $("#cartBar"); if(!bar) return;
-  const ids = Object.keys(estado.carrito);
-  const totalItems = ids.reduce((a,id)=>a+estado.carrito[id],0);
+  const totalItems = estado.carrito.reduce((a,i)=>a+i.cantidad,0);
   if(!totalItems){ bar.classList.remove("show"); bar.innerHTML=""; return; }
-  const allPrices = ids.every(id => PLATOS.find(p=>p.id===id)?.precio != null);
-  const total = ids.reduce((a,id)=>a+(Number(PLATOS.find(p=>p.id===id)?.precio||0)*estado.carrito[id]),0);
+
+  const allPrices = estado.carrito.every(i => PLATOS.find(p=>p.id===i.id)?.precio != null);
+  const total = estado.carrito.reduce((a,i)=>a+(Number(PLATOS.find(p=>p.id===i.id)?.precio||0)*i.cantidad),0);
+
   bar.classList.add("show");
   bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total: por confirmar"}</span></div>
-  <div class="cart-items">${ids.map(id => {
-    const p=PLATOS.find(x=>x.id===id);
-    return `<div class="cart-item"><span>${estado.carrito[id]}x ${p.nombre}</span><div><button onclick="cambiarCantidad('${id}',-1)">−</button> <button onclick="cambiarCantidad('${id}',1)">+</button></div></div>`;
+  <div class="cart-items">${estado.carrito.map(item => {
+    const p = PLATOS.find(x=>x.id===item.id);
+    const extras = [item.picante && item.picante !== "Normal" ? `Picante: ${item.picante}` : "", item.nota ? `Obs: ${item.nota}` : ""].filter(Boolean).join(" | ");
+    return `<div class="cart-item">
+      <span>${item.cantidad}x ${p.nombre}${extras ? `<small>${extras}</small>` : ""}</span>
+      <div><button onclick="cambiarCantidad('${item.lineId}',-1)">−</button> <button onclick="cambiarCantidad('${item.lineId}',1)">+</button></div>
+    </div>`;
   }).join("")}</div>
   <div class="cart-actions"><button id="clearCart" class="btn secondary">Limpiar</button><button id="sendOrder" class="btn whatsapp">Enviar por WhatsApp</button></div>`;
-  $("#clearCart").addEventListener("click",()=>{estado.carrito={};renderCarrito();});
+  $("#clearCart").addEventListener("click",()=>{estado.carrito=[];renderCarrito();});
   $("#sendOrder").addEventListener("click",enviarWhatsApp);
 }
 
 function enviarWhatsApp(){
-  const ids=Object.keys(estado.carrito); if(!ids.length) return;
-  const lineas = ids.map(id => {
-    const p=PLATOS.find(x=>x.id===id);
-    return `- ${estado.carrito[id]} x ${p.nombre} (${precio(p.precio)})`;
+  if(!estado.carrito.length) return;
+
+  const alergias = [...estado.alergenos].map(nombreAlergeno);
+  const tipo = $("#serviceType") ? $("#serviceType").value : "Por confirmar";
+  const notaGeneral = $("#generalNote") ? $("#generalNote").value.trim() : "";
+
+  const lineas = estado.carrito.map(item => {
+    const p = PLATOS.find(x=>x.id===item.id);
+    const extras = [
+      item.picante ? `Picante: ${item.picante}` : "",
+      item.nota ? `Obs: ${item.nota}` : ""
+    ].filter(Boolean).join(" | ");
+    return `- ${item.cantidad} x ${p.nombre} (${precio(p.precio)})${extras ? " | " + extras : ""}`;
   });
-  const msg = [`Hola, quiero consultar este pedido de ${RESTAURANTE.nombre}:`,"",...lineas,"","¿Me confirman disponibilidad y precio final?"].join("\n");
+
+  const msg = [
+    `Hola, quiero consultar este pedido de ${RESTAURANTE.nombre}:`,
+    "",
+    `Tipo de atención: ${tipo}`,
+    alergias.length ? `Alergias/restricciones indicadas: ${alergias.join(", ")}` : "Alergias/restricciones indicadas: ninguna seleccionada",
+    notaGeneral ? `Observación general: ${notaGeneral}` : "",
+    "",
+    "Pedido:",
+    ...lineas,
+    "",
+    "Por favor confirmar disponibilidad, ingredientes y precio final."
+  ].filter(Boolean).join("\n");
+
   window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
@@ -144,7 +195,14 @@ function abrirModal(id){
   $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio); $("#modalDesc").textContent=p.descripcion;
   $("#modalTags").innerHTML=p.etiquetas.map(t=>`<span>${t}</span>`).join("");
   $("#modalAllergens").innerHTML=p.alergenos.map(a=>`<small>${nombreAlergeno(a)}</small>`).join("");
-  $("#modalAdd").onclick=()=>{agregar(id);cerrarModal();};
+  if ($("#modalSpice")) $("#modalSpice").value = "Normal";
+  if ($("#modalNote")) $("#modalNote").value = "";
+  $("#modalAdd").onclick=()=>{
+    const picante = $("#modalSpice") ? $("#modalSpice").value : "Normal";
+    const nota = $("#modalNote") ? $("#modalNote").value.trim() : "";
+    agregar(id, picante, nota);
+    cerrarModal();
+  };
   $("#dishModal").classList.add("show"); document.body.style.overflow="hidden";
 }
 function cerrarModal(){ $("#dishModal").classList.remove("show"); document.body.style.overflow=""; }

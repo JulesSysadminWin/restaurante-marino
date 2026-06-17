@@ -1,14 +1,20 @@
 # Cevichería Encanto Marino D'Miriam
 
-Versión limpia y profesional de la web/carta digital.
+Versión v4 con carta interactiva, restricciones y pedido por WhatsApp.
 
-## Qué corrige esta versión
+## Cambios principales
 
-- Se eliminó el QR visible dentro de la carta digital.
-- El QR queda solo en `qr-imprimir.html`.
-- Se corrigió el diseño responsive para celular.
-- Se evitaron imágenes gigantes y desordenadas en móvil.
-- Se mantiene buscador, filtros, alergias y pedido por WhatsApp.
+- Se quitó el bloque "Mobile first".
+- Las alergias/restricciones seleccionadas ahora viajan en el mensaje de WhatsApp.
+- Cada plato puede agregarse con preferencia de picante:
+  - Normal
+  - Sin picante
+  - Poco picante
+  - Bien picante
+  - Consultar
+- Se agregó observación por plato.
+- Se agregó observación general del pedido.
+- Se mantiene QR solo para imprimir en `qr-imprimir.html`.
 
 ## Para actualizar precios
 
@@ -28,12 +34,4 @@ por:
 
 ```js
 precio: 20
-```
-
-Luego:
-
-```powershell
-git add .
-git commit -m "Actualizar precios"
-git push
 ```

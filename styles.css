@@ -112,3 +112,79 @@ input[type="search"]{width:100%;min-height:48px;border-radius:999px;border:1px s
   .modal-grid img{min-height:250px}
 }
 @media print{.nav,.whatsapp-float,.btn,footer{display:none!important}body{background:white}.qr-print-card{box-shadow:none;margin:0 auto}}
+
+
+/* Ajustes v4: diseño limpio, sin Mobile First y con preferencias de pedido */
+.features-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.order-options {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.order-options label,
+.personaliza label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.order-options select,
+.order-options input,
+.personaliza select,
+.personaliza textarea {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: white;
+  border-radius: 14px;
+  padding: 12px 13px;
+  outline: none;
+  font: inherit;
+}
+
+.order-options option,
+.personaliza option {
+  color: #062a32;
+}
+
+.personaliza {
+  margin: 16px 0;
+  display: grid;
+  gap: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.personaliza h3 {
+  margin: 0;
+}
+
+.cart-item small {
+  display: block;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+@media(max-width:900px){
+  .features-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(max-width:640px){
+  .features-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .order-options {
+    grid-template-columns: 1fr;
+  }
+}

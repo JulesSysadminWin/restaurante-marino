@@ -33,14 +33,30 @@
     <div id="alergias" class="switch-line"><strong>Evitar si soy alérgico a:</strong><span>Selecciona una o más opciones</span></div>
     <div id="allergyFilters" class="allergy-grid"></div>
     <label class="switch-line"><input id="toggleRiesgo" type="checkbox"> Ocultar platos que coincidan con mis alergias</label>
+
+    <div class="order-options">
+      <label>
+        <span>Tipo de atención</span>
+        <select id="serviceType">
+          <option value="Por confirmar">Por confirmar</option>
+          <option value="Para mesa">Para mesa</option>
+          <option value="Para llevar">Para llevar</option>
+          <option value="Delivery / consultar zona">Delivery / consultar zona</option>
+        </select>
+      </label>
+      <label>
+        <span>Observación general</span>
+        <input id="generalNote" type="text" placeholder="Ej. sin cebolla, separado, consultar disponibilidad...">
+      </label>
+    </div>
   </div>
 
-  <div class="menu-meta"><span id="resultCount">0 platos</span><span>Toque un plato para ver detalle</span></div>
+  <div class="menu-meta"><span id="resultCount">0 platos</span><span>Usa Detalle para personalizar picante u observaciones</span></div>
   <div id="menuGrid" class="menu-grid"></div>
 
   <div class="card" style="margin-top:24px">
     <h2>Consideración sobre alergias</h2>
-    <p class="lead">Esta carta brinda referencias generales. Si presenta alergias alimentarias, consulte directamente con el personal antes de realizar su pedido. Puede existir contacto cruzado con pescado, mariscos, huevo, gluten u otros ingredientes.</p>
+    <p class="lead">Esta carta brinda referencias generales. Si presenta alergias alimentarias, seleccione las opciones correspondientes antes de enviar el pedido por WhatsApp y confirme directamente con el personal. Puede existir contacto cruzado con pescado, mariscos, huevo, gluten u otros ingredientes.</p>
   </div>
 </section>
 
@@ -58,7 +74,26 @@
         <p id="modalDesc"></p>
         <h3>Etiquetas</h3><div id="modalTags" class="tag-list"></div>
         <h3>Puede contener</h3><div id="modalAllergens" class="allergen-list"></div>
-        <p class="notice">Confirmar ingredientes y disponibilidad con el local.</p>
+
+        <div class="personaliza">
+          <h3>Personaliza tu plato</h3>
+          <label>
+            <span>Picante</span>
+            <select id="modalSpice">
+              <option value="Normal">Normal</option>
+              <option value="Sin picante">Sin picante</option>
+              <option value="Poco picante">Poco picante</option>
+              <option value="Bien picante">Bien picante</option>
+              <option value="Consultar">Consultar</option>
+            </select>
+          </label>
+          <label>
+            <span>Observación del plato</span>
+            <textarea id="modalNote" rows="3" placeholder="Ej. sin cebolla, más limón, sin culantro..."></textarea>
+          </label>
+        </div>
+
+        <p class="notice">Confirmar ingredientes, disponibilidad y precio final con el local.</p>
         <button id="modalAdd" class="btn">Agregar al pedido</button>
       </div>
     </div>
