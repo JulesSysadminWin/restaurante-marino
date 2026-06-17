@@ -1,0 +1,30 @@
+<svg width="420" height="420" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#37e8ff"/>
+      <stop offset="100%" stop-color="#00a6c8"/>
+    </linearGradient>
+    <linearGradient id="crab" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff855f"/>
+      <stop offset="100%" stop-color="#ff3d3d"/>
+    </linearGradient>
+  </defs>
+  <circle cx="210" cy="210" r="196" fill="url(#sea)"/>
+  <circle cx="210" cy="210" r="173" fill="#fff7df"/>
+  <path d="M123 222c0-53 39-94 87-94s87 41 87 94c0 60-42 94-87 94s-87-34-87-94z" fill="url(#crab)"/>
+  <path d="M156 126c9-35 31-56 54-56s45 21 54 56" fill="none" stroke="#fff" stroke-width="28" stroke-linecap="round"/>
+  <path d="M158 119h104c15 0 27 12 27 27v12H131v-12c0-15 12-27 27-27z" fill="#fff"/>
+  <rect x="125" y="153" width="170" height="28" rx="14" fill="#fff"/>
+  <circle cx="177" cy="192" r="24" fill="#fff"/>
+  <circle cx="243" cy="192" r="24" fill="#fff"/>
+  <circle cx="177" cy="196" r="10" fill="#073642"/>
+  <circle cx="243" cy="196" r="10" fill="#073642"/>
+  <path d="M174 247c22 19 50 19 72 0" fill="none" stroke="#7a1d1d" stroke-width="10" stroke-linecap="round"/>
+  <path d="M112 205c-42-35-68-39-78-22-12 20 8 50 48 43" fill="none" stroke="#ff4d4d" stroke-width="22" stroke-linecap="round"/>
+  <path d="M308 205c42-35 68-39 78-22 12 20-8 50-48 43" fill="none" stroke="#ff4d4d" stroke-width="22" stroke-linecap="round"/>
+  <path d="M73 169c-21-26-11-52 16-54 29-2 44 23 26 52" fill="#ff4d4d"/>
+  <path d="M347 169c21-26 11-52-16-54-29-2-44 23-26 52" fill="#ff4d4d"/>
+  <path d="M140 304c-22 22-39 38-66 42" stroke="#ff4d4d" stroke-width="14" stroke-linecap="round"/>
+  <path d="M280 304c22 22 39 38 66 42" stroke="#ff4d4d" stroke-width="14" stroke-linecap="round"/>
+  <text x="210" y="372" font-size="33" fill="#073642" text-anchor="middle" font-family="Arial" font-weight="900">DON CANGREJO</text>
+</svg>

@@ -8,7 +8,7 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Mejorar reserva y recojo con popup"
+   git commit -m "Mejorar colores Don Cangrejo y nombres de platos"
    git push
 
 4. Prueba con Ctrl + F5.

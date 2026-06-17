@@ -1,31 +1,15 @@
 # Cevichería Encanto Marino D'Miriam
 
-Versión v8: reserva/recojo con popup y sin selector que interrumpa la carta.
+Versión v9: colores vivos, Don Cangrejo y nombres comerciales.
 
-## Cambios
+## Cambios principales
 
-- Se quitó el selector grande de tipo de atención de la carta.
-- La carta queda limpia para que el cliente vea platos.
-- Atención en mesa: solo se informa que piden al personal y pagan al final.
-- Reserva / pedido anticipado:
-  - Abre popup propio.
-  - Pide nombre.
-  - Permite solo reservar mesa o reservar con comida anticipada.
-  - Pide cantidad de personas y hora aproximada.
-  - Conserva lo escrito aunque el cliente cierre el popup para escoger platos.
-  - Envía todo a WhatsApp.
-  - Incluye aviso de pago anticipado al 100% por Yape/Plin después de confirmar total.
-- Para llevar / recojo:
-  - Abre popup propio.
-  - Pide hora de recojo.
-  - Usa los platos seleccionados.
-  - Envía todo a WhatsApp.
-  - Incluye aviso de pago anticipado al 100%.
-- Se mantiene personalización por plato:
-  - Normal
-  - Sin ají / sin picante
-  - Poco ají
-  - Ají medio
-  - Bien picante
-  - Observación por plato
-- QR separado en `qr-imprimir.html`.
+- Paleta más viva y marina: turquesa, aqua, blanco, amarillo/dorado y coral.
+- Se agregó una mascota original: Don Cangrejo (`assets/don-cangrejo.svg`).
+- Se actualizó la portada con recomendación de Don Cangrejo.
+- Se actualizó la carta con una franja de Don Cangrejo.
+- Se cambiaron nombres de platos por nombres más comerciales.
+- Se mejoraron las descripciones para que suenen más apetitosas.
+- Se agregaron etiquetas llamativas: El más pedido, Don Cangrejo recomienda, Especial de la casa, Para compartir, Contundente.
+- Se mantiene el flujo de atención en mesa, reserva / pedido anticipado y para llevar / recojo.
+- QR separado para imprimir.
