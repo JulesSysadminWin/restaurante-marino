@@ -7,7 +7,16 @@ const precio = (v) => (v === null || v === undefined || v === "") ? "Por confirm
 const estado = {
   categoria:"todos",
   busqueda:"",
-  carrito:[]
+  carrito:[],
+  flujoActual:null,
+  form:{
+    clientName:"",
+    reservationMode:"Solo reservar mesa",
+    peopleCount:"",
+    arrivalTime:"",
+    pickupTime:"",
+    flowNote:""
+  }
 };
 
 function limpiarCacheVieja() {
@@ -53,40 +62,30 @@ function initMenu() {
     estado.categoria="todos";
     estado.busqueda="";
     $("#searchInput").value="";
-    if ($("#generalNote")) $("#generalNote").value = "";
-    if ($("#attentionDetail")) $("#attentionDetail").value = "";
-    if ($("#serviceType")) $("#serviceType").value = "Atención en mesa";
-    actualizarCampoAtencion();
     renderCategorias();
     renderMenu();
   });
-  if ($("#serviceType")) {
-    $("#serviceType").addEventListener("change", actualizarCampoAtencion);
-    actualizarCampoAtencion();
-  }
-  $("#modalClose").addEventListener("click", cerrarModal);
-  $("#dishModal").addEventListener("click", e => { if (e.target.id === "dishModal") cerrarModal(); });
-}
 
-function actualizarCampoAtencion(){
-  const tipo = $("#serviceType") ? $("#serviceType").value : "Atención en mesa";
-  const label = $("#attentionDetailLabel");
-  const input = $("#attentionDetail");
-  if (!label || !input) return;
+  $("[data-open-flow='reserva']").addEventListener("click", () => abrirFlujo("reserva"));
+  $("[data-open-flow='recojo']").addEventListener("click", () => abrirFlujo("recojo"));
 
-  if (tipo === "Atención en mesa") {
-    label.textContent = "Mesa / referencia";
-    input.placeholder = "Ej. mesa 4, barra, mesa del fondo...";
-  } else if (tipo === "Pedido anticipado / reserva") {
-    label.textContent = "Personas y hora";
-    input.placeholder = "Ej. reserva para 4 personas a la 1:30 p.m.";
-  } else if (tipo === "Para llevar / recojo") {
-    label.textContent = "Hora de recojo";
-    input.placeholder = "Ej. paso a recoger 2:00 p.m.";
-  } else {
-    label.textContent = "Detalle de atención";
-    input.placeholder = "Ej. mesa, reserva o recojo";
-  }
+  $("#modalClose").addEventListener("click", cerrarModalPlato);
+  $("#dishModal").addEventListener("click", e => { if (e.target.id === "dishModal") cerrarModalPlato(); });
+
+  $("#flowClose").addEventListener("click", cerrarFlujo);
+  $("#flowModal").addEventListener("click", e => { if (e.target.id === "flowModal") cerrarFlujo(); });
+  $("#addMoreDishes").addEventListener("click", () => {
+    guardarFormularioFlujo();
+    cerrarFlujo();
+    document.querySelector(".toolbar")?.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  $("#flowSend").addEventListener("click", enviarFlujoWhatsApp);
+
+  ["clientName","reservationMode","peopleCount","arrivalTime","pickupTime","flowNote"].forEach(id => {
+    const el = $("#" + id);
+    if (el) el.addEventListener("input", guardarFormularioFlujo);
+    if (el) el.addEventListener("change", guardarFormularioFlujo);
+  });
 }
 
 function renderCategorias(){
@@ -130,7 +129,7 @@ function renderMenu(){
     </article>`;
   }).join("");
   grid.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => agregar(b.dataset.add, "Normal", "")));
-  grid.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => abrirModal(b.dataset.view)));
+  grid.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => abrirModalPlato(b.dataset.view)));
 }
 
 function agregar(id, picante="Normal", nota=""){
@@ -142,6 +141,7 @@ function agregar(id, picante="Normal", nota=""){
   else estado.carrito.push({ lineId: Date.now() + Math.random(), id, cantidad:1, picante, nota });
 
   renderCarrito();
+  renderFlowOrderList();
 }
 
 function cambiarCantidad(lineId, d){
@@ -150,6 +150,7 @@ function cambiarCantidad(lineId, d){
   item.cantidad += d;
   if (item.cantidad <= 0) estado.carrito = estado.carrito.filter(i => String(i.lineId) !== String(lineId));
   renderCarrito();
+  renderFlowOrderList();
 }
 window.cambiarCantidad = cambiarCantidad;
 
@@ -162,77 +163,155 @@ function renderCarrito(){
   const total = estado.carrito.reduce((a,i)=>a+(Number(PLATOS.find(p=>p.id===i.id)?.precio||0)*i.cantidad),0);
 
   bar.classList.add("show");
-  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total: por confirmar"}</span></div>
-  <div class="cart-items">${estado.carrito.map(item => {
-    const p = PLATOS.find(x=>x.id===item.id);
-    const extras = [item.picante && item.picante !== "Normal" ? `Picante: ${item.picante}` : "", item.nota ? `Obs: ${item.nota}` : ""].filter(Boolean).join(" | ");
-    return `<div class="cart-item">
-      <span>${item.cantidad}x ${p.nombre}${extras ? `<small>${extras}</small>` : ""}</span>
-      <div><button onclick="cambiarCantidad('${item.lineId}',-1)">−</button> <button onclick="cambiarCantidad('${item.lineId}',1)">+</button></div>
-    </div>`;
-  }).join("")}</div>
-  <div class="cart-actions"><button id="clearCart" class="btn secondary">Limpiar</button><button id="sendOrder" class="btn whatsapp">Enviar por WhatsApp</button></div>`;
-  $("#clearCart").addEventListener("click",()=>{estado.carrito=[];renderCarrito();});
-  $("#sendOrder").addEventListener("click",enviarWhatsApp);
+  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"} seleccionado${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total: por confirmar"}</span></div>
+  <div class="cart-items">${estado.carrito.map(item => itemHTML(item)).join("")}</div>
+  <div class="cart-actions">
+    <button class="btn secondary" id="cartReserva">Reserva / anticipado</button>
+    <button class="btn" id="cartRecojo">Para recojo</button>
+    <button class="btn secondary" id="clearCart">Limpiar</button>
+  </div>`;
+
+  $("#cartReserva").addEventListener("click",()=>abrirFlujo("reserva"));
+  $("#cartRecojo").addEventListener("click",()=>abrirFlujo("recojo"));
+  $("#clearCart").addEventListener("click",()=>{estado.carrito=[];renderCarrito();renderFlowOrderList();});
 }
 
-function enviarWhatsApp(){
-  if(!estado.carrito.length) return;
-
-  const tipo = $("#serviceType") ? $("#serviceType").value : "Atención en mesa";
-  const detalle = $("#attentionDetail") ? $("#attentionDetail").value.trim() : "";
-  const notaGeneral = $("#generalNote") ? $("#generalNote").value.trim() : "";
-
-  const lineas = estado.carrito.map(item => {
-    const p = PLATOS.find(x=>x.id===item.id);
-    const extras = [
-      item.picante ? `Picante: ${item.picante}` : "",
-      item.nota ? `Obs: ${item.nota}` : ""
-    ].filter(Boolean).join(" | ");
-    return `- ${item.cantidad} x ${p.nombre} (${precio(p.precio)})${extras ? " | " + extras : ""}`;
-  });
-
-  let cierre = "Por favor confirmar disponibilidad y precio final.";
-
-  if (tipo === "Atención en mesa") {
-    cierre = "Pedido para atención en mesa. Por favor confirmar disponibilidad. El pago normalmente se realiza al final de la atención en el local.";
-  } else if (tipo === "Pedido anticipado / reserva") {
-    cierre = "Pedido anticipado / reserva. Por favor confirmar disponibilidad, total final y datos de Yape/Plin para separar la mesa e ir preparando la comida.";
-  } else if (tipo === "Para llevar / recojo") {
-    cierre = "Pedido para llevar / recojo. Por favor confirmar disponibilidad, total final, hora de recojo y datos de Yape/Plin para dejarlo preparado.";
-  }
-
-  const msg = [
-    `Hola, quiero consultar este pedido de ${RESTAURANTE.nombre}:`,
-    "",
-    `Tipo de atención: ${tipo}`,
-    detalle ? `Detalle: ${detalle}` : "",
-    notaGeneral ? `Observación general: ${notaGeneral}` : "",
-    "",
-    "Pedido:",
-    ...lineas,
-    "",
-    cierre
-  ].filter(Boolean).join("\n");
-
-  window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(msg)}`,"_blank");
+function itemHTML(item){
+  const p = PLATOS.find(x=>x.id===item.id);
+  if(!p) return "";
+  const extras = [item.picante && item.picante !== "Normal" ? `Ají: ${item.picante}` : "", item.nota ? `Obs: ${item.nota}` : ""].filter(Boolean).join(" | ");
+  return `<div class="cart-item">
+    <span>${item.cantidad}x ${p.nombre}${extras ? `<small>${extras}</small>` : ""}</span>
+    <div><button onclick="cambiarCantidad('${item.lineId}',-1)">−</button> <button onclick="cambiarCantidad('${item.lineId}',1)">+</button></div>
+  </div>`;
 }
 
-function abrirModal(id){
+function abrirModalPlato(id){
   const p=PLATOS.find(x=>x.id===id); if(!p) return;
   $("#modalImage").src=p.imagen; $("#modalImage").alt=p.nombre;
   $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio); $("#modalDesc").textContent=p.descripcion;
   $("#modalTags").innerHTML=p.etiquetas.map(t=>`<span>${t}</span>`).join("");
-  if ($("#modalSpice")) $("#modalSpice").value = "Normal";
-  if ($("#modalNote")) $("#modalNote").value = "";
+  $("#modalSpice").value = "Normal";
+  $("#modalNote").value = "";
   $("#modalAdd").onclick=()=>{
-    const picante = $("#modalSpice") ? $("#modalSpice").value : "Normal";
-    const nota = $("#modalNote") ? $("#modalNote").value.trim() : "";
-    agregar(id, picante, nota);
-    cerrarModal();
+    agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
+    cerrarModalPlato();
   };
   $("#dishModal").classList.add("show"); document.body.style.overflow="hidden";
 }
-function cerrarModal(){ $("#dishModal").classList.remove("show"); document.body.style.overflow=""; }
+function cerrarModalPlato(){ $("#dishModal").classList.remove("show"); document.body.style.overflow=""; }
+
+function guardarFormularioFlujo(){
+  ["clientName","reservationMode","peopleCount","arrivalTime","pickupTime","flowNote"].forEach(id => {
+    const el = $("#" + id);
+    if(el) estado.form[id] = el.value;
+  });
+}
+
+function cargarFormularioFlujo(){
+  ["clientName","reservationMode","peopleCount","arrivalTime","pickupTime","flowNote"].forEach(id => {
+    const el = $("#" + id);
+    if(el) el.value = estado.form[id] || "";
+  });
+  if($("#reservationMode") && !$("#reservationMode").value) $("#reservationMode").value = "Solo reservar mesa";
+}
+
+function abrirFlujo(tipo){
+  estado.flujoActual = tipo;
+  cargarFormularioFlujo();
+
+  const esReserva = tipo === "reserva";
+  $("#flowIcon").textContent = esReserva ? "🪑" : "🥡";
+  $("#flowTitle").textContent = esReserva ? "Reserva / pedido anticipado" : "Pedido para llevar / recojo";
+  $("#flowDescription").textContent = esReserva
+    ? "Completa los datos de reserva. Puedes solo reservar mesa o agregar platos para que los vayan preparando antes de tu llegada."
+    : "Elige tus platos, indica hora de recojo y envía el pedido por WhatsApp para confirmar total y pago.";
+
+  $("#reservationFields").style.display = esReserva ? "grid" : "none";
+  $("#pickupFields").style.display = esReserva ? "none" : "grid";
+
+  renderFlowOrderList();
+  $("#flowModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function cerrarFlujo(){
+  guardarFormularioFlujo();
+  $("#flowModal").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+function renderFlowOrderList(){
+  const cont = $("#flowOrderList");
+  const hint = $("#flowOrderHint");
+  if(!cont || !hint) return;
+
+  if(!estado.carrito.length){
+    cont.innerHTML = "";
+    hint.textContent = estado.flujoActual === "reserva"
+      ? "Puedes enviar solo la reserva de mesa o agregar platos de la carta para pedido anticipado."
+      : "Agrega platos de la carta para armar tu pedido de recojo.";
+    return;
+  }
+
+  cont.innerHTML = estado.carrito.map(item => itemHTML(item)).join("");
+  hint.textContent = "Puedes seguir agregando platos sin perder los datos escritos en este formulario.";
+}
+
+function pedidoLineas(){
+  return estado.carrito.map(item => {
+    const p = PLATOS.find(x=>x.id===item.id);
+    const extras = [
+      item.picante ? `Ají: ${item.picante}` : "",
+      item.nota ? `Obs: ${item.nota}` : ""
+    ].filter(Boolean).join(" | ");
+    return `- ${item.cantidad} x ${p.nombre} (${precio(p.precio)})${extras ? " | " + extras : ""}`;
+  });
+}
+
+function enviarFlujoWhatsApp(){
+  guardarFormularioFlujo();
+
+  const f = estado.form;
+  const lineas = pedidoLineas();
+  let msg = [];
+
+  if(estado.flujoActual === "reserva"){
+    msg = [
+      `Hola, quiero consultar una reserva en ${RESTAURANTE.nombre}:`,
+      "",
+      f.clientName ? `Nombre: ${f.clientName}` : "",
+      `Solicitud: ${f.reservationMode || "Solo reservar mesa"}`,
+      f.peopleCount ? `Personas: ${f.peopleCount}` : "",
+      f.arrivalTime ? `Hora aproximada de llegada: ${f.arrivalTime}` : "",
+      f.flowNote ? `Observaciones: ${f.flowNote}` : "",
+      "",
+      lineas.length ? "Pedido anticipado:" : "Pedido anticipado: no agregado, solo reserva de mesa.",
+      ...lineas,
+      "",
+      "Entiendo que para separar mesa y/o preparar platos anticipados se debe coordinar el pago al 100% por Yape/Plin luego de que el local confirme disponibilidad y total."
+    ];
+  } else {
+    if(!lineas.length){
+      alert("Agrega al menos un plato para enviar pedido de recojo.");
+      return;
+    }
+    msg = [
+      `Hola, quiero consultar un pedido para llevar / recojo en ${RESTAURANTE.nombre}:`,
+      "",
+      f.clientName ? `Nombre: ${f.clientName}` : "",
+      f.pickupTime ? `Hora aproximada de recojo: ${f.pickupTime}` : "",
+      f.flowNote ? `Observaciones: ${f.flowNote}` : "",
+      "",
+      "Pedido:",
+      ...lineas,
+      "",
+      "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape/Plin luego de que el local confirme disponibilidad y total."
+    ];
+  }
+
+  const texto = msg.filter(Boolean).join("\n");
+  window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(texto)}`,"_blank");
+}
 
 document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();});

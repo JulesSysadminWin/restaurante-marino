@@ -239,3 +239,192 @@ input[type="search"]{width:100%;min-height:48px;border-radius:999px;border:1px s
     margin-top: 18px;
   }
 }
+
+
+/* Ajustes v8: reserva/recojo por popup, sin selector molesto en la carta */
+.mesa-notice {
+  margin-bottom: 18px;
+}
+
+.flow-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.flow-card {
+  background: linear-gradient(145deg, rgba(17,75,85,.95), rgba(8,54,64,.95));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.flow-card span {
+  font-size: 34px;
+}
+
+.flow-card h2 {
+  font-size: 26px;
+  margin: 10px 0;
+}
+
+.flow-card p {
+  color: var(--muted);
+}
+
+.flow-modal-card {
+  padding: 0;
+  width: min(940px, 100%);
+}
+
+.flow-modal-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.flow-icon {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34,211,238,.12);
+  border: 1px solid rgba(34,211,238,.26);
+  border-radius: 16px;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.flow-form {
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.flow-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  grid-column: 1 / -1;
+}
+
+.flow-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.flow-form label.wide {
+  grid-column: 1 / -1;
+}
+
+.flow-form input,
+.flow-form select,
+.flow-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: white;
+  border-radius: 14px;
+  padding: 12px 13px;
+  outline: none;
+  font: inherit;
+}
+
+.flow-form option {
+  color: #062a32;
+}
+
+.payment-warning {
+  margin: 0 24px 18px;
+  border: 1px solid rgba(250,204,21,.42);
+  background: rgba(250,204,21,.13);
+  color: #fff7c2;
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.flow-order-box {
+  margin: 0 24px 24px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.flow-order-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.flow-order-head h3 {
+  margin: 0;
+}
+
+.flow-order-list {
+  display: grid;
+  gap: 8px;
+}
+
+.flow-actions {
+  padding: 0 24px 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-actions {
+  grid-template-columns: 1fr 1fr auto;
+}
+
+@media(max-width:760px){
+  .flow-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-form,
+  .flow-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-modal-head {
+    padding: 18px;
+  }
+
+  .flow-form {
+    padding: 18px;
+  }
+
+  .payment-warning,
+  .flow-order-box {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .flow-order-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .flow-actions {
+    padding: 0 18px 18px;
+  }
+
+  .flow-actions .btn {
+    width: 100%;
+  }
+
+  .cart-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
