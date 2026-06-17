@@ -1,22 +1,26 @@
 # Cevichería Encanto Marino D'Miriam
 
-Versión v4 con carta interactiva, restricciones y pedido por WhatsApp.
+Versión v6 ajustada a la operación real del local.
 
-## Cambios principales
+## Cambios
 
-- Se quitó el bloque "Mobile first".
-- Las alergias/restricciones seleccionadas ahora viajan en el mensaje de WhatsApp.
-- Cada plato puede agregarse con preferencia de picante:
+- Se quitó delivery.
+- Se mantienen solo 3 tipos de atención:
+  - Atención en mesa
+  - Pedido anticipado / reserva
+  - Para llevar / recojo
+- Para atención en mesa: el cliente consulta en el local y paga normalmente al final.
+- Para pedido anticipado / reserva: se solicita cantidad de personas y hora; el local confirma total y datos de Yape/Plin para separar mesa e ir preparando la comida.
+- Para recojo: el cliente pide, paga y pasa a recoger.
+- Se mantiene personalización por plato:
   - Normal
   - Sin picante
   - Poco picante
   - Bien picante
   - Consultar
-- Se agregó observación por plato.
-- Se agregó observación general del pedido.
-- Se mantiene QR solo para imprimir en `qr-imprimir.html`.
+- Se mantiene observación por plato y observación general.
 
-## Para actualizar precios
+## Actualizar precios
 
 Editar:
 

@@ -3,13 +3,10 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 
 const normalizar = (txt) => String(txt || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const precio = (v) => (v === null || v === undefined || v === "") ? "Por confirmar" : `S/ ${Number(v).toFixed(2)}`;
-const nombreAlergeno = (id) => ALERGENOS.find(a => a.id === id)?.nombre || id;
 
 const estado = {
   categoria:"todos",
   busqueda:"",
-  alergenos:new Set(),
-  ocultarRiesgo:false,
   carrito:[]
 };
 
@@ -45,45 +42,70 @@ function initHome() {
     </article>`).join("");
 }
 
-function tieneRiesgo(p){ return p.alergenos.some(a => estado.alergenos.has(a)); }
-
 function initMenu() {
   if (!$("#menuGrid")) return;
-  renderCategorias(); renderAlergenos(); renderMenu(); renderCarrito();
+  renderCategorias();
+  renderMenu();
+  renderCarrito();
 
   $("#searchInput").addEventListener("input", e => { estado.busqueda = e.target.value; renderMenu(); });
-  $("#toggleRiesgo").addEventListener("change", e => { estado.ocultarRiesgo = e.target.checked; renderMenu(); });
   $("#clearFilters").addEventListener("click", () => {
-    estado.categoria="todos"; estado.busqueda=""; estado.alergenos.clear(); estado.ocultarRiesgo=false;
-    $("#searchInput").value=""; $("#toggleRiesgo").checked=false;
+    estado.categoria="todos";
+    estado.busqueda="";
+    $("#searchInput").value="";
     if ($("#generalNote")) $("#generalNote").value = "";
-    if ($("#serviceType")) $("#serviceType").value = "Por confirmar";
-    renderCategorias(); renderAlergenos(); renderMenu();
+    if ($("#attentionDetail")) $("#attentionDetail").value = "";
+    if ($("#serviceType")) $("#serviceType").value = "Atención en mesa";
+    actualizarCampoAtencion();
+    renderCategorias();
+    renderMenu();
   });
+  if ($("#serviceType")) {
+    $("#serviceType").addEventListener("change", actualizarCampoAtencion);
+    actualizarCampoAtencion();
+  }
   $("#modalClose").addEventListener("click", cerrarModal);
   $("#dishModal").addEventListener("click", e => { if (e.target.id === "dishModal") cerrarModal(); });
+}
+
+function actualizarCampoAtencion(){
+  const tipo = $("#serviceType") ? $("#serviceType").value : "Atención en mesa";
+  const label = $("#attentionDetailLabel");
+  const input = $("#attentionDetail");
+  if (!label || !input) return;
+
+  if (tipo === "Atención en mesa") {
+    label.textContent = "Mesa / referencia";
+    input.placeholder = "Ej. mesa 4, barra, mesa del fondo...";
+  } else if (tipo === "Pedido anticipado / reserva") {
+    label.textContent = "Personas y hora";
+    input.placeholder = "Ej. reserva para 4 personas a la 1:30 p.m.";
+  } else if (tipo === "Para llevar / recojo") {
+    label.textContent = "Hora de recojo";
+    input.placeholder = "Ej. paso a recoger 2:00 p.m.";
+  } else {
+    label.textContent = "Detalle de atención";
+    input.placeholder = "Ej. mesa, reserva o recojo";
+  }
 }
 
 function renderCategorias(){
   const cont = $("#categoryChips"); if(!cont) return;
   cont.innerHTML = CATEGORIAS.map(c => `<button class="chip ${estado.categoria===c.id?"active":""}" data-cat="${c.id}">${c.nombre}</button>`).join("");
-  cont.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { estado.categoria=b.dataset.cat; renderCategorias(); renderMenu(); }));
-}
-
-function renderAlergenos(){
-  const cont = $("#allergyFilters"); if(!cont) return;
-  cont.innerHTML = ALERGENOS.map(a => `<label class="check-pill"><input type="checkbox" value="${a.id}" ${estado.alergenos.has(a.id)?"checked":""}> ${a.nombre}</label>`).join("");
-  cont.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { i.checked ? estado.alergenos.add(i.value) : estado.alergenos.delete(i.value); renderMenu(); }));
+  cont.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    estado.categoria=b.dataset.cat;
+    renderCategorias();
+    renderMenu();
+  }));
 }
 
 function filtrar(){
   const q = normalizar(estado.busqueda);
   return PLATOS.filter(p => {
     const cat = estado.categoria === "todos" || p.categoria === estado.categoria;
-    const text = normalizar(`${p.nombre} ${p.descripcion} ${p.etiquetas.join(" ")} ${p.alergenos.join(" ")}`);
+    const text = normalizar(`${p.nombre} ${p.descripcion} ${p.etiquetas.join(" ")}`);
     const busq = !q || text.includes(q);
-    const riesgo = estado.ocultarRiesgo ? !tieneRiesgo(p) : true;
-    return cat && busq && riesgo;
+    return cat && busq;
   });
 }
 
@@ -96,16 +118,13 @@ function renderMenu(){
     return;
   }
   grid.innerHTML = platos.map(p => {
-    const riesgo = tieneRiesgo(p);
     const cat = CATEGORIAS.find(c=>c.id===p.categoria)?.nombre || p.categoria;
-    return `<article class="dish-card ${riesgo?"risk":""}">
+    return `<article class="dish-card">
       <button class="dish-image" data-view="${p.id}"><img src="${p.imagen}" alt="${p.nombre}"></button>
       <div class="dish-body">
         <div class="dish-top"><span class="category-label">${cat}</span><strong class="price">${precio(p.precio)}</strong></div>
         <h3>${p.nombre}</h3><p>${p.descripcion}</p>
         <div class="tag-list">${p.etiquetas.map(t=>`<span>${t}</span>`).join("")}</div>
-        <div class="allergen-list">${p.alergenos.map(a=>`<small>${nombreAlergeno(a)}</small>`).join("")}</div>
-        ${riesgo ? `<div class="risk-msg">⚠️ Revisa este plato por tus alergias seleccionadas.</div>` : ""}
         <div class="dish-actions"><button class="btn secondary" data-view="${p.id}">Detalle</button><button class="btn" data-add="${p.id}">Agregar</button></div>
       </div>
     </article>`;
@@ -160,8 +179,8 @@ function renderCarrito(){
 function enviarWhatsApp(){
   if(!estado.carrito.length) return;
 
-  const alergias = [...estado.alergenos].map(nombreAlergeno);
-  const tipo = $("#serviceType") ? $("#serviceType").value : "Por confirmar";
+  const tipo = $("#serviceType") ? $("#serviceType").value : "Atención en mesa";
+  const detalle = $("#attentionDetail") ? $("#attentionDetail").value.trim() : "";
   const notaGeneral = $("#generalNote") ? $("#generalNote").value.trim() : "";
 
   const lineas = estado.carrito.map(item => {
@@ -173,17 +192,27 @@ function enviarWhatsApp(){
     return `- ${item.cantidad} x ${p.nombre} (${precio(p.precio)})${extras ? " | " + extras : ""}`;
   });
 
+  let cierre = "Por favor confirmar disponibilidad y precio final.";
+
+  if (tipo === "Atención en mesa") {
+    cierre = "Pedido para atención en mesa. Por favor confirmar disponibilidad. El pago normalmente se realiza al final de la atención en el local.";
+  } else if (tipo === "Pedido anticipado / reserva") {
+    cierre = "Pedido anticipado / reserva. Por favor confirmar disponibilidad, total final y datos de Yape/Plin para separar la mesa e ir preparando la comida.";
+  } else if (tipo === "Para llevar / recojo") {
+    cierre = "Pedido para llevar / recojo. Por favor confirmar disponibilidad, total final, hora de recojo y datos de Yape/Plin para dejarlo preparado.";
+  }
+
   const msg = [
     `Hola, quiero consultar este pedido de ${RESTAURANTE.nombre}:`,
     "",
     `Tipo de atención: ${tipo}`,
-    alergias.length ? `Alergias/restricciones indicadas: ${alergias.join(", ")}` : "Alergias/restricciones indicadas: ninguna seleccionada",
+    detalle ? `Detalle: ${detalle}` : "",
     notaGeneral ? `Observación general: ${notaGeneral}` : "",
     "",
     "Pedido:",
     ...lineas,
     "",
-    "Por favor confirmar disponibilidad, ingredientes y precio final."
+    cierre
   ].filter(Boolean).join("\n");
 
   window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(msg)}`,"_blank");
@@ -194,7 +223,6 @@ function abrirModal(id){
   $("#modalImage").src=p.imagen; $("#modalImage").alt=p.nombre;
   $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio); $("#modalDesc").textContent=p.descripcion;
   $("#modalTags").innerHTML=p.etiquetas.map(t=>`<span>${t}</span>`).join("");
-  $("#modalAllergens").innerHTML=p.alergenos.map(a=>`<small>${nombreAlergeno(a)}</small>`).join("");
   if ($("#modalSpice")) $("#modalSpice").value = "Normal";
   if ($("#modalNote")) $("#modalNote").value = "";
   $("#modalAdd").onclick=()=>{

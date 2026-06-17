@@ -1,6 +1,6 @@
 INSTRUCCIONES
 
-1. Descomprime el ZIP.
+1. Descomprime este ZIP.
 2. Copia todo el contenido dentro de:
    C:\Linux-Lab\restaurante-web
 
@@ -8,13 +8,13 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Mejorar pedido con alergias y preferencias"
+   git commit -m "Ajustar atencion mesa reserva y recojo"
    git push
 
 4. Prueba con Ctrl + F5.
-5. En celular, usar incógnito si queda caché de la versión anterior.
+5. En celular usa incógnito si ves caché antigua.
 
 Rutas:
 - Inicio: https://julessysadminwin.github.io/restaurante-marino/
 - Carta: https://julessysadminwin.github.io/restaurante-marino/menu.html
-- QR: https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html
+- QR imprimir: https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html

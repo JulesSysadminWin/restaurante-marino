@@ -188,3 +188,22 @@ input[type="search"]{width:100%;min-height:48px;border-radius:999px;border:1px s
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Ajustes v5: sin módulo de alergias */
+.allergy-grid,
+.risk-msg {
+  display: none !important;
+}
+
+
+/* Ajustes v6: sin delivery, con mesa, reserva anticipada y recojo */
+.order-options {
+  grid-template-columns: 230px 1fr 1fr;
+}
+
+@media(max-width:900px){
+  .order-options {
+    grid-template-columns: 1fr;
+  }
+}
