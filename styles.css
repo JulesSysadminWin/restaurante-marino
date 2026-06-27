@@ -1614,3 +1614,84 @@ footer { background: #007fa3; color: #e8fbff; }
   .tiktok-card { min-height: 72px; padding: 12px !important; }
   .tiktok-go { display: none; }
 }
+
+
+/* V27 - cangrejo más gracioso y limpio */
+.crab-sticker{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:88px;
+  height:72px;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
+  transform-origin:center;
+  pointer-events:none;
+}
+.crab-sticker__svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.crab-sticker--click{
+  width:84px;
+  height:68px;
+  animation: crab-sticker-giggle .92s ease-in-out infinite alternate;
+}
+.crab-sticker--dance{
+  width:124px;
+  height:98px;
+  animation: crab-sticker-dance .52s ease-in-out infinite alternate;
+}
+.crab-sticker--click .crab-svg-main,
+.crab-sticker--dance .crab-svg-main{
+  transform-origin:110px 92px;
+  animation: crab-shell-bounce .5s ease-in-out infinite alternate;
+}
+.crab-sticker--click .crab-svg-claws,
+.crab-sticker--dance .crab-svg-claws{
+  transform-origin:110px 70px;
+  animation: crab-claws-fun .36s ease-in-out infinite alternate;
+}
+.crab-sticker--click .crab-svg-eyes,
+.crab-sticker--dance .crab-svg-eyes{
+  transform-origin:110px 32px;
+  animation: crab-eye-bob .85s ease-in-out infinite;
+}
+.crab-sticker--dance .crab-svg-stars,
+.crab-sticker--dance .crab-svg-bubbles{
+  animation: crab-stars-shimmer .9s ease-in-out infinite;
+}
+.swim-fish-effect.dancing-crab{
+  width:150px !important;
+  height:112px !important;
+}
+@media (max-width: 768px){
+  .crab-sticker--click{ width:72px; height:58px; }
+  .crab-sticker--dance{ width:108px; height:84px; }
+  .swim-fish-effect.dancing-crab{ width:128px !important; height:96px !important; }
+}
+@keyframes crab-sticker-giggle{
+  from{ transform: translate(-50%,-50%) rotate(-8deg) scale(.94);} 
+  to{ transform: translate(-50%,-50%) rotate(8deg) scale(1.04);} 
+}
+@keyframes crab-sticker-dance{
+  from{ transform: rotate(-10deg) translateY(-4px) scale(.98);} 
+  to{ transform: rotate(10deg) translateY(4px) scale(1.04);} 
+}
+@keyframes crab-shell-bounce{
+  from{ transform: translateY(0px) scale(1);} 
+  to{ transform: translateY(-4px) scale(1.03);} 
+}
+@keyframes crab-claws-fun{
+  from{ transform: rotate(-6deg);} 
+  to{ transform: rotate(7deg);} 
+}
+@keyframes crab-eye-bob{
+  0%,100%{ transform: translateY(0);} 
+  50%{ transform: translateY(1.5px);} 
+}
+@keyframes crab-stars-shimmer{
+  0%,100%{ opacity:.9; transform: translateY(0) scale(1);} 
+  50%{ opacity:1; transform: translateY(-2px) scale(1.08);} 
+}

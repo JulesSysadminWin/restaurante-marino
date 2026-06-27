@@ -70,3 +70,5 @@ V23:
 - v25: se agregó bloque visual de recomendados de la casa y botón/enlace bonito a TikTok.
 
 V26: corrige estilos móviles de recomendados/TikTok con cache bust, ordena recomendados y agrega recargo de S/ 1 por plato para recojo/para llevar.
+
+V27: cangrejo de interacción mejorado con diseño más chistoso/limpio y cache-busting actualizado.

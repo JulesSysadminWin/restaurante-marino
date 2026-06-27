@@ -483,25 +483,67 @@ function initQrPopup(){
 
 function createCrabMarkup(sizeClass = ""){
   return `
-    <span class="cartoon-crab ${sizeClass}" aria-hidden="true">
-      <span class="cartoon-crab__leg cartoon-crab__leg--l1"></span>
-      <span class="cartoon-crab__leg cartoon-crab__leg--l2"></span>
-      <span class="cartoon-crab__leg cartoon-crab__leg--l3"></span>
-      <span class="cartoon-crab__leg cartoon-crab__leg--r1"></span>
-      <span class="cartoon-crab__leg cartoon-crab__leg--r2"></span>
-      <span class="cartoon-crab__leg cartoon-crab__leg--r3"></span>
-      <span class="cartoon-crab__claw cartoon-crab__claw--left"></span>
-      <span class="cartoon-crab__claw cartoon-crab__claw--right"></span>
-      <span class="cartoon-crab__arm cartoon-crab__arm--left"></span>
-      <span class="cartoon-crab__arm cartoon-crab__arm--right"></span>
-      <span class="cartoon-crab__body"></span>
-      <span class="cartoon-crab__eye cartoon-crab__eye--left"><span class="cartoon-crab__pupil"></span></span>
-      <span class="cartoon-crab__eye cartoon-crab__eye--right"><span class="cartoon-crab__pupil"></span></span>
-      <span class="cartoon-crab__cheek cartoon-crab__cheek--left"></span>
-      <span class="cartoon-crab__cheek cartoon-crab__cheek--right"></span>
-      <span class="cartoon-crab__mouth"></span>
-      <span class="cartoon-crab__spark cartoon-crab__spark--1">✦</span>
-      <span class="cartoon-crab__spark cartoon-crab__spark--2">✦</span>
+    <span class="crab-sticker ${sizeClass}" aria-hidden="true">
+      <svg class="crab-sticker__svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="crabShell" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff9a77"/>
+            <stop offset="58%" stop-color="#ff5f6d"/>
+            <stop offset="100%" stop-color="#e13852"/>
+          </linearGradient>
+          <linearGradient id="crabClaw" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff8a65"/>
+            <stop offset="100%" stop-color="#ff4b5c"/>
+          </linearGradient>
+        </defs>
+        <g class="crab-svg-bubbles" opacity=".9">
+          <circle cx="38" cy="36" r="7" fill="#9eefff"/>
+          <circle cx="25" cy="56" r="4" fill="#dfffff"/>
+          <circle cx="183" cy="26" r="6" fill="#9eefff"/>
+        </g>
+        <g class="crab-svg-backlegs" stroke="#ff6f72" stroke-width="8" stroke-linecap="round">
+          <path d="M65 114c-12 10-20 21-29 27"/>
+          <path d="M82 121c-11 10-18 21-26 28"/>
+          <path d="M138 121c11 10 18 21 26 28"/>
+          <path d="M155 114c12 10 20 21 29 27"/>
+        </g>
+        <g class="crab-svg-arms" stroke="#ff6f72" stroke-width="9" stroke-linecap="round" fill="none">
+          <path d="M63 74c-18-17-33-23-47-18"/>
+          <path d="M157 74c18-17 33-23 47-18"/>
+        </g>
+        <g class="crab-svg-claws" fill="url(#crabClaw)">
+          <path d="M16 51c-8 1-14 9-14 17 0 11 11 19 24 15 11-3 16-13 12-21-2-5-8-8-15-11l15-3-10-11-12 14z"/>
+          <path d="M204 51c8 1 14 9 14 17 0 11-11 19-24 15-11-3-16-13-12-21 2-5 8-8 15-11l-15-3 10-11 12 14z"/>
+        </g>
+        <g class="crab-svg-main">
+          <ellipse cx="110" cy="92" rx="57" ry="38" fill="url(#crabShell)"/>
+          <ellipse cx="110" cy="98" rx="44" ry="24" fill="#ff7983" opacity=".65"/>
+          <path d="M70 92c11 11 25 16 40 16s29-5 40-16" fill="#ffb6c3" opacity=".45"/>
+          <path d="M83 54c0-15 12-27 27-27s27 12 27 27" fill="#ffd86c" opacity=".15"/>
+        </g>
+        <g class="crab-svg-eyestalks" stroke="#ff6f72" stroke-width="8" stroke-linecap="round">
+          <path d="M92 57V35"/>
+          <path d="M128 57V35"/>
+        </g>
+        <g class="crab-svg-eyes">
+          <ellipse cx="92" cy="28" rx="15" ry="17" fill="#ffffff"/>
+          <ellipse cx="128" cy="28" rx="15" ry="17" fill="#ffffff"/>
+          <circle cx="96" cy="31" r="5" fill="#16334e"/>
+          <circle cx="132" cy="31" r="5" fill="#16334e"/>
+          <circle cx="98" cy="29" r="1.5" fill="#ffffff"/>
+          <circle cx="134" cy="29" r="1.5" fill="#ffffff"/>
+        </g>
+        <g class="crab-svg-face">
+          <ellipse cx="86" cy="97" rx="9" ry="6" fill="#ffbdd0"/>
+          <ellipse cx="134" cy="97" rx="9" ry="6" fill="#ffbdd0"/>
+          <path d="M92 109c8 9 28 9 36 0" fill="none" stroke="#8a1433" stroke-width="5" stroke-linecap="round"/>
+          <path d="M97 110c2 5 8 8 13 8s11-3 13-8" fill="#8a1433" opacity=".15"/>
+        </g>
+        <g class="crab-svg-stars" fill="#ffd766">
+          <path d="M177 60l3 6 7 1-5 4 1 7-6-4-6 4 1-7-5-4 7-1 3-6z"/>
+          <path d="M43 80l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1 2-5z"/>
+        </g>
+      </svg>
     </span>`;
 }
 
