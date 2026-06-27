@@ -611,3 +611,73 @@ footer { background: #007fa3; color: #e8fbff; }
   .cangrejo-strip img { width:76px; height:76px; }
   .cangrejo-strip strong { font-size:18px; }
 }
+
+
+/* Ajuste v10: marca principal Miriam, Don Cangrejo como chef */
+.don-badge strong::before,
+.cangrejo-strip strong::before {
+  content: "";
+}
+
+
+/* ======================================================
+   V11 - Carta real + logo oficial + platos sin imagen
+   ====================================================== */
+
+.brand img,
+.logo {
+  object-fit: contain;
+  background: white;
+  border-radius: 18px;
+  padding: 4px;
+}
+
+.logo {
+  width: 132px;
+  height: 145px;
+}
+
+.dish-card.sin-foto .dish-image,
+.dish-mini.sin-foto img {
+  background: linear-gradient(135deg, #dcfbff, #fff4c7);
+}
+
+.dish-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.foto-pendiente {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(255,255,255,.92);
+  color: #007092;
+  border: 1px solid rgba(0,127,163,.18);
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.dish-card.sin-foto {
+  border-style: dashed;
+}
+
+.dish-card.sin-foto .dish-body h3::after {
+  content: " · foto pendiente";
+  color: #78919a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gallery img {
+  object-position: center;
+}
+
+@media(max-width:640px){
+  .logo {
+    width: 112px;
+    height: 124px;
+  }
+}

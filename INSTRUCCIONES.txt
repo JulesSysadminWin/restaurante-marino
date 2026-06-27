@@ -8,7 +8,7 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Mejorar colores Don Cangrejo y nombres de platos"
+   git commit -m "Actualizar carta real con logo y fotos"
    git push
 
 4. Prueba con Ctrl + F5.

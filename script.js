@@ -40,15 +40,17 @@ function initCommon() {
 
 function initHome() {
   const cont = $("#homeDestacados"); if (!cont) return;
-  cont.innerHTML = PLATOS.filter(p => p.destacado).slice(0,6).map(p => `
-    <article class="dish-mini">
-      <img src="${p.imagen}" alt="${p.nombre}">
+  cont.innerHTML = PLATOS.filter(p => p.destacado).slice(0,6).map(p => {
+    const img = p.imagen || "assets/placeholder-plato.svg";
+    return `<article class="dish-mini ${p.imagen ? "" : "sin-foto"}">
+      <img src="${img}" alt="${p.nombre}">
       <div>
         <h3>${p.nombre}</h3>
         <p>${p.descripcion}</p>
         <span class="price">${precio(p.precio)}</span>
       </div>
-    </article>`).join("");
+    </article>`;
+  }).join("");
 }
 
 function initMenu() {
@@ -102,7 +104,7 @@ function filtrar(){
   const q = normalizar(estado.busqueda);
   return PLATOS.filter(p => {
     const cat = estado.categoria === "todos" || p.categoria === estado.categoria;
-    const text = normalizar(`${p.nombre} ${p.descripcion} ${p.etiquetas.join(" ")}`);
+    const text = normalizar(`${p.nombre} ${p.descripcion} ${(p.etiquetas || []).join(" ")}`);
     const busq = !q || text.includes(q);
     return cat && busq;
   });
@@ -118,12 +120,14 @@ function renderMenu(){
   }
   grid.innerHTML = platos.map(p => {
     const cat = CATEGORIAS.find(c=>c.id===p.categoria)?.nombre || p.categoria;
-    return `<article class="dish-card">
-      <button class="dish-image" data-view="${p.id}"><img src="${p.imagen}" alt="${p.nombre}"></button>
+    const img = p.imagen || "assets/placeholder-plato.svg";
+    const sinFoto = !p.imagen;
+    return `<article class="dish-card ${sinFoto ? "sin-foto" : ""}">
+      <button class="dish-image" data-view="${p.id}"><img src="${img}" alt="${p.nombre}">${sinFoto ? `<span class="foto-pendiente">Foto por actualizar</span>` : ""}</button>
       <div class="dish-body">
         <div class="dish-top"><span class="category-label">${cat}</span><strong class="price">${precio(p.precio)}</strong></div>
         <h3>${p.nombre}</h3><p>${p.descripcion}</p>
-        <div class="tag-list">${p.etiquetas.map(t=>`<span>${t}</span>`).join("")}</div>
+        <div class="tag-list">${(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("")}</div>
         <div class="dish-actions"><button class="btn secondary" data-view="${p.id}">Detalle</button><button class="btn" data-add="${p.id}">Agregar</button></div>
       </div>
     </article>`;
@@ -188,9 +192,9 @@ function itemHTML(item){
 
 function abrirModalPlato(id){
   const p=PLATOS.find(x=>x.id===id); if(!p) return;
-  $("#modalImage").src=p.imagen; $("#modalImage").alt=p.nombre;
+  $("#modalImage").src=p.imagen || "assets/placeholder-plato.svg"; $("#modalImage").alt=p.nombre;
   $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio); $("#modalDesc").textContent=p.descripcion;
-  $("#modalTags").innerHTML=p.etiquetas.map(t=>`<span>${t}</span>`).join("");
+  $("#modalTags").innerHTML=(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("");
   $("#modalSpice").value = "Normal";
   $("#modalNote").value = "";
   $("#modalAdd").onclick=()=>{
