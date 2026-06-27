@@ -1,6 +1,13 @@
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
+function numeroWhatsappSeguro(){
+  const raw = String((typeof RESTAURANTE !== "undefined" && (RESTAURANTE.telefonoWhatsapp || RESTAURANTE.whatsapp)) || "51998101944").replace(/\D/g, "");
+  if (raw.endsWith("998101944")) return "51998101944";
+  return raw.startsWith("51") ? raw : `51${raw}`;
+}
+
+
 const normalizar = (txt) => String(txt || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const precio = (v) => (v === null || v === undefined || v === "") ? "" : `S/ ${Number(v).toFixed(2)}`;
 

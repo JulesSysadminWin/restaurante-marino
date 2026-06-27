@@ -1,4 +1,4 @@
-// v18: limpieza de caché para evitar recursos antiguos
+// v19: evitar caché antigua de JS/data/WhatsApp
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.keys()
