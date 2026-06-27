@@ -1023,3 +1023,30 @@ footer { background: #007fa3; color: #e8fbff; }
     max-height: 32dvh !important;
   }
 }
+
+
+/* V20 - botón volver popup */
+.modal-actions-bottom {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.modal-actions-bottom .btn {
+  min-width: 180px;
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .modal-actions-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions-bottom .btn {
+    width: 100%;
+    min-width: 0;
+  }
+}

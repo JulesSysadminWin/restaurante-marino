@@ -252,6 +252,9 @@ function abrirModalPlato(id){
     $("#modalNote").value = "";
   }
 
+  const modalBackBtn = $("#modalBack");
+  if(modalBackBtn) modalBackBtn.onclick = cerrarModalPlato;
+
   $("#modalAdd").onclick=()=>{
     if (esBebida) {
       const seleccion = $("#modalDrink")?.value || p.nombre;
@@ -460,3 +463,7 @@ function animateAddFish(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();initMoveFx();});
+
+document.addEventListener("keydown", (ev) => {
+  if(ev.key === "Escape") cerrarModalPlato();
+});

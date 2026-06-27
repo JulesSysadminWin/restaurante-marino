@@ -41,3 +41,9 @@ V18:
 - WhatsApp corregido de forma forzada a 998 101 944 / 51998101944.
 - Se agregó bust de caché ?v=18 para evitar que cargue data antigua.
 - Se corrigió el scroll del popup de detalle en celular y PC.
+
+
+## v20
+- Se agregó botón visible “Volver a la carta” dentro del popup de detalle.
+- El popup también puede cerrarse con Escape o tocando fuera del cuadro.
+- Caché actualizada a v20.
