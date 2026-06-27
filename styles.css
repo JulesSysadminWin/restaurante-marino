@@ -961,3 +961,65 @@ footer { background: #007fa3; color: #e8fbff; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* V18 - scroll correcto en popup de detalle */
+#dishModal.modal {
+  overflow-y: auto;
+  align-items: start;
+  place-items: start center;
+  padding: 16px;
+  overscroll-behavior: contain;
+}
+
+#dishModal .modal-card {
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  margin: auto;
+}
+
+#dishModal .modal-grid {
+  min-height: 0;
+}
+
+#dishModal .modal-content {
+  overflow: visible !important;
+  max-height: none !important;
+  padding-bottom: 34px;
+}
+
+#dishModal .modal-grid > img#modalImage {
+  max-height: calc(100dvh - 64px);
+}
+
+@media (max-width: 900px) {
+  #dishModal.modal {
+    padding: 10px;
+  }
+
+  #dishModal .modal-card {
+    max-height: calc(100dvh - 20px);
+    width: min(100%, 720px);
+  }
+
+  #dishModal .modal-grid > img#modalImage {
+    max-height: 36dvh !important;
+    min-height: 0 !important;
+  }
+
+  #dishModal .modal-content {
+    padding: 18px 16px 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  #dishModal .modal-content h2 {
+    font-size: 28px !important;
+  }
+
+  #dishModal .modal-grid > img#modalImage {
+    max-height: 32dvh !important;
+  }
+}

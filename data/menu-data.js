@@ -7,10 +7,11 @@
 
 const RESTAURANTE = {
   "nombre": "Encanto Marino D'Miriam",
-  "telefonoWhatsapp": "51977430832",
+  "telefonoWhatsapp": "51998101944",
+  "whatsapp": "51998101944",
   "ubicacion": "Av. Alameda, Mercado Amarillo, puesto 126 (Gambetta Baja) - Callao",
-  "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20puesto%20126%20Callao%20Av.%20Alameda",
-  "horario": "Lunes a domingo de 9:30 a. m. a 4:00 p. m.",
+  "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20puesto%20126%20Gambetta%20Baja%20Callao",
+  "horario": "9:30 a. m. a 4:00 p. m.",
   "metodosPago": "Yape, tarjeta y efectivo",
   "servicios": "Atención en mesas, reserva previa y recojo coordinado por WhatsApp",
   "recomendados": ["Sopa salvaje", "Dúos marinos", "Causa acevichada"]

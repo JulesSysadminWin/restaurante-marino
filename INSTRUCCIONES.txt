@@ -23,3 +23,9 @@ CAMBIOS V17:
 - Horario: 9:30 a. m. a 4:00 p. m.
 - Ubicación: Mercado Amarillo, puesto 126 (Gambetta Baja) - Callao.
 - Pagos: Yape, tarjeta y efectivo.
+
+
+V18:
+- WhatsApp corregido de forma forzada a 998 101 944 / 51998101944.
+- Se agregó bust de caché ?v=18 para evitar que cargue data antigua.
+- Se corrigió el scroll del popup de detalle en celular y PC.

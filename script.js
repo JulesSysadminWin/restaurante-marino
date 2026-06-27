@@ -34,7 +34,7 @@ function initCommon() {
   $$(".js-maps").forEach(a => a.href = RESTAURANTE.googleMaps);
   $$(".js-whatsapp").forEach(a => {
     const msg = `Hola, quiero consultar la carta de ${RESTAURANTE.nombre}`;
-    a.href = `https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(msg)}`;
+    a.href = `https://wa.me/${numeroWhatsappSeguro()}?text=${encodeURIComponent(msg)}`;
   });
 }
 
@@ -369,7 +369,7 @@ function enviarFlujoWhatsApp(){
   }
 
   const texto = msg.filter(Boolean).join("\n");
-  window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(texto)}`,"_blank");
+  window.open(`https://wa.me/${numeroWhatsappSeguro()}?text=${encodeURIComponent(texto)}`,"_blank");
 }
 
 

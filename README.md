@@ -35,3 +35,9 @@ data/menu-data.js
 - Métodos de pago: Yape, tarjeta y efectivo.
 - Servicios: atención en mesas, reservas y recojo coordinado por WhatsApp.
 - Recomendados: Sopa salvaje, dúos marinos y causa acevichada.
+
+
+V18:
+- WhatsApp corregido de forma forzada a 998 101 944 / 51998101944.
+- Se agregó bust de caché ?v=18 para evitar que cargue data antigua.
+- Se corrigió el scroll del popup de detalle en celular y PC.
