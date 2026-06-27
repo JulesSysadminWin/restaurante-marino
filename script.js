@@ -182,6 +182,18 @@ function cambiarCantidad(lineId, d){
 }
 window.cambiarCantidad = cambiarCantidad;
 
+
+function totalCarrito(){
+  return estado.carrito.reduce((a,item)=>{
+    const p = PLATOS.find(x=>x.id===item.id);
+    return a + (Number(p?.precio || 0) * item.cantidad);
+  }, 0);
+}
+
+function carritoConPrecios(){
+  return estado.carrito.length > 0 && estado.carrito.every(item => PLATOS.find(p=>p.id===item.id)?.precio != null);
+}
+
 function renderCarrito(){
   const bar = $("#cartBar"); if(!bar) return;
   const totalItems = estado.carrito.reduce((a,i)=>a+i.cantidad,0);
@@ -463,11 +475,14 @@ function animateAddFish(){
   fish.textContent = "🦀";
   fish.style.top = `${40 + Math.random()*40}%`;
   document.body.appendChild(fish);
-  setTimeout(()=>fish.remove(), 1800);
+  setTimeout(()=>fish.remove(), 2300);
 }
 
 document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();initMoveFx();});
 
 document.addEventListener("keydown", (ev) => {
-  if(ev.key === "Escape") cerrarModalPlato();
+  if(ev.key === "Escape") {
+    if(document.getElementById("dishModal")?.classList.contains("show")) cerrarModalPlato();
+    if(document.getElementById("flowModal")?.classList.contains("show")) cerrarFlujo();
+  }
 });

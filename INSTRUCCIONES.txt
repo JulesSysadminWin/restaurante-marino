@@ -36,3 +36,8 @@ V21:
 - Dúos, triples, combinados, arroces, chicharrones, sopas, extras, guarniciones y bebidas separados para que el carrito sume.
 - Efecto visual cambiado de pez a cangrejo.
 - WhatsApp incluye subtotales y total estimado del pedido.
+
+
+V22:
+- Corrección del botón Agregar: se agregaron las funciones de total del carrito que faltaban en el JS.
+- Se actualizó la versión del script a v22 para evitar caché.

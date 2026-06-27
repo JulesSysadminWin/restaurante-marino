@@ -1,4 +1,4 @@
-// v21: evitar caché antigua de JS/data/precios
+// v22: limpiar caché y evitar que el navegador conserve JS anterior
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.keys()
