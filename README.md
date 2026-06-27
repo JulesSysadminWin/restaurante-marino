@@ -1,31 +1,20 @@
 # Cevichería Encanto Marino D'Miriam
 
-Versión v11: carta real, logo oficial y fotos actuales.
+Versión v12: carta real limpia, sin Don Cangrejo.
 
 ## Cambios incluidos
 
-- Se usa el logo oficial enviado.
-- Se usan los nombres reales de la carta/fotos.
-- Se cargaron 14 fotos reales de platos:
-  - Dúo Marino (jalea mixta + chaufa de mariscos)
-  - Triple marino
-  - Triple con causa
-  - Pescado frito
-  - Chicharrón de pescado
-  - Sudado de pescado
-  - Dúo de causa
-  - Ceviche de pescado
-  - Parihuela de pescado
-  - Triple acevichado
-  - Dúo Marino (ceviche + arroz con mariscos)
-  - Chicharrón de pota
-  - Ceviche de conchas negras
-  - Ceviche Mixto
-- Las fotos se optimizaron a WebP y se recortaron para web.
-- La foto de pescado frito se recortó para reducir el fondo con piso.
-- Los demás platos de carta quedan sin imagen, con placeholder “Foto por actualizar”.
-- Precios se mantienen en `null` para mostrarse como “Por confirmar`.
-- Se mantienen reservas/pedido anticipado y recojo por WhatsApp.
+- Se quitaron referencias visibles a Don Cangrejo / Chef Don Cangrejo.
+- Se quitó el mensaje de pago al final para atención en mesa.
+- Se mantiene el logo oficial.
+- Se mantienen los nombres reales de la carta.
+- Se mantienen las fotos reales ya cargadas.
+- Se mantienen platos sin foto con placeholder “Foto por actualizar”.
+- Se mantiene la lógica:
+  - Atención en mesa: el cliente revisa la carta y pide al personal.
+  - Reserva / pedido anticipado: coordinación por WhatsApp.
+  - Para llevar / recojo: coordinación por WhatsApp.
+- No se atiende delivery desde esta carta.
 
 ## Archivo principal para editar platos/precios
 
@@ -33,9 +22,7 @@ Versión v11: carta real, logo oficial y fotos actuales.
 data/menu-data.js
 ```
 
-## Para poner precio
-
-Cambiar:
+Para poner precio:
 
 ```js
 precio: null

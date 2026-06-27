@@ -681,3 +681,23 @@ footer { background: #007fa3; color: #e8fbff; }
     height: 124px;
   }
 }
+
+
+/* V12 - limpieza de referencias a Don Cangrejo */
+.don-badge,
+.cangrejo-strip {
+  display: none !important;
+}
+
+.hero-card-viva {
+  overflow: hidden;
+}
+
+.mesa-notice {
+  margin-bottom: 18px;
+}
+
+.notice.mesa-notice {
+  background: #fff4c7 !important;
+}
+

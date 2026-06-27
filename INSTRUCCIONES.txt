@@ -8,11 +8,11 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Actualizar carta real con logo y fotos"
+   git commit -m "Limpiar carta sin Don Cangrejo"
    git push
 
 4. Prueba con Ctrl + F5.
-5. En celular usa incógnito si ves caché antigua.
+5. En celular usa incógnito o borra caché si ves datos antiguos.
 
 Rutas:
 - Inicio: https://julessysadminwin.github.io/restaurante-marino/
