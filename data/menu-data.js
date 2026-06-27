@@ -9,7 +9,7 @@ const RESTAURANTE = {
   "telefonoWhatsapp": "51977430832",
   "ubicacion": "Av. Alameda, Mercado Amarillo, puesto - Callao",
   "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20Callao%20Av.%20Alameda",
-  "horario": "Horario por confirmar"
+  "horario": "Consultar horario por WhatsApp"
 };
 
 const CATEGORIAS = [
@@ -264,9 +264,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Caliente",
+      "Marino"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/sopa-salvaje.png"
   },
   {
     "id": "chilcano",
@@ -276,9 +278,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Ligero",
+      "Caliente"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/chilcano.png"
   },
   {
     "id": "causa-atun",
@@ -288,9 +292,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Fresca",
+      "Con atún"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/duo-causa-atun-chaufa-mariscos.webp"
   },
   {
     "id": "causa-acevichada",
@@ -300,9 +306,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Acevichada",
+      "Fresca"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/triple-acevichado-causa-chicharron-pota-arroz-mariscos.webp"
   },
   {
     "id": "leche-tigre",
@@ -312,9 +320,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Bien fría",
+      "Potente"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/leche-tigre.png"
   },
   {
     "id": "leche-tigre-vip",
@@ -324,9 +334,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Pescado y mariscos",
+      "Especial"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/leche-tigre.png"
   },
   {
     "id": "ceviche-pescado-langostino",
@@ -336,9 +348,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Fresco",
+      "Langostino"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/ceviche-mixto.webp"
   },
   {
     "id": "tiradito-pescado",
@@ -348,9 +362,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Láminas de pescado",
+      "Fresco"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/tiradito-pescado.png"
   },
   {
     "id": "ceviche-chicharron-pota",
@@ -360,9 +376,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Crocante",
+      "Fresco"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/triple-marino-ceviche-chicharron-pota-chaufa-mariscos.webp"
   },
   {
     "id": "ceviche-chicharron-pescado",
@@ -372,9 +390,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Pescado crocante",
+      "Fresco"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/chicharron-pescado.webp"
   },
   {
     "id": "ceviche-mixto-chicharron-pota",
@@ -384,9 +404,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Mixto",
+      "Crocante"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/triple-acevichado-causa-chicharron-pota-arroz-mariscos.webp"
   },
   {
     "id": "ceviche-mixto-chicharron-pescado",
@@ -396,9 +418,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Mixto",
+      "Pescado crocante"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/triple-marino.webp"
   },
   {
     "id": "ronda-marina",
@@ -408,10 +432,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar",
-      "Para compartir"
+      "Surtido",
+      "Contundente"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/triple-marino.webp"
   },
   {
     "id": "arroz-mariscos",
@@ -421,9 +446,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Mariscos",
+      "Bien servido"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/arroz-mariscos.webp"
   },
   {
     "id": "arroz-chaufa-mariscos",
@@ -433,7 +460,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   },
@@ -445,7 +472,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   },
@@ -457,7 +484,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   },
@@ -469,7 +496,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   },
@@ -481,9 +508,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Crocante",
+      "Mixta"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/duo-marino.webp"
   },
   {
     "id": "jalea-especial",
@@ -493,9 +522,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Especial",
+      "Crocante"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/duo-marino-jalea-mixta-chaufa-mariscos.webp"
   },
   {
     "id": "filete-frito",
@@ -505,9 +536,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Filete",
+      "Crocante"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/pescado-frito.webp"
   },
   {
     "id": "parihuela-filete",
@@ -517,9 +550,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Filete",
+      "Potente"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/parihuela-pescado-cabrilla-cachema.webp"
   },
   {
     "id": "sudado-filete",
@@ -529,9 +564,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Filete",
+      "Casero"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/sudado-pescado-cabrilla-cachema.webp"
   },
   {
     "id": "chupe-pescado",
@@ -541,9 +578,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Cremoso",
+      "Pescado"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/sopa-salvaje.png"
   },
   {
     "id": "chupe-langostinos",
@@ -553,9 +592,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Cremoso",
+      "Langostinos"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/sopa-salvaje.png"
   },
   {
     "id": "chupe-mixto",
@@ -565,9 +606,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Cremoso",
+      "Mixto"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/parihuela-pescado-cabrilla-cachema.webp"
   },
   {
     "id": "lomo-saltado",
@@ -577,9 +620,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Clásico peruano",
+      "Salteado"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/lomo-saltado.png"
   },
   {
     "id": "pollo-frito-papas",
@@ -589,9 +634,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Crocante",
+      "Con papas"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/pollo-frito-papas.png"
   },
   {
     "id": "tallarin-saltado",
@@ -601,9 +648,11 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      "Salteado",
+      "Con verduras"
     ],
-    "destacado": false
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/tallarin-saltado.png"
   },
   {
     "id": "porciones",
@@ -613,7 +662,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   },
@@ -625,7 +674,7 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Foto por actualizar"
+      
     ],
     "destacado": false
   }

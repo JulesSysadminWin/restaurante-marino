@@ -9,6 +9,6 @@
   <circle cx="450" cy="250" r="115" fill="#19d3f3" opacity=".35"/>
   <path d="M300 330c88-64 170-70 244-31 30 16 59 20 92 9-44 62-131 90-235 68-45-9-72-25-101-46z" fill="#ff9f1c"/>
   <circle cx="548" cy="285" r="10" fill="#06313b"/>
-  <text x="450" y="455" text-anchor="middle" font-family="Arial" font-weight="900" font-size="44" fill="#06313b">Foto por actualizar</text>
-  <text x="450" y="505" text-anchor="middle" font-family="Arial" font-weight="700" font-size="24" fill="#3d6470">Encanto Marino D'Miriam</text>
+  <text x="450" y="470" text-anchor="middle" font-family="Arial" font-weight="900" font-size="42" fill="#06313b">Encanto Marino</text>
+  <text x="450" y="515" text-anchor="middle" font-family="Arial" font-weight="700" font-size="22" fill="#3d6470">Imagen referencial</text>
 </svg>

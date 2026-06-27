@@ -2,7 +2,7 @@ const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 
 const normalizar = (txt) => String(txt || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-const precio = (v) => (v === null || v === undefined || v === "") ? "Por confirmar" : `S/ ${Number(v).toFixed(2)}`;
+const precio = (v) => (v === null || v === undefined || v === "") ? "" : `S/ ${Number(v).toFixed(2)}`;
 
 const estado = {
   categoria:"todos",
@@ -42,12 +42,13 @@ function initHome() {
   const cont = $("#homeDestacados"); if (!cont) return;
   cont.innerHTML = PLATOS.filter(p => p.destacado).slice(0,6).map(p => {
     const img = p.imagen || "assets/placeholder-plato.svg";
+    const precioHtml = precio(p.precio) ? `<span class="price">${precio(p.precio)}</span>` : ``;
     return `<article class="dish-mini ${p.imagen ? "" : "sin-foto"}">
       <img src="${img}" alt="${p.nombre}">
       <div>
         <h3>${p.nombre}</h3>
         <p>${p.descripcion}</p>
-        <span class="price">${precio(p.precio)}</span>
+        ${precioHtml}
       </div>
     </article>`;
   }).join("");
@@ -121,13 +122,15 @@ function renderMenu(){
   grid.innerHTML = platos.map(p => {
     const cat = CATEGORIAS.find(c=>c.id===p.categoria)?.nombre || p.categoria;
     const img = p.imagen || "assets/placeholder-plato.svg";
-    const sinFoto = !p.imagen;
+    const sinFoto = !p.imagen || img.includes("placeholder-plato.svg");
+    const etiquetas = (p.etiquetas || []).filter(Boolean).map(t=>`<span>${t}</span>`).join("");
+    const precioHtml = precio(p.precio) ? `<strong class="price">${precio(p.precio)}</strong>` : `<strong class="price price-muted">Consultar</strong>`;
     return `<article class="dish-card ${sinFoto ? "sin-foto" : ""}">
-      <button class="dish-image" data-view="${p.id}"><img src="${img}" alt="${p.nombre}">${sinFoto ? `<span class="foto-pendiente">Foto por actualizar</span>` : ""}</button>
+      <button class="dish-image" data-view="${p.id}"><img src="${img}" alt="${p.nombre}"></button>
       <div class="dish-body">
-        <div class="dish-top"><span class="category-label">${cat}</span><strong class="price">${precio(p.precio)}</strong></div>
+        <div class="dish-top"><span class="category-label">${cat}</span>${precioHtml}</div>
         <h3>${p.nombre}</h3><p>${p.descripcion}</p>
-        <div class="tag-list">${(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("")}</div>
+        <div class="tag-list">${etiquetas}</div>
         <div class="dish-actions"><button class="btn secondary" data-view="${p.id}">Detalle</button><button class="btn" data-add="${p.id}">Agregar</button></div>
       </div>
     </article>`;
@@ -167,7 +170,7 @@ function renderCarrito(){
   const total = estado.carrito.reduce((a,i)=>a+(Number(PLATOS.find(p=>p.id===i.id)?.precio||0)*i.cantidad),0);
 
   bar.classList.add("show");
-  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"} seleccionado${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total: por confirmar"}</span></div>
+  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"} seleccionado${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total a consultar"}</span></div>
   <div class="cart-items">${estado.carrito.map(item => itemHTML(item)).join("")}</div>
   <div class="cart-actions">
     <button class="btn secondary" id="cartReserva">Reserva / anticipado</button>
@@ -193,7 +196,7 @@ function itemHTML(item){
 function abrirModalPlato(id){
   const p=PLATOS.find(x=>x.id===id); if(!p) return;
   $("#modalImage").src=p.imagen || "assets/placeholder-plato.svg"; $("#modalImage").alt=p.nombre;
-  $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio); $("#modalDesc").textContent=p.descripcion;
+  $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio) || "Consultar"; $("#modalDesc").textContent=p.descripcion;
   $("#modalTags").innerHTML=(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("");
   $("#modalSpice").value = "Normal";
   $("#modalNote").value = "";
@@ -269,7 +272,8 @@ function pedidoLineas(){
       item.picante ? `Ají: ${item.picante}` : "",
       item.nota ? `Obs: ${item.nota}` : ""
     ].filter(Boolean).join(" | ");
-    return `- ${item.cantidad} x ${p.nombre} (${precio(p.precio)})${extras ? " | " + extras : ""}`;
+    const precioLinea = precio(p.precio) || "Consultar";
+    return `- ${item.cantidad} x ${p.nombre} (${precioLinea})${extras ? " | " + extras : ""}`;
   });
 }
 
@@ -318,4 +322,54 @@ function enviarFlujoWhatsApp(){
   window.open(`https://wa.me/${RESTAURANTE.telefonoWhatsapp}?text=${encodeURIComponent(texto)}`,"_blank");
 }
 
-document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();});
+
+
+function initQrPopup(){
+  const trigger = document.querySelector("[data-open-qr]");
+  const modal = document.getElementById("qrModal");
+  const closeBtn = document.getElementById("closeQrModal");
+  if(!trigger || !modal) return;
+  const openQr = (ev)=>{
+    if(ev) ev.preventDefault();
+    modal.classList.add("show");
+    document.body.style.overflow="hidden";
+  };
+  const closeQr = ()=>{
+    modal.classList.remove("show");
+    document.body.style.overflow="";
+  };
+  trigger.addEventListener("click", openQr);
+  closeBtn && closeBtn.addEventListener("click", closeQr);
+  modal.addEventListener("click", (ev)=>{ if(ev.target === modal) closeQr(); });
+}
+
+function createFishRipple(x,y){
+  const wrap = document.createElement("div");
+  wrap.className = "fish-click-effect";
+  wrap.style.left = `${x}px`;
+  wrap.style.top = `${y}px`;
+  const fish = document.createElement("div");
+  fish.className = "fish-click-effect__fish";
+  fish.textContent = "🐟";
+  wrap.appendChild(fish);
+  for(let i=0;i<4;i++){
+    const b = document.createElement("span");
+    b.className = "fish-click-effect__bubble";
+    b.style.setProperty("--bubble-x", `${(Math.random()*50)-25}px`);
+    b.style.setProperty("--bubble-delay", `${i*0.08}s`);
+    b.style.setProperty("--bubble-size", `${10 + Math.random()*10}px`);
+    wrap.appendChild(b);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 1200);
+}
+
+function initClickFx(){
+  document.addEventListener("pointerdown", (ev)=>{
+    const interactive = ev.target.closest("button, a, .menu-card, .home-card, .gallery-grid img");
+    if(!interactive) return;
+    createFishRipple(ev.clientX, ev.clientY);
+  }, {passive:true});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();});

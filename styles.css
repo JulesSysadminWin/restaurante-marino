@@ -661,14 +661,11 @@ footer { background: #007fa3; color: #e8fbff; }
 }
 
 .dish-card.sin-foto {
-  border-style: dashed;
+  border-style: solid;
 }
 
 .dish-card.sin-foto .dish-body h3::after {
-  content: " · foto pendiente";
-  color: #78919a;
-  font-size: 13px;
-  font-weight: 700;
+  content: "";
 }
 
 .gallery img {
@@ -701,3 +698,102 @@ footer { background: #007fa3; color: #e8fbff; }
   background: #fff4c7 !important;
 }
 
+
+
+.price-muted {
+  color: #9fcfe0;
+  font-weight: 800;
+}
+
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 14, 20, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.qr-modal.show {
+  display: flex;
+}
+
+.qr-modal__panel {
+  position: relative;
+  width: min(92vw, 460px);
+  background: #09131a;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+  text-align: center;
+}
+
+.qr-modal__panel img {
+  width: min(100%, 280px);
+  border-radius: 18px;
+  background: #fff;
+  padding: 14px;
+  margin: 14px auto 18px;
+}
+
+.qr-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.qr-modal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fish-click-effect {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3000;
+  transform: translate(-50%, -50%);
+}
+
+.fish-click-effect__fish {
+  font-size: 26px;
+  animation: fish-swim-up 1s ease-out forwards;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.18));
+}
+
+.fish-click-effect__bubble {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--bubble-size, 12px);
+  height: var(--bubble-size, 12px);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(121,225,255,.55));
+  animation: bubble-rise 1s ease-out forwards;
+  animation-delay: var(--bubble-delay, 0s);
+}
+
+@keyframes fish-swim-up {
+  0% { transform: translate(-8px, 8px) scale(.7) rotate(-8deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(18px, -55px) scale(1.05) rotate(8deg); opacity: 0; }
+}
+
+@keyframes bubble-rise {
+  0% { transform: translate(0, 0) scale(.35); opacity: 0; }
+  20% { opacity: .9; }
+  100% { transform: translate(var(--bubble-x, 0px), -60px) scale(1); opacity: 0; }
+}
