@@ -16,3 +16,10 @@ INSTRUCCIONES
 Rutas:
 - Inicio: https://julessysadminwin.github.io/restaurante-marino/
 - Carta: https://julessysadminwin.github.io/restaurante-marino/menu.html
+
+
+CAMBIOS V17:
+- WhatsApp actualizado a 998101944.
+- Horario: 9:30 a. m. a 4:00 p. m.
+- Ubicación: Mercado Amarillo, puesto 126 (Gambetta Baja) - Callao.
+- Pagos: Yape, tarjeta y efectivo.

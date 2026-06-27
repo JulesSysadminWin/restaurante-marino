@@ -6,11 +6,14 @@
 // ======================================================
 
 const RESTAURANTE = {
-  "nombre": "Cevichería Encanto Marino D'Miriam",
+  "nombre": "Encanto Marino D'Miriam",
   "telefonoWhatsapp": "51977430832",
-  "ubicacion": "Av. Alameda, Mercado Amarillo, puesto 126 - Callao",
+  "ubicacion": "Av. Alameda, Mercado Amarillo, puesto 126 (Gambetta Baja) - Callao",
   "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20puesto%20126%20Callao%20Av.%20Alameda",
-  "horario": "Consultar horario por WhatsApp"
+  "horario": "Lunes a domingo de 9:30 a. m. a 4:00 p. m.",
+  "metodosPago": "Yape, tarjeta y efectivo",
+  "servicios": "Atención en mesas, reserva previa y recojo coordinado por WhatsApp",
+  "recomendados": ["Sopa salvaje", "Dúos marinos", "Causa acevichada"]
 };
 
 const CATEGORIAS = [
@@ -114,7 +117,8 @@ const PLATOS = [
     "alergenos": [],
     "etiquetas": [
       "Jalea mixta + chaufa",
-      "Crocante"
+      "Crocante",
+      "Recomendado"
     ],
     "destacado": true,
     "imagen": "assets/fotos/duo-marino-jalea-mixta-chaufa-mariscos.webp"
@@ -128,7 +132,8 @@ const PLATOS = [
     "alergenos": [],
     "etiquetas": [
       "Ceviche + arroz",
-      "Popular"
+      "Popular",
+      "Recomendado"
     ],
     "destacado": true,
     "imagen": "assets/fotos/duo-marino-ceviche-arroz-mariscos.webp"
@@ -141,7 +146,8 @@ const PLATOS = [
     "precio": null,
     "alergenos": [],
     "etiquetas": [
-      "Causa + chaufa"
+      "Causa + chaufa",
+      "Recomendado"
     ],
     "destacado": false,
     "imagen": "assets/fotos/duo-causa-atun-chaufa-mariscos.webp"
@@ -266,7 +272,8 @@ const PLATOS = [
     "alergenos": [],
     "etiquetas": [
       "Caliente",
-      "Marino"
+      "Marino",
+      "Recomendado"
     ],
     "destacado": false,
     "imagen": "assets/fotos/generadas/sopa-salvaje.png"
@@ -307,7 +314,8 @@ const PLATOS = [
     "alergenos": [],
     "etiquetas": [
       "Acevichada",
-      "Fresca"
+      "Fresca",
+      "Recomendado"
     ],
     "destacado": false
   },

@@ -25,3 +25,13 @@ data/menu-data.js
 - Bebidas con selector específico.
 - Efectos visuales de pez y burbujas al interactuar y al agregar platos.
 - Logo un poco más grande.
+
+
+## v17 - datos reales actualizados
+
+- WhatsApp actualizado a 998 101 944.
+- Horario: 9:30 a. m. a 4:00 p. m.
+- Ubicación: Av. Alameda, Mercado Amarillo, puesto 126 (Gambetta Baja) - Callao.
+- Métodos de pago: Yape, tarjeta y efectivo.
+- Servicios: atención en mesas, reservas y recojo coordinado por WhatsApp.
+- Recomendados: Sopa salvaje, dúos marinos y causa acevichada.

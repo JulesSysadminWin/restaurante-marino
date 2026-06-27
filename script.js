@@ -347,7 +347,7 @@ function enviarFlujoWhatsApp(){
       lineas.length ? "Pedido anticipado:" : "Pedido anticipado: no agregado, solo reserva de mesa.",
       ...lineas,
       "",
-      "Entiendo que para separar mesa y/o preparar platos anticipados se debe coordinar el pago al 100% por Yape/Plin luego de que el local confirme disponibilidad y total."
+      "Entiendo que para separar mesa y/o preparar platos anticipados se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total."
     ];
   } else {
     if(!lineas.length){
@@ -364,7 +364,7 @@ function enviarFlujoWhatsApp(){
       "Pedido:",
       ...lineas,
       "",
-      "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape/Plin luego de que el local confirme disponibilidad y total."
+      "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total."
     ];
   }
 
