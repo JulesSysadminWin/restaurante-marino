@@ -1,4 +1,1 @@
-Precios cargados desde las fotos de la carta enviada.
-Total de platos/items: 79
-Items sin precio: ninguno
-Nota: donde la carta mostraba varios precios para el mismo producto, se separó por presentación/tamaño para que el carrito pueda sumar correctamente.
+Precios actualizados en v29 según carta fotografiada. Incluye entradas, ceviches, combinados, dúos, triples, promociones, medianos, arroces, chicharrones/jaleas, sopas/caldos, extras y bebidas. Recojo suma S/ 1 por plato.

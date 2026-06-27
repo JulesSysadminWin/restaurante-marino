@@ -1,8 +1,8 @@
 // ======================================================
 // DATOS EDITABLES - ENCANTO MARINO D'MIRIAM
-// Versión v26: recomendados ordenados, TikTok, recargo de recojo y cache corregido.
+// Versión v29: carta revisada contra fotos, precios corregidos, promociones y medianos agregados.
 // Imagen solo cuando coincide con el plato o combinación indicada.
-// Para actualizar precios: cambia precio: null por precio: 20
+// Precios cargados desde la carta fotografiada. Recojo suma S/ 1 por plato.
 // ======================================================
 
 const RESTAURANTE = {
@@ -49,6 +49,14 @@ const CATEGORIAS = [
   {
     "id": "triples",
     "nombre": "Triples marinos"
+  },
+  {
+    "id": "promociones",
+    "nombre": "Promociones"
+  },
+  {
+    "id": "medianos",
+    "nombre": "Platos medianos"
   },
   {
     "id": "ronda",
@@ -472,6 +480,97 @@ const PLATOS = [
     "destacado": false
   },
   {
+    "id": "duo-marino-vaso-chicha",
+    "categoria": "promociones",
+    "nombre": "Dúo marino + vaso de chicha morada",
+    "descripcion": "Dúo marino acompañado de vaso de chicha morada, según carta.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "Con chicha"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "triple-acevichada-vaso-chicha",
+    "categoria": "promociones",
+    "nombre": "Triple acevichada + vaso de chicha morada",
+    "descripcion": "Triple acevichada con vaso de chicha morada incluido, según carta.",
+    "precio": 29,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "Con chicha"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-especial-jalea-arroz-leche",
+    "categoria": "promociones",
+    "nombre": "Dúo especial: jalea mixta + arroz con mariscos + leche de tigre",
+    "descripcion": "Dúo especial de la carta con jalea mixta, arroz con mariscos y leche de tigre.",
+    "precio": 25,
+    "alergenos": [],
+    "etiquetas": [
+      "Especial",
+      "Completo"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "promo-2-triples-marinos",
+    "categoria": "promociones",
+    "nombre": "Promo: 2 triples marinos",
+    "descripcion": "Promoción de lunes a viernes: dos triples marinos con ceviche, chicharrón de pota y arroz con mariscos o chaufa.",
+    "precio": 50,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "2 triples"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "promo-2-leches-tigre",
+    "categoria": "promociones",
+    "nombre": "Promo: 2 leches de tigre",
+    "descripcion": "Promoción de lunes a viernes: dos leches de tigre frescas para abrir el apetito.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "2 unidades"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "promo-2-duos-marinos",
+    "categoria": "promociones",
+    "nombre": "Promo: 2 dúos marinos",
+    "descripcion": "Promoción de lunes a viernes: dos dúos marinos con ceviche + jalea mixta, arroz con mariscos o chaufa.",
+    "precio": 40,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "2 dúos"
+    ],
+    "destacado": true
+  },
+  {
+    "id": "promo-2-causas-acevichadas",
+    "categoria": "promociones",
+    "nombre": "Promo: 2 causas acevichadas",
+    "descripcion": "Promoción de lunes a viernes: dos causas acevichadas frescas y bien servidas.",
+    "precio": 28,
+    "alergenos": [],
+    "etiquetas": [
+      "Promoción",
+      "2 unidades"
+    ],
+    "destacado": false
+  },
+  {
     "id": "triple-marino-pescado",
     "categoria": "triples",
     "nombre": "Triple Marino 2",
@@ -495,6 +594,58 @@ const PLATOS = [
     "etiquetas": [
       "Para compartir",
       "Completa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "jalea-especial-mediana",
+    "categoria": "medianos",
+    "nombre": "Jalea especial mediana",
+    "descripcion": "Jalea especial en porción mediana, más servida y con variedad marina.",
+    "precio": 37,
+    "alergenos": [],
+    "etiquetas": [
+      "Mediana",
+      "Especial"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "jalea-mixta-mediana",
+    "categoria": "medianos",
+    "nombre": "Jalea mixta mediana",
+    "descripcion": "Jalea mixta en porción mediana, crocante y generosa para compartir.",
+    "precio": 35,
+    "alergenos": [],
+    "etiquetas": [
+      "Mediana",
+      "Jalea"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ceviche-mixto-mediano",
+    "categoria": "medianos",
+    "nombre": "Ceviche mixto mediano",
+    "descripcion": "Porción mediana de ceviche mixto con pescado y mariscos, bien servido y con sabor marino.",
+    "precio": 38,
+    "alergenos": [],
+    "etiquetas": [
+      "Mediano",
+      "Mixto"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ceviche-pescado-mediano",
+    "categoria": "medianos",
+    "nombre": "Ceviche de pescado mediano",
+    "descripcion": "Porción mediana de ceviche de pescado, fresca y generosa para compartir.",
+    "precio": 35,
+    "alergenos": [],
+    "etiquetas": [
+      "Mediano",
+      "Ceviche"
     ],
     "destacado": false
   },
@@ -541,13 +692,13 @@ const PLATOS = [
   {
     "id": "arroz-chaufa-pescado",
     "categoria": "arroces",
-    "nombre": "Arroz chaufa con pescado",
-    "descripcion": "Arroz chaufa con pescado, simple, sabroso y rendidor.",
-    "precio": 20,
+    "nombre": "Arroz chaufa con pescado a lo macho",
+    "descripcion": "Chaufa con pescado a lo macho, sazón marina y toque contundente de la casa.",
+    "precio": 25,
     "alergenos": [],
     "etiquetas": [
       "Chaufa",
-      "Pescado"
+      "Pescado a lo macho"
     ],
     "destacado": false
   },
@@ -556,7 +707,7 @@ const PLATOS = [
     "categoria": "arroces",
     "nombre": "Arroz con mariscos + leche de tigre",
     "descripcion": "Arroz con mariscos acompañado de leche de tigre. Sabor caliente con golpe fresco.",
-    "precio": 22,
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Arroz",
@@ -587,19 +738,6 @@ const PLATOS = [
     "etiquetas": [
       "Cecina",
       "Chorizo"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "pescado-a-lo-macho",
-    "categoria": "arroces",
-    "nombre": "Pescado a lo macho",
-    "descripcion": "Pescado bañado en salsa marina de carácter, potente y bien servido.",
-    "precio": 25,
-    "alergenos": [],
-    "etiquetas": [
-      "Salsa marina",
-      "Potente"
     ],
     "destacado": false
   },
@@ -738,7 +876,7 @@ const PLATOS = [
   },
   {
     "id": "chilcano",
-    "categoria": "sopas",
+    "categoria": "entradas",
     "nombre": "Chilcano de pescado",
     "descripcion": "Caldito marino ligero y sabroso para empezar suave o acompañar la mesa.",
     "precio": 6,

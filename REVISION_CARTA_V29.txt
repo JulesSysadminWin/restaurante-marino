@@ -1,0 +1,34 @@
+REVISIÓN CARTA V29 - Encanto Marino D'Miriam
+
+Cambios aplicados según carta fotografiada:
+
+1. Se agregaron platos que faltaban:
+   - Promociones de lunes a viernes:
+     * Promo: 2 causas acevichadas - S/ 28
+     * Promo: 2 dúos marinos - S/ 40
+     * Promo: 2 leches de tigre - S/ 20
+     * Promo: 2 triples marinos - S/ 50
+     * Dúo especial: jalea mixta + arroz con mariscos + leche de tigre - S/ 25
+     * Triple acevichada + vaso de chicha morada - S/ 29
+     * Dúo marino + vaso de chicha morada - S/ 20
+   - Platos medianos:
+     * Ceviche de pescado mediano - S/ 35
+     * Ceviche mixto mediano - S/ 38
+     * Jalea mixta mediana - S/ 35
+     * Jalea especial mediana - S/ 37
+
+2. Se corrigieron precios/datos:
+   - Arroz con mariscos + leche de tigre: S/ 20.
+   - Arroz chaufa con pescado se corrigió a “Arroz chaufa con pescado a lo macho”: S/ 25.
+   - Se retiró el item separado “Pescado a lo macho” porque en la carta se lee como parte del arroz chaufa con pescado a lo macho.
+   - Chilcano de pescado queda a S/ 6 y se muestra dentro de entradas.
+
+3. Se mantiene:
+   - Recargo de S/ 1 por plato para recojo.
+   - WhatsApp: 998101944.
+   - TikTok: @cevicheria.el.enc0.
+   - Cangrejo animado con cooldown de 30 segundos por touch.
+
+Pendiente de validar con el local:
+- Si “Jalea El Encanto Marino” y “Jalea especial mediana” deben mantenerse como platos separados, porque ambos aparecen con precio S/ 37 en secciones diferentes.
+- Si las promociones de lunes a viernes deben mostrarse siempre o solo con una etiqueta de horario/promoción.
