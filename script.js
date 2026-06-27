@@ -196,15 +196,40 @@ function itemHTML(item){
 
 function abrirModalPlato(id){
   const p=PLATOS.find(x=>x.id===id); if(!p) return;
+  const esBebida = p.categoria === "bebidas";
   const modalImg = $("#modalImage");
-  if (p.imagen) { modalImg.src=p.imagen; modalImg.alt=p.nombre; modalImg.parentElement?.classList.remove("hidden-media"); }
-  else { modalImg.removeAttribute("src"); modalImg.alt=""; modalImg.parentElement?.classList.add("hidden-media"); }
-  $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio) || "Precio a consultar"; $("#modalDesc").textContent=p.descripcion;
-  $("#modalTags").innerHTML=(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("");
-  $("#modalSpice").value = "Normal";
-  $("#modalNote").value = "";
+  const modalGrid = $("#dishModal .modal-grid");
+  if (p.imagen) {
+    modalImg.src=p.imagen;
+    modalImg.alt=p.nombre;
+    modalGrid?.classList.remove("hidden-media");
+  } else {
+    modalImg.removeAttribute("src");
+    modalImg.alt="";
+    modalGrid?.classList.add("hidden-media");
+  }
+
+  $("#modalTitle").textContent=p.nombre;
+  $("#modalPrice").textContent=precio(p.precio) || "";
+  $("#modalPrice").style.display = precio(p.precio) ? "inline-block" : "none";
+  $("#modalDesc").textContent=p.descripcion;
+  $("#modalTags").innerHTML=(p.etiquetas || []).filter(Boolean).map(t=>`<span>${t}</span>`).join("");
+
+  const personaliza = $("#dishModal .personaliza");
+  const notice = $("#dishModal .notice");
+  if (esBebida) {
+    personaliza.style.display = "none";
+    notice.textContent = "Consulta disponibilidad con el local.";
+  } else {
+    personaliza.style.display = "block";
+    notice.textContent = "Confirmar disponibilidad y precio final con el local.";
+    $("#modalSpice").value = "Normal";
+    $("#modalNote").value = "";
+  }
+
   $("#modalAdd").onclick=()=>{
-    agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
+    if (esBebida) agregar(id, "", "");
+    else agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
     cerrarModalPlato();
   };
   $("#dishModal").classList.add("show"); document.body.style.overflow="hidden";
@@ -265,18 +290,19 @@ function renderFlowOrderList(){
   }
 
   cont.innerHTML = estado.carrito.map(item => itemHTML(item)).join("");
-  hint.textContent = "Puedes seguir agregando platos sin perder los datos escritos en este formulario.";
+  hint.textContent = "Puedes seguir agregando platos y volver para completar el envío.";
 }
 
 function pedidoLineas(){
   return estado.carrito.map(item => {
     const p = PLATOS.find(x=>x.id===item.id);
     const extras = [
-      item.picante ? `Ají: ${item.picante}` : "",
+      item.picante && item.picante !== "Normal" ? `Ají: ${item.picante}` : "",
       item.nota ? `Obs: ${item.nota}` : ""
     ].filter(Boolean).join(" | ");
-    const precioLinea = precio(p.precio) || "Consultar";
-    return `- ${item.cantidad} x ${p.nombre} (${precioLinea})${extras ? " | " + extras : ""}`;
+    const precioLinea = precio(p.precio);
+    const precioTexto = precioLinea ? ` (${precioLinea})` : "";
+    return `- ${item.cantidad} x ${p.nombre}${precioTexto}${extras ? " | " + extras : ""}`;
   });
 }
 

@@ -1,6 +1,6 @@
 // ======================================================
 // DATOS EDITABLES - ENCANTO MARINO D'MIRIAM
-// Versión v14: nombres, descripciones e imágenes correlacionadas.
+// Versión v15: modal mejorado, ubicación corregida y bebidas separadas.
 // Imagen solo cuando coincide con el plato o combinación indicada.
 // Para actualizar precios: cambia precio: null por precio: 20
 // ======================================================
@@ -8,8 +8,8 @@
 const RESTAURANTE = {
   "nombre": "Cevichería Encanto Marino D'Miriam",
   "telefonoWhatsapp": "51977430832",
-  "ubicacion": "Av. Alameda, Mercado Amarillo, puesto - Callao",
-  "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20Callao%20Av.%20Alameda",
+  "ubicacion": "Av. Alameda, Mercado Amarillo, puesto 126 - Callao",
+  "googleMaps": "https://www.google.com/maps/search/?api=1&query=Mercado%20Amarillo%20puesto%20126%20Callao%20Av.%20Alameda",
   "horario": "Consultar horario por WhatsApp"
 };
 
@@ -642,13 +642,53 @@ const PLATOS = [
     "destacado": false
   },
   {
-    "id": "bebidas",
+    "id": "chicha-morada",
     "categoria": "bebidas",
-    "nombre": "Bebidas",
-    "descripcion": "Consulta disponibilidad de chicha morada, maracuyá, agua, gaseosas y cerveza.",
+    "nombre": "Chicha morada",
+    "descripcion": "Bebida clásica de la casa para acompañar la carta marina.",
     "precio": null,
     "alergenos": [],
-    "etiquetas": [],
+    "etiquetas": ["Bebida"],
+    "destacado": false
+  },
+  {
+    "id": "maracuya",
+    "categoria": "bebidas",
+    "nombre": "Maracuyá",
+    "descripcion": "Bebida fresca de maracuyá para acompañar el pedido.",
+    "precio": null,
+    "alergenos": [],
+    "etiquetas": ["Bebida"],
+    "destacado": false
+  },
+  {
+    "id": "agua",
+    "categoria": "bebidas",
+    "nombre": "Agua",
+    "descripcion": "Agua para acompañar tu consumo.",
+    "precio": null,
+    "alergenos": [],
+    "etiquetas": ["Bebida"],
+    "destacado": false
+  },
+  {
+    "id": "gaseosas",
+    "categoria": "bebidas",
+    "nombre": "Gaseosas",
+    "descripcion": "Consulta las gaseosas disponibles al momento de pedir.",
+    "precio": null,
+    "alergenos": [],
+    "etiquetas": ["Bebida"],
+    "destacado": false
+  },
+  {
+    "id": "cervezas",
+    "categoria": "bebidas",
+    "nombre": "Cervezas",
+    "descripcion": "Consulta las cervezas disponibles con el local.",
+    "precio": null,
+    "alergenos": [],
+    "etiquetas": ["Bebida"],
     "destacado": false
   }
 ];

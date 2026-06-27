@@ -830,3 +830,56 @@ footer { background: #007fa3; color: #e8fbff; }
 @media(max-width: 520px){
   .gallery { grid-template-columns: 1fr; }
 }
+
+/* V15 - mejoras de modal, bebidas y ubicación */
+.modal-card {
+  width: min(1040px, 100%);
+}
+
+.modal-grid {
+  grid-template-columns: minmax(280px, .92fr) minmax(320px, 1fr);
+  align-items: stretch;
+}
+
+.modal-grid > img#modalImage {
+  width: 100%;
+  height: auto !important;
+  max-height: 88vh;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: center center;
+  background: #061014;
+  border-radius: 24px 0 0 24px;
+  padding: 0;
+}
+
+.modal-content {
+  align-self: stretch;
+}
+
+#modalPrice:empty {
+  display: none !important;
+}
+
+.dish-card.text-only {
+  background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+}
+
+@media(max-width:900px){
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-grid > img#modalImage {
+    max-height: 46vh;
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+@media(max-width:640px){
+  .modal-card {
+    width: min(100%, 96vw);
+  }
+  .modal-grid > img#modalImage {
+    max-height: 38vh;
+  }
+}

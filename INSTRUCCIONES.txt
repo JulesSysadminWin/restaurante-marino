@@ -8,13 +8,11 @@ INSTRUCCIONES
    cd C:\Linux-Lab\restaurante-web
    git status
    git add .
-   git commit -m "Limpiar carta sin Don Cangrejo"
+   git commit -m "Ajustar modal bebidas y ubicacion"
    git push
 
-4. Prueba con Ctrl + F5.
-5. En celular usa incógnito o borra caché si ves datos antiguos.
+4. Prueba con Ctrl + F5 o desde incógnito en celular.
 
 Rutas:
 - Inicio: https://julessysadminwin.github.io/restaurante-marino/
 - Carta: https://julessysadminwin.github.io/restaurante-marino/menu.html
-- QR imprimir: https://julessysadminwin.github.io/restaurante-marino/qr-imprimir.html
