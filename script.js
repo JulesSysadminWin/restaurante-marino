@@ -568,10 +568,21 @@ function createFishRipple(x,y){
   setTimeout(()=>wrap.remove(), 1500);
 }
 
+let ultimoCangrejoTouch = 0;
+const CANGREJO_TOUCH_COOLDOWN_MS = 30000;
+
+function puedeMostrarCangrejoTouch(){
+  const ahora = Date.now();
+  if(ahora - ultimoCangrejoTouch < CANGREJO_TOUCH_COOLDOWN_MS) return false;
+  ultimoCangrejoTouch = ahora;
+  return true;
+}
+
 function initClickFx(){
   document.addEventListener("pointerdown", (ev)=>{
     const interactive = ev.target.closest("button, a, .dish-card, .dish-mini, .gallery img, .flow-card, .card");
     if(!interactive) return;
+    if(!puedeMostrarCangrejoTouch()) return;
     createFishRipple(ev.clientX, ev.clientY);
   }, {passive:true});
 }
@@ -593,7 +604,6 @@ function initMoveFx(){
     if(now - last < 180) return;
     last = now;
     createCursorBubble(ev.clientX, ev.clientY);
-    if(Math.random() > 0.7) createFishRipple(ev.clientX, ev.clientY);
   }, {passive:true});
 }
 

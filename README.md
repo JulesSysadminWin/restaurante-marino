@@ -72,3 +72,6 @@ V23:
 V26: corrige estilos móviles de recomendados/TikTok con cache bust, ordena recomendados y agrega recargo de S/ 1 por plato para recojo/para llevar.
 
 V27: cangrejo de interacción mejorado con diseño más chistoso/limpio y cache-busting actualizado.
+
+
+V28: el cangrejo de touch ahora aparece como máximo una vez cada 30 segundos y ya no aparece por movimiento del mouse/touch.
