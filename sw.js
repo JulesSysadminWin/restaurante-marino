@@ -1,4 +1,4 @@
-// v19: evitar caché antigua de JS/data/WhatsApp
+// v21: evitar caché antigua de JS/data/precios
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.keys()

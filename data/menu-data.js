@@ -1,6 +1,6 @@
 // ======================================================
 // DATOS EDITABLES - ENCANTO MARINO D'MIRIAM
-// Versión v15: modal mejorado, ubicación corregida y bebidas separadas.
+// Versión v21: precios cargados desde carta y efecto de cangrejo.
 // Imagen solo cuando coincide con el plato o combinación indicada.
 // Para actualizar precios: cambia precio: null por precio: 20
 // ======================================================
@@ -29,6 +29,10 @@ const CATEGORIAS = [
   {
     "id": "ceviches",
     "nombre": "Ceviches"
+  },
+  {
+    "id": "combinados",
+    "nombre": "Combinados"
   },
   {
     "id": "duos",
@@ -68,11 +72,93 @@ const ALERGENOS = [];
 
 const PLATOS = [
   {
+    "id": "leche-tigre",
+    "categoria": "entradas",
+    "nombre": "Leche de tigre",
+    "descripcion": "Concentrada, fresca y con carácter. Un golpe marino para prender el apetito.",
+    "precio": 12,
+    "alergenos": [],
+    "etiquetas": [
+      "Potente",
+      "Fría"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/leche-tigre.png"
+  },
+  {
+    "id": "leche-tigre-vip",
+    "categoria": "entradas",
+    "nombre": "Leche de tigre VIP",
+    "descripcion": "Leche de tigre VIP con pescado y mariscos. Más servida, más intensa y bien marina.",
+    "precio": 14,
+    "alergenos": [],
+    "etiquetas": [
+      "VIP",
+      "Pescado y mariscos"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/leche-tigre.png"
+  },
+  {
+    "id": "sopa-salvaje",
+    "categoria": "entradas",
+    "nombre": "Sopa salvaje",
+    "descripcion": "Entrada caliente de la casa, reconfortante y con sabor marino para abrir el apetito.",
+    "precio": 8,
+    "alergenos": [],
+    "etiquetas": [
+      "Caliente",
+      "Recomendado"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/sopa-salvaje.png"
+  },
+  {
+    "id": "causa-acevichada",
+    "categoria": "entradas",
+    "nombre": "Causa acevichada",
+    "descripcion": "Causa con toque acevichado, fresca y con punto de limón. Una de las recomendadas de la casa.",
+    "precio": 15,
+    "alergenos": [],
+    "etiquetas": [
+      "Acevichada",
+      "Recomendada"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "causa-atun",
+    "categoria": "entradas",
+    "nombre": "Causa de atún",
+    "descripcion": "Causa suave y fresca con atún, servida al estilo de la casa.",
+    "precio": 7,
+    "alergenos": [],
+    "etiquetas": [
+      "Fresca",
+      "Atún"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ceviche-conchas-negras",
+    "categoria": "ceviches",
+    "nombre": "Ceviche de conchas negras",
+    "descripcion": "Ceviche intenso, con carácter y sabor profundo. Una opción brava para quienes disfrutan sabores marinos más fuertes.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Intenso",
+      "Especial"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/ceviche-conchas-negras.webp"
+  },
+  {
     "id": "ceviche-pescado",
     "categoria": "ceviches",
     "nombre": "Ceviche de pescado",
     "descripcion": "Pescado fresco con limón al punto, cebolla, choclo y acompañamiento clásico. Un ceviche directo, sabroso y con golpe chalaco.",
-    "precio": null,
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Fresco",
@@ -86,7 +172,7 @@ const PLATOS = [
     "categoria": "ceviches",
     "nombre": "Ceviche Mixto",
     "descripcion": "Pescado y mariscos en una mezcla fresca, jugosa y bien sazonada. Para los que quieren más sabor de mar en un solo plato.",
-    "precio": null,
+    "precio": 22,
     "alergenos": [],
     "etiquetas": [
       "Mixto",
@@ -96,86 +182,241 @@ const PLATOS = [
     "imagen": "assets/fotos/ceviche-mixto.webp"
   },
   {
-    "id": "ceviche-conchas-negras",
+    "id": "tiradito-pescado",
     "categoria": "ceviches",
-    "nombre": "Ceviche de conchas negras",
-    "descripcion": "Ceviche intenso, con carácter y sabor profundo. Una opción brava para quienes disfrutan sabores marinos más fuertes.",
-    "precio": null,
+    "nombre": "Tiradito de pescado",
+    "descripcion": "Láminas de pescado con salsa fresca y sabor directo. Ligero, limpio y sabroso.",
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
-      "Intenso",
-      "Especial"
+      "Láminas de pescado",
+      "Fresco"
     ],
     "destacado": false,
-    "imagen": "assets/fotos/ceviche-conchas-negras.webp"
+    "imagen": "assets/fotos/generadas/tiradito-pescado.png"
   },
   {
-    "id": "duo-marino-jalea-chaufa",
-    "categoria": "duos",
-    "nombre": "Dúo Marino",
-    "descripcion": "Jalea mixta crocante acompañada de chaufa de mariscos. Una dupla contundente, sabrosa y bien servida.",
-    "precio": null,
+    "id": "ceviche-pescado-langostino",
+    "categoria": "ceviches",
+    "nombre": "Ceviche de pescado con langostino",
+    "descripcion": "Ceviche de pescado con langostino, limón al punto y sabor marino bien marcado.",
+    "precio": 23,
     "alergenos": [],
     "etiquetas": [
-      "Jalea mixta + chaufa",
+      "Fresco",
+      "Langostino"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ceviche-chicharron-pescado",
+    "categoria": "combinados",
+    "nombre": "Ceviche con chicharrón de pescado",
+    "descripcion": "Ceviche fresco acompañado de chicharrón de pescado crocante.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Pescado crocante",
+      "Fresco"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ceviche-chicharron-pota",
+    "categoria": "combinados",
+    "nombre": "Ceviche con chicharrón de pota",
+    "descripcion": "Ceviche fresco acompañado de chicharrón de pota crocante.",
+    "precio": 18,
+    "alergenos": [],
+    "etiquetas": [
       "Crocante",
-      "Recomendado"
+      "Fresco"
     ],
-    "destacado": true,
-    "imagen": "assets/fotos/duo-marino-jalea-mixta-chaufa-mariscos.webp"
+    "destacado": false
   },
   {
-    "id": "duo-marino-ceviche-arroz",
-    "categoria": "duos",
-    "nombre": "Dúo Marino",
-    "descripcion": "Ceviche fresco acompañado de arroz con mariscos. Frescura y sazón caliente en una combinación que nunca falla.",
-    "precio": null,
+    "id": "ceviche-mixto-chicharron-pescado",
+    "categoria": "combinados",
+    "nombre": "Ceviche mixto con chicharrón de pescado",
+    "descripcion": "Ceviche mixto acompañado de chicharrón de pescado crocante.",
+    "precio": 24,
     "alergenos": [],
     "etiquetas": [
-      "Ceviche + arroz",
-      "Popular",
-      "Recomendado"
+      "Mixto",
+      "Pescado crocante"
     ],
-    "destacado": true,
-    "imagen": "assets/fotos/duo-marino-ceviche-arroz-mariscos.webp"
+    "destacado": false
+  },
+  {
+    "id": "ceviche-mixto-chicharron-pota",
+    "categoria": "combinados",
+    "nombre": "Ceviche mixto con chicharrón de pota",
+    "descripcion": "Ceviche mixto acompañado de chicharrón de pota doradito.",
+    "precio": 24,
+    "alergenos": [],
+    "etiquetas": [
+      "Mixto",
+      "Crocante"
+    ],
+    "destacado": false
   },
   {
     "id": "duo-causa-atun-chaufa",
     "categoria": "duos",
-    "nombre": "Dúo de causa",
+    "nombre": "Dúo marino: causa + chaufa de mariscos",
     "descripcion": "Causa de atún acompañada de chaufa de mariscos. Un dúo rendidor, fresco y sabroso.",
-    "precio": null,
+    "precio": 24,
     "alergenos": [],
     "etiquetas": [
-      "Causa + chaufa",
-      "Recomendado"
+      "Causa",
+      "Chaufa"
     ],
     "destacado": false,
     "imagen": "assets/fotos/duo-causa-atun-chaufa-mariscos.webp"
   },
   {
-    "id": "triple-marino",
-    "categoria": "triples",
-    "nombre": "Triple marino",
-    "descripcion": "Ceviche, chicharrón de pota y chaufa de mariscos. El plato completo para quienes quieren frescura, crocante y sabor en una sola vuelta.",
-    "precio": null,
+    "id": "duo-marino-ceviche-arroz",
+    "categoria": "duos",
+    "nombre": "Dúo marino: ceviche + arroz con mariscos",
+    "descripcion": "Ceviche fresco acompañado de arroz con mariscos. Frescura y sazón caliente en una combinación que nunca falla.",
+    "precio": 22,
     "alergenos": [],
     "etiquetas": [
-      "Ceviche + chicharrón + chaufa",
-      "Contundente"
+      "Ceviche",
+      "Arroz con mariscos"
     ],
     "destacado": true,
-    "imagen": "assets/fotos/triple-marino-ceviche-chicharron-pota-chaufa-mariscos.webp"
+    "imagen": "assets/fotos/duo-marino-ceviche-arroz-mariscos.webp"
+  },
+  {
+    "id": "duo-marino-jalea-chaufa",
+    "categoria": "duos",
+    "nombre": "Dúo marino: jalea mixta + chaufa de mariscos",
+    "descripcion": "Jalea mixta crocante acompañada de chaufa de mariscos. Una dupla contundente, sabrosa y bien servida.",
+    "precio": 25,
+    "alergenos": [],
+    "etiquetas": [
+      "Jalea",
+      "Chaufa"
+    ],
+    "destacado": true,
+    "imagen": "assets/fotos/duo-marino-jalea-mixta-chaufa-mariscos.webp"
+  },
+  {
+    "id": "duo-causa-arroz",
+    "categoria": "duos",
+    "nombre": "Dúo marino: causa + arroz con mariscos",
+    "descripcion": "Causa de la casa con arroz con mariscos. Cremoso, caliente y sabroso.",
+    "precio": 24,
+    "alergenos": [],
+    "etiquetas": [
+      "Causa",
+      "Arroz"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-ceviche-chaufa-cecina",
+    "categoria": "duos",
+    "nombre": "Dúo marino: ceviche + chaufa de cecina",
+    "descripcion": "Ceviche fresco acompañado de chaufa de cecina. Un cruce marino y selvático con buen sabor.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Ceviche",
+      "Cecina"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-marino-ceviche-chaufa",
+    "categoria": "duos",
+    "nombre": "Dúo marino: ceviche + chaufa de mariscos",
+    "descripcion": "Ceviche fresco acompañado de chaufa de mariscos. Una combinación marina, rendidora y bien servida.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Ceviche",
+      "Chaufa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-marino-ceviche-jalea",
+    "categoria": "duos",
+    "nombre": "Dúo marino: ceviche + jalea mixta",
+    "descripcion": "Ceviche fresco con jalea mixta crocante. Frío y caliente en un solo plato.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Ceviche",
+      "Jalea"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-jalea-arroz",
+    "categoria": "duos",
+    "nombre": "Dúo marino: jalea mixta + arroz con mariscos",
+    "descripcion": "Jalea mixta crocante acompañada de arroz con mariscos. Contundente y sabroso.",
+    "precio": 25,
+    "alergenos": [],
+    "etiquetas": [
+      "Jalea",
+      "Arroz"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-sopa-arroz",
+    "categoria": "duos",
+    "nombre": "Dúo marino: sopa salvaje + arroz con mariscos",
+    "descripcion": "Sopa salvaje acompañada de arroz con mariscos. Calor, sazón y sabor marino.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Sopa salvaje",
+      "Arroz"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-sopa-chaufa",
+    "categoria": "duos",
+    "nombre": "Dúo marino: sopa salvaje + chaufa de mariscos",
+    "descripcion": "Sopa salvaje con chaufa de mariscos. Bien servido y con sabor de casa.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Sopa salvaje",
+      "Chaufa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "duo-sopa-jalea",
+    "categoria": "duos",
+    "nombre": "Dúo marino: sopa salvaje + jalea mixta",
+    "descripcion": "Sopa salvaje caliente con jalea mixta crocante. Un dúo con fuerza para quedar satisfecho.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Sopa salvaje",
+      "Jalea"
+    ],
+    "destacado": false
   },
   {
     "id": "triple-con-causa",
     "categoria": "triples",
-    "nombre": "Triple con causa",
-    "descripcion": "Ceviche, causa y arroz con mariscos en una combinación bien servida. Fresco, cremoso y marino de principio a fin.",
-    "precio": null,
+    "nombre": "Triple Causa",
+    "descripcion": "Ceviche, causa y arroz con mariscos o chaufa. Fresco, cremoso y marino de principio a fin.",
+    "precio": 28,
     "alergenos": [],
     "etiquetas": [
-      "Ceviche + causa + arroz"
+      "Ceviche",
+      "Causa",
+      "Arroz o chaufa"
     ],
     "destacado": true,
     "imagen": "assets/fotos/triple-con-causa-ceviche-causa-arroz-mariscos.webp"
@@ -183,37 +424,183 @@ const PLATOS = [
   {
     "id": "triple-acevichado",
     "categoria": "triples",
-    "nombre": "Triple acevichado",
-    "descripcion": "Causa acevichada, chicharrón de pota y arroz con mariscos. Un triple con fuerza, textura y harto sabor.",
-    "precio": null,
+    "nombre": "Triple Causa Acevichada",
+    "descripcion": "Causa acevichada, chicharrón de pota y arroz con mariscos o chaufa. Un triple con fuerza, textura y harto sabor.",
+    "precio": 30,
     "alergenos": [],
     "etiquetas": [
-      "Acevichado",
-      "Especial"
+      "Causa acevichada",
+      "Chicharrón de pota"
     ],
     "destacado": false,
     "imagen": "assets/fotos/triple-acevichado-causa-chicharron-pota-arroz-mariscos.webp"
   },
   {
-    "id": "pescado-frito",
-    "categoria": "chicharrones",
-    "nombre": "Pescado frito",
-    "descripcion": "Cabrilla o cachema frita al punto, doradita y servida con guarnición de casa. Sencillo, sabroso y bien cumplidor.",
-    "precio": null,
+    "id": "triple-marino",
+    "categoria": "triples",
+    "nombre": "Triple Marino 1",
+    "descripcion": "Ceviche, chicharrón de pota y arroz con mariscos o chaufa. El plato completo para quienes quieren frescura, crocante y sabor.",
+    "precio": 27,
     "alergenos": [],
     "etiquetas": [
-      "Cabrilla o cachema",
-      "Dorado"
+      "Ceviche",
+      "Chicharrón de pota",
+      "Arroz o chaufa"
+    ],
+    "destacado": true,
+    "imagen": "assets/fotos/triple-marino-ceviche-chicharron-pota-chaufa-mariscos.webp"
+  },
+  {
+    "id": "triple-sopa-salvaje",
+    "categoria": "triples",
+    "nombre": "Triple con Sopa Salvaje",
+    "descripcion": "Sopa salvaje con ceviche, arroz con mariscos o chaufa, causa y chicharrón de pota. Una opción completa y contundente.",
+    "precio": 27,
+    "alergenos": [],
+    "etiquetas": [
+      "Sopa salvaje",
+      "Completo"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "triple-marino-pescado",
+    "categoria": "triples",
+    "nombre": "Triple Marino 2",
+    "descripcion": "Ceviche, chicharrón de pescado y arroz con mariscos o chaufa. Más contundente, crocante y bien marino.",
+    "precio": 30,
+    "alergenos": [],
+    "etiquetas": [
+      "Ceviche",
+      "Chicharrón de pescado",
+      "Arroz o chaufa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "ronda-marina",
+    "categoria": "ronda",
+    "nombre": "Ronda Marina",
+    "descripcion": "Ronda marina completa con ceviche, causa, chicharrón de pescado, arroz con mariscos y chaufa de mariscos. Ideal para compartir.",
+    "precio": 48,
+    "alergenos": [],
+    "etiquetas": [
+      "Para compartir",
+      "Completa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "arroz-mariscos",
+    "categoria": "arroces",
+    "nombre": "Arroz con mariscos",
+    "descripcion": "Arroz marino jugoso y bien sazonado, con sabor de casa y estilo chalaco.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Mariscos",
+      "Bien servido"
     ],
     "destacado": false,
-    "imagen": "assets/fotos/pescado-frito-cabrilla-cachema.webp"
+    "imagen": "assets/fotos/arroz-mariscos.webp"
+  },
+  {
+    "id": "arroz-chaufa-langostino",
+    "categoria": "arroces",
+    "nombre": "Arroz chaufa con langostino",
+    "descripcion": "Arroz chaufa con langostino, caliente y con sazón marina.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Chaufa",
+      "Langostino"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "arroz-chaufa-mariscos",
+    "categoria": "arroces",
+    "nombre": "Arroz chaufa con mariscos",
+    "descripcion": "Arroz chaufa con mariscos, salteado, sabroso y rendidor.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Chaufa",
+      "Mariscos"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "arroz-chaufa-pescado",
+    "categoria": "arroces",
+    "nombre": "Arroz chaufa con pescado",
+    "descripcion": "Arroz chaufa con pescado, simple, sabroso y rendidor.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Chaufa",
+      "Pescado"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "arroz-mariscos-leche-tigre",
+    "categoria": "arroces",
+    "nombre": "Arroz con mariscos + leche de tigre",
+    "descripcion": "Arroz con mariscos acompañado de leche de tigre. Sabor caliente con golpe fresco.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Arroz",
+      "Leche de tigre"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chaufa-cecina",
+    "categoria": "arroces",
+    "nombre": "Chaufa de cecina",
+    "descripcion": "Chaufa con cecina, salteado al estilo de la casa.",
+    "precio": 15,
+    "alergenos": [],
+    "etiquetas": [
+      "Cecina",
+      "Selvático"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chaufa-selvatico",
+    "categoria": "arroces",
+    "nombre": "Chaufa selvático",
+    "descripcion": "Chaufa con cecina y chorizo. Sabroso, contundente y diferente.",
+    "precio": 16,
+    "alergenos": [],
+    "etiquetas": [
+      "Cecina",
+      "Chorizo"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "pescado-a-lo-macho",
+    "categoria": "arroces",
+    "nombre": "Pescado a lo macho",
+    "descripcion": "Pescado bañado en salsa marina de carácter, potente y bien servido.",
+    "precio": 25,
+    "alergenos": [],
+    "etiquetas": [
+      "Salsa marina",
+      "Potente"
+    ],
+    "destacado": false
   },
   {
     "id": "chicharron-pescado",
     "categoria": "chicharrones",
     "nombre": "Chicharrón de pescado",
-    "descripcion": "Pescado crocante por fuera y jugoso por dentro. Ideal para compartir o acompañar con su toque de limón y salsa.",
-    "precio": null,
+    "descripcion": "Pescado crocante por fuera y jugoso por dentro. Ideal para compartir o acompañar con limón y salsa.",
+    "precio": 25,
     "alergenos": [],
     "etiquetas": [
       "Crocante",
@@ -226,297 +613,53 @@ const PLATOS = [
     "id": "chicharron-pota",
     "categoria": "chicharrones",
     "nombre": "Chicharrón de pota",
-    "descripcion": "Pota doradita, crocante y bien servida. Un clásico para los que buscan algo sabroso y contundente.",
-    "precio": null,
+    "descripcion": "Pota doradita, crocante y bien servida. Precio base según carta.",
+    "precio": 10,
     "alergenos": [],
     "etiquetas": [
-      "Crocante",
-      "Pota"
+      "Pota",
+      "Crocante"
     ],
     "destacado": false,
     "imagen": "assets/fotos/chicharron-pota.webp"
   },
   {
-    "id": "sudado-pescado",
-    "categoria": "sopas",
-    "nombre": "Sudado de pescado",
-    "descripcion": "Cabrilla o cachema en jugo criollo, con cebolla, tomate y sabor casero. Calientito, potente y con ese juguito que levanta.",
-    "precio": null,
+    "id": "pescado-frito",
+    "categoria": "chicharrones",
+    "nombre": "Pescado frito - cabrilla o cachema",
+    "descripcion": "Cabrilla o cachema frita al punto, doradita y servida con guarnición de casa.",
+    "precio": 24,
     "alergenos": [],
     "etiquetas": [
       "Cabrilla o cachema",
-      "Caliente"
+      "Dorado"
     ],
     "destacado": false,
-    "imagen": "assets/fotos/sudado-pescado-cabrilla-cachema.webp"
+    "imagen": "assets/fotos/pescado-frito-cabrilla-cachema.webp"
   },
   {
-    "id": "parihuela-pescado",
-    "categoria": "sopas",
-    "nombre": "Parihuela de pescado",
-    "descripcion": "Cabrilla o cachema en una sopa marina intensa, bien concentrada y con sabor de puerto. Para comer con calma y cuchara.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Cabrilla o cachema",
-      "Potente"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/parihuela-pescado-cabrilla-cachema.webp"
-  },
-  {
-    "id": "sopa-salvaje",
-    "categoria": "entradas",
-    "nombre": "Sopa salvaje",
-    "descripcion": "Entrada caliente con sabor marino y carácter de casa. Perfecta para abrir el apetito con algo bien reconfortante.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Caliente",
-      "Marino",
-      "Recomendado"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/generadas/sopa-salvaje.png"
-  },
-  {
-    "id": "chilcano",
-    "categoria": "entradas",
-    "nombre": "Chilcano",
-    "descripcion": "Caldito marino ligero, sabroso y preciso para empezar suave o acompañar la mesa.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Ligero",
-      "Caliente"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/generadas/chilcano.png"
-  },
-  {
-    "id": "causa-atun",
-    "categoria": "entradas",
-    "nombre": "Causa de atún",
-    "descripcion": "Causa suave y fresca con atún, servida al estilo de la casa.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Fresca",
-      "Con atún"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "causa-acevichada",
-    "categoria": "entradas",
-    "nombre": "Causa acevichada",
-    "descripcion": "Causa con toque acevichado, fresca y con ese punto de limón que provoca.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Acevichada",
-      "Fresca",
-      "Recomendado"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "leche-tigre",
-    "categoria": "entradas",
-    "nombre": "Leche de tigre",
-    "descripcion": "Concentrada, fresca y con carácter. Un golpe marino para prender el apetito.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Bien fría",
-      "Potente"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/generadas/leche-tigre.png"
-  },
-  {
-    "id": "leche-tigre-vip",
-    "categoria": "entradas",
-    "nombre": "Leche de tigre VIP",
-    "descripcion": "Versión más servida y especial, con pescado y mariscos. Para empezar con todo.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Pescado y mariscos",
-      "Especial"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/generadas/leche-tigre.png"
-  },
-  {
-    "id": "ceviche-pescado-langostino",
-    "categoria": "ceviches",
-    "nombre": "Ceviche de pescado con langostino",
-    "descripcion": "Ceviche de pescado con langostino, limón al punto y sabor marino bien marcado.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Fresco",
-      "Langostino"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "tiradito-pescado",
-    "categoria": "ceviches",
-    "nombre": "Tiradito de pescado",
-    "descripcion": "Láminas de pescado con salsa fresca y sabor directo. Ligero, limpio y sabroso.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Láminas de pescado",
-      "Fresco"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/generadas/tiradito-pescado.png"
-  },
-  {
-    "id": "ceviche-chicharron-pota",
+    "id": "chicharron-pota-grande",
     "categoria": "chicharrones",
-    "nombre": "Ceviche con chicharrón de pota",
-    "descripcion": "Ceviche fresco acompañado de chicharrón de pota crocante.",
-    "precio": null,
+    "nombre": "Chicharrón de pota grande",
+    "descripcion": "Pota doradita y crocante en porción grande.",
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
-      "Crocante",
-      "Fresco"
+      "Pota",
+      "Grande"
     ],
     "destacado": false
   },
   {
-    "id": "ceviche-chicharron-pescado",
+    "id": "chicharron-pota-mediano",
     "categoria": "chicharrones",
-    "nombre": "Ceviche con chicharrón de pescado",
-    "descripcion": "Ceviche fresco acompañado de chicharrón de pescado crocante.",
-    "precio": null,
+    "nombre": "Chicharrón de pota mediano",
+    "descripcion": "Pota doradita y crocante en porción mediana.",
+    "precio": 15,
     "alergenos": [],
     "etiquetas": [
-      "Pescado crocante",
-      "Fresco"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "ceviche-mixto-chicharron-pota",
-    "categoria": "chicharrones",
-    "nombre": "Ceviche mixto con chicharrón de pota",
-    "descripcion": "Ceviche mixto acompañado de chicharrón de pota doradito.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Mixto",
-      "Crocante"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "ceviche-mixto-chicharron-pescado",
-    "categoria": "chicharrones",
-    "nombre": "Ceviche mixto con chicharrón de pescado",
-    "descripcion": "Ceviche mixto acompañado de chicharrón de pescado crocante.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Mixto",
-      "Pescado crocante"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "ronda-marina",
-    "categoria": "ronda",
-    "nombre": "Ronda Marina",
-    "descripcion": "Combinación grande de la casa para compartir y probar varios sabores marinos.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Surtido",
-      "Contundente"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "arroz-mariscos",
-    "categoria": "arroces",
-    "nombre": "Arroz con mariscos",
-    "descripcion": "Arroz marino jugoso y bien sazonado, con sabor de casa y estilo chalaco.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Mariscos",
-      "Bien servido"
-    ],
-    "destacado": false,
-    "imagen": "assets/fotos/arroz-mariscos.webp"
-  },
-  {
-    "id": "arroz-chaufa-mariscos",
-    "categoria": "arroces",
-    "nombre": "Arroz chaufa con mariscos",
-    "descripcion": "Arroz chaufa con mariscos, salteado, sabroso y rendidor.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [],
-    "destacado": false
-  },
-  {
-    "id": "arroz-chaufa-langostino",
-    "categoria": "arroces",
-    "nombre": "Arroz chaufa con langostino",
-    "descripcion": "Arroz chaufa con langostino, caliente y con sazón marina.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [],
-    "destacado": false
-  },
-  {
-    "id": "arroz-chaufa-pescado",
-    "categoria": "arroces",
-    "nombre": "Arroz chaufa con pescado",
-    "descripcion": "Arroz chaufa con pescado, simple, sabroso y rendidor.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [],
-    "destacado": false
-  },
-  {
-    "id": "pescado-a-lo-macho",
-    "categoria": "arroces",
-    "nombre": "Pescado a lo macho",
-    "descripcion": "Pescado bañado en salsa marina de carácter, potente y bien servido.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [],
-    "destacado": false
-  },
-  {
-    "id": "jalea-mixta",
-    "categoria": "chicharrones",
-    "nombre": "Jalea mixta",
-    "descripcion": "Jalea mixta crocante y abundante, ideal para compartir con la mesa.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Crocante",
-      "Mixta"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "jalea-especial",
-    "categoria": "chicharrones",
-    "nombre": "Jalea especial",
-    "descripcion": "Jalea especial más completa, crocante y bien servida.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Especial",
-      "Crocante"
+      "Pota",
+      "Mediano"
     ],
     "destacado": false
   },
@@ -525,7 +668,7 @@ const PLATOS = [
     "categoria": "chicharrones",
     "nombre": "Filete frito",
     "descripcion": "Filete de pescado frito al punto, doradito y con acompañamiento de casa.",
-    "precio": null,
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Filete",
@@ -534,11 +677,170 @@ const PLATOS = [
     "destacado": false
   },
   {
+    "id": "jalea-encanto-marino",
+    "categoria": "chicharrones",
+    "nombre": "Jalea El Encanto Marino",
+    "descripcion": "Jalea especial de la casa, más contundente y con buena variedad marina.",
+    "precio": 37,
+    "alergenos": [],
+    "etiquetas": [
+      "Especial",
+      "Casa"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "jalea-especial",
+    "categoria": "chicharrones",
+    "nombre": "Jalea especial con mariscos",
+    "descripcion": "Jalea especial con mariscos, crocante y bien servida.",
+    "precio": 25,
+    "alergenos": [],
+    "etiquetas": [
+      "Especial",
+      "Crocante"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "jalea-mixta",
+    "categoria": "chicharrones",
+    "nombre": "Jalea mixta",
+    "descripcion": "Jalea mixta crocante y abundante, ideal para compartir con la mesa.",
+    "precio": 23,
+    "alergenos": [],
+    "etiquetas": [
+      "Crocante",
+      "Mixta"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "pescado-frito-doncella",
+    "categoria": "chicharrones",
+    "nombre": "Pescado frito - doncella",
+    "descripcion": "Doncella frita al punto, doradita y servida con guarnición de casa.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Doncella",
+      "Dorado"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chilcano",
+    "categoria": "sopas",
+    "nombre": "Chilcano de pescado",
+    "descripcion": "Caldito marino ligero y sabroso para empezar suave o acompañar la mesa.",
+    "precio": 6,
+    "alergenos": [],
+    "etiquetas": [
+      "Caldo",
+      "Pescado"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/generadas/chilcano.png"
+  },
+  {
+    "id": "parihuela-pescado",
+    "categoria": "sopas",
+    "nombre": "Parihuela - pescado entero",
+    "descripcion": "Parihuela caliente con pescado entero, concentrada y con sabor marino.",
+    "precio": 30,
+    "alergenos": [],
+    "etiquetas": [
+      "Pescado entero",
+      "Potente"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/parihuela-pescado-cabrilla-cachema.webp"
+  },
+  {
+    "id": "sudado-pescado",
+    "categoria": "sopas",
+    "nombre": "Sudado - pescado entero",
+    "descripcion": "Pescado entero en jugo criollo, con cebolla, tomate y sabor casero.",
+    "precio": 24,
+    "alergenos": [],
+    "etiquetas": [
+      "Pescado entero",
+      "Caliente"
+    ],
+    "destacado": false,
+    "imagen": "assets/fotos/sudado-pescado-cabrilla-cachema.webp"
+  },
+  {
+    "id": "chilcano-acevichado",
+    "categoria": "sopas",
+    "nombre": "Chilcano acevichado",
+    "descripcion": "Chilcano con toque acevichado, sabroso y reconfortante.",
+    "precio": 10,
+    "alergenos": [],
+    "etiquetas": [
+      "Acevichado",
+      "Caldo"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chilcano-especial",
+    "categoria": "sopas",
+    "nombre": "Chilcano especial",
+    "descripcion": "Chilcano más servido, caliente y con sabor marino de casa.",
+    "precio": 10,
+    "alergenos": [],
+    "etiquetas": [
+      "Especial",
+      "Caldo"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chupe-langostinos",
+    "categoria": "sopas",
+    "nombre": "Chupe con langostinos",
+    "descripcion": "Chupe cremoso con langostinos y sabor de casa.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Cremoso",
+      "Langostinos"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chupe-pescado",
+    "categoria": "sopas",
+    "nombre": "Chupe de pescado",
+    "descripcion": "Chupe cremoso y caliente con pescado.",
+    "precio": 20,
+    "alergenos": [],
+    "etiquetas": [
+      "Cremoso",
+      "Pescado"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chupe-mixto",
+    "categoria": "sopas",
+    "nombre": "Chupe mixto",
+    "descripcion": "Chupe mixto con pescado y langostino, bien servido y con sabor de casa.",
+    "precio": 22,
+    "alergenos": [],
+    "etiquetas": [
+      "Cremoso",
+      "Mixto"
+    ],
+    "destacado": false
+  },
+  {
     "id": "parihuela-filete",
     "categoria": "sopas",
-    "nombre": "Parihuela de pescado en filete",
+    "nombre": "Parihuela - pescado en filete",
     "descripcion": "Parihuela caliente con pescado en filete, concentrada y con sabor marino.",
-    "precio": null,
+    "precio": 30,
     "alergenos": [],
     "etiquetas": [
       "Filete",
@@ -549,9 +851,9 @@ const PLATOS = [
   {
     "id": "sudado-filete",
     "categoria": "sopas",
-    "nombre": "Sudado de pescado en filete",
+    "nombre": "Sudado - pescado en filete",
     "descripcion": "Sudado de pescado en filete con jugo criollo y sabor casero.",
-    "precio": null,
+    "precio": 22,
     "alergenos": [],
     "etiquetas": [
       "Filete",
@@ -560,50 +862,11 @@ const PLATOS = [
     "destacado": false
   },
   {
-    "id": "chupe-pescado",
-    "categoria": "sopas",
-    "nombre": "Chupe de pescado",
-    "descripcion": "Chupe cremoso y caliente con pescado.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Cremoso",
-      "Pescado"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "chupe-langostinos",
-    "categoria": "sopas",
-    "nombre": "Chupe con langostinos",
-    "descripcion": "Chupe cremoso con langostinos y sabor de casa.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Cremoso",
-      "Langostinos"
-    ],
-    "destacado": false
-  },
-  {
-    "id": "chupe-mixto",
-    "categoria": "sopas",
-    "nombre": "Chupe mixto",
-    "descripcion": "Chupe marino mixto, bien servido y con sabor de casa.",
-    "precio": null,
-    "alergenos": [],
-    "etiquetas": [
-      "Cremoso",
-      "Mixto"
-    ],
-    "destacado": false
-  },
-  {
     "id": "lomo-saltado",
     "categoria": "extras",
-    "nombre": "Lomo saltado",
-    "descripcion": "Salteado criollo con papas y arroz. Una opción clásica para quien quiere salir del mar por un momento.",
-    "precio": null,
+    "nombre": "Lomo saltado - pollo o carne",
+    "descripcion": "Salteado criollo con papas y arroz. Puede ser de pollo o carne.",
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Clásico peruano",
@@ -616,8 +879,8 @@ const PLATOS = [
     "id": "pollo-frito-papas",
     "categoria": "extras",
     "nombre": "Pollo frito con papas fritas",
-    "descripcion": "Pollo dorado con papas, simple y cumplidor para todos los gustos.",
-    "precio": null,
+    "descripcion": "Pollo dorado con papas fritas, simple y cumplidor para todos los gustos.",
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Crocante",
@@ -631,7 +894,7 @@ const PLATOS = [
     "categoria": "extras",
     "nombre": "Tallarín saltado",
     "descripcion": "Tallarín salteado con sazón de casa, caliente y rendidor.",
-    "precio": null,
+    "precio": 20,
     "alergenos": [],
     "etiquetas": [
       "Salteado",
@@ -641,63 +904,217 @@ const PLATOS = [
     "imagen": "assets/fotos/generadas/tallarin-saltado.png"
   },
   {
-    "id": "porciones",
+    "id": "porcion-arroz",
     "categoria": "extras",
-    "nombre": "Guarniciones",
-    "descripcion": "Porciones de arroz, yuca frita, cancha o camote para completar tu pedido.",
-    "precio": null,
+    "nombre": "Porción de arroz",
+    "descripcion": "Porción adicional de arroz para completar el pedido.",
+    "precio": 3.5,
     "alergenos": [],
-    "etiquetas": [],
+    "etiquetas": [
+      "Guarnición"
+    ],
     "destacado": false
   },
   {
-    "id": "chicha-morada",
-    "categoria": "bebidas",
-    "nombre": "Chicha morada",
-    "descripcion": "Bebida clásica de la casa para acompañar la carta marina.",
-    "precio": null,
+    "id": "porcion-camote",
+    "categoria": "extras",
+    "nombre": "Porción de camote",
+    "descripcion": "Porción de camote para acompañar.",
+    "precio": 3,
     "alergenos": [],
-    "etiquetas": ["Bebida"],
+    "etiquetas": [
+      "Guarnición"
+    ],
     "destacado": false
   },
   {
-    "id": "maracuya",
-    "categoria": "bebidas",
-    "nombre": "Maracuyá",
-    "descripcion": "Bebida fresca de maracuyá para acompañar el pedido.",
-    "precio": null,
+    "id": "porcion-cancha",
+    "categoria": "extras",
+    "nombre": "Porción de cancha",
+    "descripcion": "Porción de cancha para acompañar.",
+    "precio": 3,
     "alergenos": [],
-    "etiquetas": ["Bebida"],
+    "etiquetas": [
+      "Guarnición"
+    ],
     "destacado": false
   },
   {
-    "id": "agua",
-    "categoria": "bebidas",
-    "nombre": "Agua",
-    "descripcion": "Agua para acompañar tu consumo.",
-    "precio": null,
+    "id": "porcion-yuca-frita",
+    "categoria": "extras",
+    "nombre": "Porción de yuca frita",
+    "descripcion": "Porción de yuca frita doradita.",
+    "precio": 5,
     "alergenos": [],
-    "etiquetas": ["Bebida"],
+    "etiquetas": [
+      "Guarnición"
+    ],
     "destacado": false
   },
   {
-    "id": "gaseosas",
+    "id": "agua-mineral",
     "categoria": "bebidas",
-    "nombre": "Gaseosas",
-    "descripcion": "Consulta las gaseosas disponibles al momento de pedir.",
-    "precio": null,
+    "nombre": "Agua mineral",
+    "descripcion": "Agua mineral para acompañar el consumo.",
+    "precio": 1.5,
     "alergenos": [],
-    "etiquetas": ["Bebida"],
+    "etiquetas": [
+      "Bebida"
+    ],
     "destacado": false
   },
   {
-    "id": "cervezas",
+    "id": "cerveza-cusquena-trigo",
     "categoria": "bebidas",
-    "nombre": "Cervezas",
-    "descripcion": "Consulta las cervezas disponibles con el local.",
-    "precio": null,
+    "nombre": "Cerveza Cusqueña o Trigo",
+    "descripcion": "Cerveza Cusqueña o de trigo según disponibilidad.",
+    "precio": 9,
     "alergenos": [],
-    "etiquetas": ["Bebida"],
+    "etiquetas": [
+      "Bebida",
+      "Cerveza"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "cerveza-pilsen",
+    "categoria": "bebidas",
+    "nombre": "Cerveza Pilsen",
+    "descripcion": "Cerveza Pilsen según disponibilidad.",
+    "precio": 8,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "Cerveza"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chicha-jora-1l",
+    "categoria": "bebidas",
+    "nombre": "Chicha de jora 1 litro",
+    "descripcion": "Chicha de jora para compartir.",
+    "precio": 13,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chicha-jora-medio",
+    "categoria": "bebidas",
+    "nombre": "Chicha de jora 1/2 litro",
+    "descripcion": "Chicha de jora en presentación de medio litro.",
+    "precio": 6.5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1/2 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chicha-morada-1l",
+    "categoria": "bebidas",
+    "nombre": "Chicha morada 1 litro",
+    "descripcion": "Chicha morada para compartir.",
+    "precio": 10,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "chicha-morada-medio",
+    "categoria": "bebidas",
+    "nombre": "Chicha morada 1/2 litro",
+    "descripcion": "Chicha morada en presentación de medio litro.",
+    "precio": 5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1/2 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "gaseosa-1l",
+    "categoria": "bebidas",
+    "nombre": "Gaseosa de 1 litro",
+    "descripcion": "Gaseosa de 1 litro según disponibilidad.",
+    "precio": 7,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "gaseosa-1-5l",
+    "categoria": "bebidas",
+    "nombre": "Gaseosa de 1 litro y medio",
+    "descripcion": "Gaseosa de 1 litro y medio según disponibilidad.",
+    "precio": 8.5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1.5 litros"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "gaseosa-gordita-jumbo",
+    "categoria": "bebidas",
+    "nombre": "Gaseosa gordita o jumbo",
+    "descripcion": "Gaseosa gordita o jumbo según disponibilidad.",
+    "precio": 5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "gaseosa-personal",
+    "categoria": "bebidas",
+    "nombre": "Gaseosa personal",
+    "descripcion": "Gaseosa personal para acompañar el pedido.",
+    "precio": 2.5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "maracuya-1l",
+    "categoria": "bebidas",
+    "nombre": "Maracuyá 1 litro",
+    "descripcion": "Bebida fresca de maracuyá para compartir.",
+    "precio": 10,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1 litro"
+    ],
+    "destacado": false
+  },
+  {
+    "id": "maracuya-medio",
+    "categoria": "bebidas",
+    "nombre": "Maracuyá 1/2 litro",
+    "descripcion": "Bebida fresca de maracuyá en presentación de medio litro.",
+    "precio": 5,
+    "alergenos": [],
+    "etiquetas": [
+      "Bebida",
+      "1/2 litro"
+    ],
     "destacado": false
   }
 ];

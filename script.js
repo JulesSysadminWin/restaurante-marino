@@ -9,7 +9,11 @@ function numeroWhatsappSeguro(){
 
 
 const normalizar = (txt) => String(txt || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-const precio = (v) => (v === null || v === undefined || v === "") ? "" : `S/ ${Number(v).toFixed(2)}`;
+const precio = (v) => {
+  if (v === null || v === undefined || v === "") return "";
+  const n = Number(v);
+  return `S/ ${Number.isInteger(n) ? n.toFixed(0) : n.toFixed(2)}`;
+};
 
 const estado = {
   categoria:"todos",
@@ -183,11 +187,11 @@ function renderCarrito(){
   const totalItems = estado.carrito.reduce((a,i)=>a+i.cantidad,0);
   if(!totalItems){ bar.classList.remove("show"); bar.innerHTML=""; return; }
 
-  const allPrices = estado.carrito.every(i => PLATOS.find(p=>p.id===i.id)?.precio != null);
-  const total = estado.carrito.reduce((a,i)=>a+(Number(PLATOS.find(p=>p.id===i.id)?.precio||0)*i.cantidad),0);
+  const allPrices = carritoConPrecios();
+  const total = totalCarrito();
 
   bar.classList.add("show");
-  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"} seleccionado${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total aprox.: S/ ${total.toFixed(2)}` : "Total a consultar"}</span></div>
+  bar.innerHTML = `<div class="cart-summary"><strong>${totalItems} item${totalItems===1?"":"s"} seleccionado${totalItems===1?"":"s"}</strong><span>${allPrices ? `Total: ${precio(total).replace("S/ ", "S/ ")}` : "Total a consultar"}</span></div>
   <div class="cart-items">${estado.carrito.map(item => itemHTML(item)).join("")}</div>
   <div class="cart-actions">
     <button class="btn secondary" id="cartReserva">Reserva / anticipado</button>
@@ -204,8 +208,10 @@ function itemHTML(item){
   const p = PLATOS.find(x=>x.id===item.id);
   if(!p) return "";
   const extras = [item.picante && item.picante !== "Normal" ? `Ají: ${item.picante}` : "", item.nota ? `Obs: ${item.nota}` : ""].filter(Boolean).join(" | ");
+  const subtotal = p.precio != null ? precio(Number(p.precio) * item.cantidad) : "";
   return `<div class="cart-item">
     <span>${item.cantidad}x ${p.nombre}${extras ? `<small>${extras}</small>` : ""}</span>
+    <strong class="cart-item-price">${subtotal}</strong>
     <div><button onclick="cambiarCantidad('${item.lineId}',-1)">−</button> <button onclick="cambiarCantidad('${item.lineId}',1)">+</button></div>
   </div>`;
 }
@@ -236,18 +242,12 @@ function abrirModalPlato(id){
   const notice = $("#dishModal .notice");
   if (esBebida) {
     personaliza.style.display = "none";
-    if (drinkOptions) drinkOptions.style.display = "grid";
-    const modalDrink = $("#modalDrink");
-    if(modalDrink){
-      const normalizado = normalizar(p.nombre);
-      const encontrados = Array.from(modalDrink.options).find(o => normalizar(o.value) === normalizado);
-      modalDrink.value = encontrados ? encontrados.value : "Chicha morada";
-    }
-    notice.textContent = "Consulta disponibilidad con el local.";
+    if (drinkOptions) drinkOptions.style.display = "none";
+    notice.textContent = "Precio según carta. El local confirma disponibilidad al momento de pedir.";
   } else {
     personaliza.style.display = "grid";
     if (drinkOptions) drinkOptions.style.display = "none";
-    notice.textContent = "Confirmar disponibilidad y precio final con el local.";
+    notice.textContent = "Precio según carta. El local confirma disponibilidad al momento de pedir.";
     $("#modalSpice").value = "Normal";
     $("#modalNote").value = "";
   }
@@ -257,10 +257,10 @@ function abrirModalPlato(id){
 
   $("#modalAdd").onclick=()=>{
     if (esBebida) {
-      const seleccion = $("#modalDrink")?.value || p.nombre;
-      const bebidaId = PLATOS.find(x => x.categoria === "bebidas" && normalizar(x.nombre) === normalizar(seleccion))?.id || id;
-      agregar(bebidaId, "", "");
-    } else agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
+      agregar(id, "", "");
+    } else {
+      agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
+    }
     cerrarModalPlato();
   };
   $("#dishModal").classList.add("show"); document.body.style.overflow="hidden";
@@ -331,8 +331,9 @@ function pedidoLineas(){
       item.picante && item.picante !== "Normal" ? `Ají: ${item.picante}` : "",
       item.nota ? `Obs: ${item.nota}` : ""
     ].filter(Boolean).join(" | ");
-    const precioLinea = precio(p.precio);
-    const precioTexto = precioLinea ? ` (${precioLinea})` : "";
+    const unit = p.precio != null ? precio(p.precio) : "";
+    const subtotal = p.precio != null ? precio(Number(p.precio) * item.cantidad) : "";
+    const precioTexto = unit ? ` (${unit} c/u | Subtotal: ${subtotal})` : "";
     return `- ${item.cantidad} x ${p.nombre}${precioTexto}${extras ? " | " + extras : ""}`;
   });
 }
@@ -342,6 +343,7 @@ function enviarFlujoWhatsApp(){
 
   const f = estado.form;
   const lineas = pedidoLineas();
+  const totalTexto = estado.carrito.length && carritoConPrecios() ? `Total estimado: ${precio(totalCarrito())}` : "";
   let msg = [];
 
   if(estado.flujoActual === "reserva"){
@@ -356,6 +358,7 @@ function enviarFlujoWhatsApp(){
       "",
       lineas.length ? "Pedido anticipado:" : "Pedido anticipado: no agregado, solo reserva de mesa.",
       ...lineas,
+      totalTexto,
       "",
       "Entiendo que para separar mesa y/o preparar platos anticipados se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total."
     ];
@@ -373,6 +376,7 @@ function enviarFlujoWhatsApp(){
       "",
       "Pedido:",
       ...lineas,
+      totalTexto,
       "",
       "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total."
     ];
@@ -410,7 +414,7 @@ function createFishRipple(x,y){
   wrap.style.top = `${y}px`;
   const fish = document.createElement("div");
   fish.className = "fish-click-effect__fish";
-  fish.textContent = "🐟";
+  fish.textContent = "🦀";
   wrap.appendChild(fish);
   for(let i=0;i<4;i++){
     const b = document.createElement("span");
@@ -456,7 +460,7 @@ function initMoveFx(){
 function animateAddFish(){
   const fish = document.createElement("div");
   fish.className = "swim-fish-effect";
-  fish.textContent = "🐟";
+  fish.textContent = "🦀";
   fish.style.top = `${40 + Math.random()*40}%`;
   document.body.appendChild(fish);
   setTimeout(()=>fish.remove(), 1800);

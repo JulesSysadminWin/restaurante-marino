@@ -1050,3 +1050,54 @@ footer { background: #007fa3; color: #e8fbff; }
     min-width: 0;
   }
 }
+
+
+/* V21 - cangrejo y precios */
+.fish-click-effect__fish {
+  font-size: 24px !important;
+  animation: crab-pop-up 1.05s ease-out forwards !important;
+}
+
+.swim-fish-effect {
+  font-size: 40px !important;
+  animation: crab-walk-across 2.2s linear forwards !important;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.30));
+}
+
+.cart-item {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+}
+
+.cart-item-price {
+  color: #ffd36a;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+@keyframes crab-pop-up {
+  0% { transform: translate(-50%,-50%) scale(.45) rotate(-8deg); opacity: 0; }
+  25% { opacity: 1; }
+  55% { transform: translate(-50%, calc(-50% - 22px)) scale(1.08) rotate(8deg); }
+  100% { transform: translate(-50%, calc(-50% - 42px)) scale(.9) rotate(-6deg); opacity: 0; }
+}
+
+@keyframes crab-walk-across {
+  0% { transform: translateX(0) translateY(0) rotate(-8deg); opacity: 0; }
+  8% { opacity: 1; }
+  20% { transform: translateX(-20vw) translateY(-3px) rotate(8deg); }
+  40% { transform: translateX(-42vw) translateY(3px) rotate(-7deg); }
+  60% { transform: translateX(-64vw) translateY(-2px) rotate(7deg); }
+  80% { transform: translateX(-86vw) translateY(2px) rotate(-6deg); }
+  100% { transform: translateX(calc(-100vw - 180px)) translateY(0) rotate(6deg); opacity: 0; }
+}
+
+@media(max-width: 620px) {
+  .cart-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .cart-item-price {
+    font-size: 14px;
+  }
+}

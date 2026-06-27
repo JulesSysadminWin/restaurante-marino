@@ -1,0 +1,4 @@
+Precios cargados desde las fotos de la carta enviada.
+Total de platos/items: 79
+Items sin precio: ninguno
+Nota: donde la carta mostraba varios precios para el mismo producto, se separó por presentación/tamaño para que el carrito pueda sumar correctamente.

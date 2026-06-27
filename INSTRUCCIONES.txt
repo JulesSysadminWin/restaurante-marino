@@ -29,3 +29,10 @@ V18:
 - WhatsApp corregido de forma forzada a 998 101 944 / 51998101944.
 - Se agregó bust de caché ?v=18 para evitar que cargue data antigua.
 - Se corrigió el scroll del popup de detalle en celular y PC.
+
+
+V21:
+- Precios cargados según la carta visible enviada.
+- Dúos, triples, combinados, arroces, chicharrones, sopas, extras, guarniciones y bebidas separados para que el carrito sume.
+- Efecto visual cambiado de pez a cangrejo.
+- WhatsApp incluye subtotales y total estimado del pedido.

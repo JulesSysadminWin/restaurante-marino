@@ -47,3 +47,10 @@ V18:
 - Se agregó botón visible “Volver a la carta” dentro del popup de detalle.
 - El popup también puede cerrarse con Escape o tocando fuera del cuadro.
 - Caché actualizada a v20.
+
+
+V21:
+- Precios cargados según la carta visible enviada.
+- Dúos, triples, combinados, arroces, chicharrones, sopas, extras, guarniciones y bebidas separados para que el carrito sume.
+- Efecto visual cambiado de pez a cangrejo.
+- WhatsApp incluye subtotales y total estimado del pedido.
