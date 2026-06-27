@@ -121,12 +121,13 @@ function renderMenu(){
   }
   grid.innerHTML = platos.map(p => {
     const cat = CATEGORIAS.find(c=>c.id===p.categoria)?.nombre || p.categoria;
-    const img = p.imagen || "assets/placeholder-plato.svg";
-    const sinFoto = !p.imagen || img.includes("placeholder-plato.svg");
+    const img = p.imagen || "";
+    const sinFoto = !img;
     const etiquetas = (p.etiquetas || []).filter(Boolean).map(t=>`<span>${t}</span>`).join("");
-    const precioHtml = precio(p.precio) ? `<strong class="price">${precio(p.precio)}</strong>` : `<strong class="price price-muted">Consultar</strong>`;
-    return `<article class="dish-card ${sinFoto ? "sin-foto" : ""}">
-      <button class="dish-image" data-view="${p.id}"><img src="${img}" alt="${p.nombre}"></button>
+    const precioHtml = precio(p.precio) ? `<strong class="price">${precio(p.precio)}</strong>` : ``;
+    const mediaHtml = img ? `<button class="dish-image" data-view="${p.id}"><img src="${img}" alt="${p.nombre}"></button>` : ``;
+    return `<article class="dish-card ${sinFoto ? "sin-foto text-only" : ""}">
+      ${mediaHtml}
       <div class="dish-body">
         <div class="dish-top"><span class="category-label">${cat}</span>${precioHtml}</div>
         <h3>${p.nombre}</h3><p>${p.descripcion}</p>
@@ -195,8 +196,10 @@ function itemHTML(item){
 
 function abrirModalPlato(id){
   const p=PLATOS.find(x=>x.id===id); if(!p) return;
-  $("#modalImage").src=p.imagen || "assets/placeholder-plato.svg"; $("#modalImage").alt=p.nombre;
-  $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio) || "Consultar"; $("#modalDesc").textContent=p.descripcion;
+  const modalImg = $("#modalImage");
+  if (p.imagen) { modalImg.src=p.imagen; modalImg.alt=p.nombre; modalImg.parentElement?.classList.remove("hidden-media"); }
+  else { modalImg.removeAttribute("src"); modalImg.alt=""; modalImg.parentElement?.classList.add("hidden-media"); }
+  $("#modalTitle").textContent=p.nombre; $("#modalPrice").textContent=precio(p.precio) || "Precio a consultar"; $("#modalDesc").textContent=p.descripcion;
   $("#modalTags").innerHTML=(p.etiquetas || []).map(t=>`<span>${t}</span>`).join("");
   $("#modalSpice").value = "Normal";
   $("#modalNote").value = "";

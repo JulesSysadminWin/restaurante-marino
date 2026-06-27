@@ -797,3 +797,36 @@ footer { background: #007fa3; color: #e8fbff; }
   20% { opacity: .9; }
   100% { transform: translate(var(--bubble-x, 0px), -60px) scale(1); opacity: 0; }
 }
+
+/* V14 - tarjetas sin imagen no muestran placeholder para evitar confusión */
+.dish-card.text-only .dish-body {
+  padding-top: 20px;
+}
+.dish-card.text-only {
+  min-height: 0;
+}
+.dish-card.text-only .dish-top {
+  margin-bottom: 8px;
+}
+.modal-grid.hidden-media {
+  grid-template-columns: 1fr;
+}
+.modal-grid.hidden-media > img {
+  display: none;
+}
+.price-muted {
+  display: none !important;
+}
+.gallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.gallery img {
+  aspect-ratio: 4/3;
+  height: auto;
+}
+@media(max-width: 760px){
+  .gallery { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width: 520px){
+  .gallery { grid-template-columns: 1fr; }
+}

@@ -9,7 +9,7 @@ Versión v12: carta real limpia, sin Don Cangrejo.
 - Se mantiene el logo oficial.
 - Se mantienen los nombres reales de la carta.
 - Se mantienen las fotos reales ya cargadas.
-- Se mantienen platos sin foto con placeholder “Foto por actualizar”.
+- Los platos sin imagen exacta quedan en tarjeta de texto, sin foto para evitar confusión.
 - Se mantiene la lógica:
   - Atención en mesa: el cliente revisa la carta y pide al personal.
   - Reserva / pedido anticipado: coordinación por WhatsApp.
