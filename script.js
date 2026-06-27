@@ -108,6 +108,14 @@ function filtrar(){
     const text = normalizar(`${p.nombre} ${p.descripcion} ${(p.etiquetas || []).join(" ")}`);
     const busq = !q || text.includes(q);
     return cat && busq;
+  }).sort((a,b)=>{
+    const imgA = a.imagen ? 1 : 0;
+    const imgB = b.imagen ? 1 : 0;
+    if(imgA !== imgB) return imgB - imgA;
+    const catA = CATEGORIAS.findIndex(c=>c.id===a.categoria);
+    const catB = CATEGORIAS.findIndex(c=>c.id===b.categoria);
+    if(catA !== catB) return catA - catB;
+    return a.nombre.localeCompare(b.nombre, 'es');
   });
 }
 
@@ -150,6 +158,7 @@ function agregar(id, picante="Normal", nota=""){
 
   renderCarrito();
   renderFlowOrderList();
+  animateAddFish();
 }
 
 function cambiarCantidad(lineId, d){
@@ -216,20 +225,32 @@ function abrirModalPlato(id){
   $("#modalTags").innerHTML=(p.etiquetas || []).filter(Boolean).map(t=>`<span>${t}</span>`).join("");
 
   const personaliza = $("#dishModal .personaliza");
+  const drinkOptions = $("#drinkOptions");
   const notice = $("#dishModal .notice");
   if (esBebida) {
     personaliza.style.display = "none";
+    if (drinkOptions) drinkOptions.style.display = "grid";
+    const modalDrink = $("#modalDrink");
+    if(modalDrink){
+      const normalizado = normalizar(p.nombre);
+      const encontrados = Array.from(modalDrink.options).find(o => normalizar(o.value) === normalizado);
+      modalDrink.value = encontrados ? encontrados.value : "Chicha morada";
+    }
     notice.textContent = "Consulta disponibilidad con el local.";
   } else {
-    personaliza.style.display = "block";
+    personaliza.style.display = "grid";
+    if (drinkOptions) drinkOptions.style.display = "none";
     notice.textContent = "Confirmar disponibilidad y precio final con el local.";
     $("#modalSpice").value = "Normal";
     $("#modalNote").value = "";
   }
 
   $("#modalAdd").onclick=()=>{
-    if (esBebida) agregar(id, "", "");
-    else agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
+    if (esBebida) {
+      const seleccion = $("#modalDrink")?.value || p.nombre;
+      const bebidaId = PLATOS.find(x => x.categoria === "bebidas" && normalizar(x.nombre) === normalizar(seleccion))?.id || id;
+      agregar(bebidaId, "", "");
+    } else agregar(id, $("#modalSpice").value, $("#modalNote").value.trim());
     cerrarModalPlato();
   };
   $("#dishModal").classList.add("show"); document.body.style.overflow="hidden";
@@ -395,10 +416,40 @@ function createFishRipple(x,y){
 
 function initClickFx(){
   document.addEventListener("pointerdown", (ev)=>{
-    const interactive = ev.target.closest("button, a, .menu-card, .home-card, .gallery-grid img");
+    const interactive = ev.target.closest("button, a, .dish-card, .dish-mini, .gallery img, .flow-card, .card");
     if(!interactive) return;
     createFishRipple(ev.clientX, ev.clientY);
   }, {passive:true});
 }
 
-document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();});
+function createCursorBubble(x,y){
+  const bubble = document.createElement("span");
+  bubble.className = "cursor-bubble";
+  bubble.style.left = `${x}px`;
+  bubble.style.top = `${y}px`;
+  bubble.style.setProperty("--bubble-x", `${(Math.random()*20)-10}px`);
+  document.body.appendChild(bubble);
+  setTimeout(()=>bubble.remove(), 900);
+}
+
+function initMoveFx(){
+  let last = 0;
+  document.addEventListener("pointermove", (ev)=>{
+    const now = Date.now();
+    if(now - last < 180) return;
+    last = now;
+    createCursorBubble(ev.clientX, ev.clientY);
+    if(Math.random() > 0.7) createFishRipple(ev.clientX, ev.clientY);
+  }, {passive:true});
+}
+
+function animateAddFish(){
+  const fish = document.createElement("div");
+  fish.className = "swim-fish-effect";
+  fish.textContent = "🐟";
+  fish.style.top = `${40 + Math.random()*40}%`;
+  document.body.appendChild(fish);
+  setTimeout(()=>fish.remove(), 1800);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();initMoveFx();});

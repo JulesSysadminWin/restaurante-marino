@@ -16,3 +16,12 @@ Versión v15: ajustes de modal, bebidas y ubicación.
 ```text
 data/menu-data.js
 ```
+
+
+## v16
+- Quitado texto extra de la galería.
+- Ordenados los platos: primero con foto, luego sin foto.
+- Modal de platos mejorado para imágenes verticales/horizontales.
+- Bebidas con selector específico.
+- Efectos visuales de pez y burbujas al interactuar y al agregar platos.
+- Logo un poco más grande.
