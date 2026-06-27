@@ -1,6 +1,6 @@
 // ======================================================
 // DATOS EDITABLES - ENCANTO MARINO D'MIRIAM
-// Versión v21: precios cargados desde carta y efecto de cangrejo.
+// Versión v26: recomendados ordenados, TikTok, recargo de recojo y cache corregido.
 // Imagen solo cuando coincide con el plato o combinación indicada.
 // Para actualizar precios: cambia precio: null por precio: 20
 // ======================================================
@@ -15,6 +15,12 @@ const RESTAURANTE = {
   "metodosPago": "Yape, tarjeta y efectivo",
   "servicios": "Atención en mesas, reserva previa y recojo coordinado por WhatsApp",
   "recomendados": ["Sopa salvaje", "Dúos marinos", "Causa acevichada"],
+  "recomendadosDestacados": [
+    {"label": "Sopa salvaje", "id": "sopa-salvaje"},
+    {"label": "Dúos marinos", "id": "duo-marino-ceviche-arroz"},
+    {"label": "Causa acevichada", "id": "causa-acevichada"}
+  ],
+  "recargoRecojoPorPlato": 1,
   "tiktok": "https://www.tiktok.com/@cevicheria.el.enc0",
   "tiktokHandle": "@cevicheria.el.enc0"
 };

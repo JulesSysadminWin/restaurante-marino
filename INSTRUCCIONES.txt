@@ -47,3 +47,6 @@ V23:
 - Cangrejo más grande en interacciones.
 - Al agregar un plato, el cangrejo aparece bailando de izquierda a derecha con burbujas y notas.
 - Se actualizó script.js a v23 para evitar caché del navegador.
+
+
+V26: corrige estilos móviles de recomendados/TikTok con cache bust, ordena recomendados y agrega recargo de S/ 1 por plato para recojo/para llevar.

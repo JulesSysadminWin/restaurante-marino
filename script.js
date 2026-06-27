@@ -50,24 +50,30 @@ function initCommon() {
   renderRecomendadosUI();
 }
 
+function obtenerRecomendadosConfig(){
+  const cfg = Array.isArray(RESTAURANTE.recomendadosDestacados) ? RESTAURANTE.recomendadosDestacados : [];
+  if (cfg.length) return cfg;
+  return (RESTAURANTE.recomendados || []).map(label => ({label, id: null}));
+}
+
 function obtenerPlatosRecomendados(){
-  const nombres = Array.isArray(RESTAURANTE.recomendados) ? RESTAURANTE.recomendados : [];
-  const wanted = nombres.map(n => normalizar(n));
-  return PLATOS.filter(p => wanted.some(w => normalizar(p.nombre).includes(w) || w.includes(normalizar(p.nombre))));
+  return obtenerRecomendadosConfig()
+    .map(r => ({...r, plato: r.id ? PLATOS.find(p => p.id === r.id) : null}))
+    .filter(r => r.label || r.plato);
 }
 
 function renderRecomendadosUI(){
   const pillContainers = $$("[data-recomendados-pill]");
-  const linkContainers = $$("[data-recomendados-links]");
   const tiktokLinks = $$(".js-tiktok");
   const recs = obtenerPlatosRecomendados();
 
   pillContainers.forEach(cont => {
-    cont.innerHTML = recs.map(p => `<span class="reco-pill">⭐ ${p.nombre}</span>`).join("") || `<span class="reco-pill">⭐ ${RESTAURANTE.recomendados?.join(" · ") || "Recomendados"}</span>`;
-  });
-
-  linkContainers.forEach(cont => {
-    cont.innerHTML = recs.map(p => `<a class="reco-link" href="menu.html#${p.id}">${p.nombre}<span>${precio(p.precio) || "Consultar"}</span></a>`).join("");
+    cont.innerHTML = recs.map(r => {
+      const p = r.plato;
+      const label = r.label || p?.nombre || "Recomendado";
+      const price = p?.precio != null ? `<small>${precio(p.precio)}</small>` : "";
+      return `<span class="reco-pill">⭐ <span>${label}</span>${price}</span>`;
+    }).join("");
   });
 
   tiktokLinks.forEach(a => {
@@ -83,8 +89,8 @@ function renderRecomendadosUI(){
 
 function initHome() {
   const cont = $("#homeDestacados"); if (!cont) return;
-  const recomendados = obtenerPlatosRecomendados();
-  const pool = [...recomendados, ...PLATOS.filter(p => p.destacado && !recomendados.some(r => r.id === p.id))].slice(0,6);
+  const recPlatos = obtenerPlatosRecomendados().map(r => r.plato).filter(Boolean);
+  const pool = [...recPlatos, ...PLATOS.filter(p => p.destacado && !recPlatos.some(r => r.id === p.id))].slice(0,6);
   cont.innerHTML = pool.map(p => {
     const img = p.imagen || "assets/placeholder-plato.svg";
     const precioHtml = precio(p.precio) ? `<span class="price">${precio(p.precio)}</span>` : ``;
@@ -224,13 +230,26 @@ function totalCarrito(){
   }, 0);
 }
 
+function cantidadCarrito(){
+  return estado.carrito.reduce((a,i)=>a+i.cantidad,0);
+}
+
+function recargoRecojo(){
+  const recargo = Number(RESTAURANTE.recargoRecojoPorPlato || 0);
+  return estado.flujoActual === "recojo" ? cantidadCarrito() * recargo : 0;
+}
+
+function totalConRecargoRecojo(){
+  return totalCarrito() + recargoRecojo();
+}
+
 function carritoConPrecios(){
   return estado.carrito.length > 0 && estado.carrito.every(item => PLATOS.find(p=>p.id===item.id)?.precio != null);
 }
 
 function renderCarrito(){
   const bar = $("#cartBar"); if(!bar) return;
-  const totalItems = estado.carrito.reduce((a,i)=>a+i.cantidad,0);
+  const totalItems = cantidadCarrito();
   if(!totalItems){ bar.classList.remove("show"); bar.innerHTML=""; return; }
 
   const allPrices = carritoConPrecios();
@@ -367,7 +386,12 @@ function renderFlowOrderList(){
   }
 
   cont.innerHTML = estado.carrito.map(item => itemHTML(item)).join("");
-  hint.textContent = "Puedes seguir agregando platos y volver para completar el envío.";
+  if (estado.flujoActual === "recojo" && carritoConPrecios()) {
+    const extra = recargoRecojo();
+    hint.textContent = `Subtotal: ${precio(totalCarrito())}. Adicional para llevar: ${precio(extra)}. Total estimado: ${precio(totalConRecargoRecojo())}.`;
+  } else {
+    hint.textContent = "Puedes seguir agregando platos y volver para completar el envío.";
+  }
 }
 
 function pedidoLineas(){
@@ -389,7 +413,11 @@ function enviarFlujoWhatsApp(){
 
   const f = estado.form;
   const lineas = pedidoLineas();
-  const totalTexto = estado.carrito.length && carritoConPrecios() ? `Total estimado: ${precio(totalCarrito())}` : "";
+  const totalTexto = estado.carrito.length && carritoConPrecios()
+    ? (estado.flujoActual === "recojo"
+      ? `Subtotal platos: ${precio(totalCarrito())}\nAdicional para llevar: ${precio(recargoRecojo())} (${cantidadCarrito()} plato${cantidadCarrito()===1?"":"s"} x ${precio(RESTAURANTE.recargoRecojoPorPlato || 0)})\nTotal estimado: ${precio(totalConRecargoRecojo())}`
+      : `Total estimado: ${precio(totalCarrito())}`)
+    : "";
   let msg = [];
 
   if(estado.flujoActual === "reserva"){
@@ -424,7 +452,7 @@ function enviarFlujoWhatsApp(){
       ...lineas,
       totalTexto,
       "",
-      "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total."
+      "Entiendo que para dejar el pedido preparado se debe coordinar el pago al 100% por Yape, tarjeta o efectivo luego de que el local confirme disponibilidad y total. Para llevar/recojo se suma S/ 1 por plato pedido."
     ];
   }
 

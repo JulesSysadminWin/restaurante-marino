@@ -1548,3 +1548,69 @@ footer { background: #007fa3; color: #e8fbff; }
   .social-card, .menu-recos { grid-template-columns: 1fr; }
   .social-strip, .menu-recos-wrap { width: min(1180px, calc(100% - 20px)); }
 }
+
+
+/* v26 - arreglo visual recomendado en móvil y estilos con cache bust */
+.social-strip, .menu-recos-wrap {
+  width: min(1180px, calc(100% - 28px));
+  margin: 22px auto 0;
+}
+.social-card, .menu-recos {
+  display: grid !important;
+  grid-template-columns: 1.35fr .85fr;
+  gap: 16px;
+  align-items: stretch;
+  background: linear-gradient(135deg, rgba(5,26,31,.96), rgba(2,70,78,.9)) !important;
+  border: 1px solid rgba(61, 211, 236, .26) !important;
+  border-radius: 26px !important;
+  padding: 18px !important;
+  box-shadow: 0 16px 36px rgba(0,0,0,.24) !important;
+  color: #eafcff !important;
+}
+.social-card__eyebrow {
+  display: block;
+  color: #83e8fb;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+}
+.social-card h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.05;
+}
+.reco-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.reco-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 13px; border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(97,224,247,.24);
+  color: #fff; font-weight: 800; text-decoration: none;
+}
+.reco-pill small { color:#ffca58; font-weight: 900; margin-left: 2px; }
+.tiktok-card {
+  display: flex !important; align-items: center; gap: 12px;
+  padding: 16px !important; border-radius: 22px !important;
+  text-decoration: none !important; color: #fff !important;
+  background: radial-gradient(circle at top left, rgba(37,244,238,.24), transparent 38%), radial-gradient(circle at bottom right, rgba(254,44,85,.28), transparent 40%), linear-gradient(135deg, #090b11, #1b1020 55%, #07131f) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  min-height: 92px;
+  justify-content: space-between;
+}
+.tiktok-card strong { display:block; color:#fff; font-size: 1.05rem; }
+.tiktok-card .tiktok-handle { display:block; color:#bff6ff; margin-top: 4px; font-size: .95rem; }
+.tiktok-card .tiktok-go { padding: 9px 12px; border-radius: 999px; background: rgba(255,255,255,.10); color:#fff; font-weight:800; white-space: nowrap; }
+.tiktok-icon { width: 44px; height: 44px; border-radius: 15px; display:grid; place-items:center; font-size: 1.35rem; background: linear-gradient(135deg, #25f4ee, #fe2c55); box-shadow: 0 10px 18px rgba(0,0,0,.26); flex: 0 0 auto; }
+.tiktok-card--mini { min-height: 70px; }
+.tiktok-card--mini .tiktok-go { display:none; }
+
+@media (max-width: 760px) {
+  .social-strip, .menu-recos-wrap { width: min(100% - 20px, 1180px); margin-top: 14px; }
+  .social-card, .menu-recos { grid-template-columns: 1fr !important; padding: 14px !important; border-radius: 20px !important; }
+  .social-card h2 { font-size: 1.35rem; }
+  .reco-pills { gap: 8px; }
+  .reco-pill { padding: 8px 10px; font-size: .9rem; }
+  .tiktok-card { min-height: 72px; padding: 12px !important; }
+  .tiktok-go { display: none; }
+}
