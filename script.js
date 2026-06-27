@@ -437,7 +437,7 @@ function createFishRipple(x,y){
     wrap.appendChild(b);
   }
   document.body.appendChild(wrap);
-  setTimeout(()=>wrap.remove(), 1200);
+  setTimeout(()=>wrap.remove(), 1500);
 }
 
 function initClickFx(){
@@ -470,12 +470,21 @@ function initMoveFx(){
 }
 
 function animateAddFish(){
-  const fish = document.createElement("div");
-  fish.className = "swim-fish-effect";
-  fish.textContent = "🦀";
-  fish.style.top = `${40 + Math.random()*40}%`;
-  document.body.appendChild(fish);
-  setTimeout(()=>fish.remove(), 2300);
+  const crab = document.createElement("div");
+  crab.className = "swim-fish-effect dancing-crab";
+  crab.textContent = "🦀";
+  crab.style.top = `${38 + Math.random()*42}%`;
+
+  for(let i=0;i<7;i++){
+    const bubble = document.createElement("span");
+    bubble.className = "crab-trail-bubble";
+    bubble.style.setProperty("--i", i);
+    bubble.style.setProperty("--bubble-y", `${-18 + Math.random()*36}px`);
+    crab.appendChild(bubble);
+  }
+
+  document.body.appendChild(crab);
+  setTimeout(()=>crab.remove(), 3600);
 }
 
 document.addEventListener("DOMContentLoaded",()=>{initCommon();initHome();initMenu();initQrPopup();initClickFx();initMoveFx();});

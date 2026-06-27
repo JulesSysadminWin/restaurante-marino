@@ -1101,3 +1101,118 @@ footer { background: #007fa3; color: #e8fbff; }
     font-size: 14px;
   }
 }
+
+
+/* V23 - Cangrejo más grande y bailando de izquierda a derecha */
+.fish-click-effect__fish {
+  font-size: 42px !important;
+  animation: crab-pop-big 1.25s cubic-bezier(.18,.9,.24,1) forwards !important;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,.35));
+}
+
+.fish-click-effect__bubble {
+  width: var(--bubble-size, 15px);
+  height: var(--bubble-size, 15px);
+}
+
+.swim-fish-effect.dancing-crab {
+  left: -120px !important;
+  right: auto !important;
+  top: 50%;
+  z-index: 3999;
+  pointer-events: none;
+  position: fixed;
+  font-size: 76px !important;
+  line-height: 1;
+  filter: drop-shadow(0 16px 24px rgba(0,0,0,.38));
+  animation: crab-dance-left-to-right 3.1s cubic-bezier(.19,.86,.25,1) forwards !important;
+  transform-origin: 50% 80%;
+}
+
+.swim-fish-effect.dancing-crab::before,
+.swim-fish-effect.dancing-crab::after {
+  content: "♪";
+  position: absolute;
+  color: #ffd36a;
+  font-size: 22px;
+  font-weight: 900;
+  text-shadow: 0 3px 8px rgba(0,0,0,.35);
+  animation: music-note-float 1.35s ease-out infinite;
+}
+
+.swim-fish-effect.dancing-crab::before {
+  left: -18px;
+  top: -16px;
+}
+
+.swim-fish-effect.dancing-crab::after {
+  content: "♫";
+  right: -16px;
+  top: -6px;
+  animation-delay: .28s;
+}
+
+.crab-trail-bubble {
+  position: absolute;
+  left: -6px;
+  top: 44px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(91,220,255,.45));
+  opacity: 0;
+  animation: crab-bubble-trail 1.2s ease-out infinite;
+  animation-delay: calc(var(--i) * .13s);
+}
+
+@keyframes crab-pop-big {
+  0% { transform: translate(-50%,-50%) scale(.25) rotate(-18deg); opacity: 0; }
+  18% { opacity: 1; }
+  32% { transform: translate(-50%, calc(-50% - 18px)) scale(1.22) rotate(14deg); }
+  52% { transform: translate(-50%, calc(-50% - 36px)) scale(1.05) rotate(-12deg); }
+  76% { transform: translate(-50%, calc(-50% - 48px)) scale(1.16) rotate(10deg); opacity: .96; }
+  100% { transform: translate(-50%, calc(-50% - 70px)) scale(.85) rotate(-8deg); opacity: 0; }
+}
+
+@keyframes crab-dance-left-to-right {
+  0%   { transform: translateX(0) translateY(0) rotate(-10deg) scale(.75); opacity: 0; }
+  8%   { opacity: 1; transform: translateX(8vw) translateY(-8px) rotate(12deg) scale(1); }
+  16%  { transform: translateX(16vw) translateY(8px) rotate(-14deg) scale(1.08); }
+  24%  { transform: translateX(24vw) translateY(-10px) rotate(14deg) scale(1.02); }
+  32%  { transform: translateX(32vw) translateY(8px) rotate(-12deg) scale(1.10); }
+  40%  { transform: translateX(40vw) translateY(-12px) rotate(16deg) scale(1.04); }
+  50%  { transform: translateX(50vw) translateY(10px) rotate(-15deg) scale(1.12); }
+  60%  { transform: translateX(60vw) translateY(-10px) rotate(14deg) scale(1.04); }
+  70%  { transform: translateX(70vw) translateY(8px) rotate(-13deg) scale(1.10); }
+  82%  { transform: translateX(82vw) translateY(-8px) rotate(12deg) scale(1.02); opacity: 1; }
+  100% { transform: translateX(calc(100vw + 160px)) translateY(0) rotate(10deg) scale(.9); opacity: 0; }
+}
+
+@keyframes crab-bubble-trail {
+  0% { opacity: 0; transform: translate(-10px, var(--bubble-y, 0px)) scale(.35); }
+  18% { opacity: .9; }
+  100% { opacity: 0; transform: translate(-78px, calc(var(--bubble-y, 0px) - 42px)) scale(1.1); }
+}
+
+@keyframes music-note-float {
+  0% { opacity: 0; transform: translateY(8px) rotate(-12deg) scale(.7); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-38px) rotate(14deg) scale(1.15); }
+}
+
+@media (max-width: 620px) {
+  .fish-click-effect__fish {
+    font-size: 36px !important;
+  }
+
+  .swim-fish-effect.dancing-crab {
+    font-size: 58px !important;
+    left: -90px !important;
+    animation-duration: 2.9s !important;
+  }
+
+  .swim-fish-effect.dancing-crab::before,
+  .swim-fish-effect.dancing-crab::after {
+    font-size: 18px;
+  }
+}

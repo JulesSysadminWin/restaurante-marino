@@ -59,3 +59,9 @@ V21:
 V22:
 - Corrección del botón Agregar: se agregaron las funciones de total del carrito que faltaban en el JS.
 - Se actualizó la versión del script a v22 para evitar caché.
+
+
+V23:
+- Cangrejo más grande en interacciones.
+- Al agregar un plato, el cangrejo aparece bailando de izquierda a derecha con burbujas y notas.
+- Se actualizó script.js a v23 para evitar caché del navegador.

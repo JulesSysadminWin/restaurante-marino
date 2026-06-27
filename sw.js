@@ -1,4 +1,4 @@
-// v22: limpiar caché y evitar que el navegador conserve JS anterior
+// v23: limpiar caché y evitar versiones antiguas
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.keys()
