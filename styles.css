@@ -1216,3 +1216,335 @@ footer { background: #007fa3; color: #e8fbff; }
     font-size: 18px;
   }
 }
+
+
+/* V24 - Cangrejo más chistoso/cartoon */
+.fish-click-effect__fish,
+.swim-fish-effect.dancing-crab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fish-click-effect__fish {
+  width: 90px;
+  height: 90px;
+}
+
+.cartoon-crab {
+  position: relative;
+  display: inline-block;
+  width: 92px;
+  height: 74px;
+  transform-origin: 50% 78%;
+}
+
+.cartoon-crab--click {
+  width: 78px;
+  height: 62px;
+  animation: cartoon-crab-giggle .95s ease-in-out infinite alternate;
+}
+
+.cartoon-crab--dance {
+  width: 114px;
+  height: 88px;
+  animation: cartoon-crab-boogie .52s ease-in-out infinite alternate;
+}
+
+.cartoon-crab__body {
+  position: absolute;
+  left: 17px;
+  bottom: 10px;
+  width: 58px;
+  height: 40px;
+  border-radius: 46px 46px 32px 32px;
+  background: linear-gradient(180deg, #ff8f8f 0%, #ff5e69 35%, #ef334d 72%, #cb1736 100%);
+  border: 3px solid rgba(120, 0, 12, .22);
+  box-shadow: inset 0 7px 0 rgba(255,255,255,.23), 0 10px 20px rgba(0,0,0,.26);
+}
+
+.cartoon-crab__body::before,
+.cartoon-crab__body::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 12px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.22);
+}
+.cartoon-crab__body::before { left: 10px; }
+.cartoon-crab__body::after { right: 10px; }
+
+.cartoon-crab__arm,
+.cartoon-crab__leg,
+.cartoon-crab__claw,
+.cartoon-crab__eye,
+.cartoon-crab__cheek,
+.cartoon-crab__mouth,
+.cartoon-crab__spark {
+  position: absolute;
+}
+
+.cartoon-crab__arm {
+  top: 22px;
+  width: 22px;
+  height: 8px;
+  background: linear-gradient(180deg, #ff7682, #d62345);
+  border-radius: 999px;
+}
+.cartoon-crab__arm--left { left: 8px; transform: rotate(-28deg); }
+.cartoon-crab__arm--right { right: 8px; transform: rotate(28deg); }
+
+.cartoon-crab__claw {
+  top: 6px;
+  width: 24px;
+  height: 24px;
+}
+.cartoon-crab__claw::before,
+.cartoon-crab__claw::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 10px;
+  background: linear-gradient(180deg, #ff7a86, #d91c43);
+  border: 2px solid rgba(120,0,12,.18);
+}
+.cartoon-crab__claw::before { border-radius: 15px 15px 2px 15px; top: 0; left: 6px; transform: rotate(25deg); }
+.cartoon-crab__claw::after { border-radius: 15px 15px 15px 2px; top: 10px; left: 2px; transform: rotate(-22deg); }
+.cartoon-crab__claw--left { left: 0; transform: rotate(-18deg); animation: crab-claw-wave-left .38s ease-in-out infinite alternate; }
+.cartoon-crab__claw--right { right: 0; transform: scaleX(-1) rotate(-18deg); animation: crab-claw-wave-right .38s ease-in-out infinite alternate; }
+
+.cartoon-crab__leg {
+  bottom: 7px;
+  width: 20px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff8391, #c61b39);
+  transform-origin: left center;
+}
+.cartoon-crab__leg::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 1px;
+  width: 10px;
+  height: 4px;
+  border-radius: 999px;
+  background: inherit;
+  transform: rotate(28deg);
+}
+.cartoon-crab__leg--l1 { left: 10px; transform: rotate(24deg); animation: crab-leg-left .28s ease-in-out infinite alternate; }
+.cartoon-crab__leg--l2 { left: 16px; bottom: 3px; transform: rotate(10deg); animation: crab-leg-left .31s ease-in-out infinite alternate; }
+.cartoon-crab__leg--l3 { left: 24px; bottom: 0; transform: rotate(-4deg); animation: crab-leg-left .34s ease-in-out infinite alternate; }
+.cartoon-crab__leg--r1 { right: 10px; transform: scaleX(-1) rotate(24deg); animation: crab-leg-right .28s ease-in-out infinite alternate; }
+.cartoon-crab__leg--r2 { right: 16px; bottom: 3px; transform: scaleX(-1) rotate(10deg); animation: crab-leg-right .31s ease-in-out infinite alternate; }
+.cartoon-crab__leg--r3 { right: 24px; bottom: 0; transform: scaleX(-1) rotate(-4deg); animation: crab-leg-right .34s ease-in-out infinite alternate; }
+
+.cartoon-crab__eye {
+  top: 6px;
+  width: 14px;
+  height: 19px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid rgba(67, 9, 14, .18);
+  overflow: hidden;
+}
+.cartoon-crab__eye--left { left: 28px; }
+.cartoon-crab__eye--right { right: 28px; }
+.cartoon-crab__pupil {
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 5px;
+  height: 7px;
+  border-radius: 999px;
+  background: #231015;
+  animation: crab-pupil-bounce 1s ease-in-out infinite;
+}
+
+.cartoon-crab__mouth {
+  left: 38px;
+  top: 31px;
+  width: 16px;
+  height: 9px;
+  border-bottom: 3px solid #7c1025;
+  border-radius: 0 0 12px 12px;
+  transform: rotate(1deg);
+}
+.cartoon-crab__mouth::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  width: 6px;
+  height: 4px;
+  border-radius: 0 0 999px 999px;
+  background: #ffb8c1;
+}
+
+.cartoon-crab__cheek {
+  top: 30px;
+  width: 10px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 211, 226, .95);
+  filter: blur(.2px);
+}
+.cartoon-crab__cheek--left { left: 25px; }
+.cartoon-crab__cheek--right { right: 25px; }
+
+.cartoon-crab__spark {
+  color: #ffd87a;
+  font-size: 12px;
+  text-shadow: 0 2px 6px rgba(0,0,0,.26);
+  animation: crab-sparkle 1s ease-in-out infinite;
+}
+.cartoon-crab__spark--1 { top: 7px; left: -6px; }
+.cartoon-crab__spark--2 { top: 14px; right: -7px; animation-delay: .4s; }
+
+.swim-fish-effect.dancing-crab {
+  font-size: initial !important;
+  width: 140px;
+  height: 110px;
+}
+
+.swim-fish-effect.dancing-crab .cartoon-crab--dance {
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.24));
+}
+
+@keyframes cartoon-crab-giggle {
+  0% { transform: translateY(0) rotate(-5deg) scale(.96); }
+  100% { transform: translateY(-3px) rotate(5deg) scale(1.04); }
+}
+
+@keyframes cartoon-crab-boogie {
+  0% { transform: translateY(0) rotate(-9deg) scale(.96); }
+  50% { transform: translateY(-5px) rotate(0deg) scale(1.03); }
+  100% { transform: translateY(1px) rotate(9deg) scale(1.07); }
+}
+
+@keyframes crab-claw-wave-left {
+  0% { transform: rotate(-32deg); }
+  100% { transform: rotate(-4deg) translateY(-2px); }
+}
+@keyframes crab-claw-wave-right {
+  0% { transform: scaleX(-1) rotate(-32deg); }
+  100% { transform: scaleX(-1) rotate(-4deg) translateY(-2px); }
+}
+@keyframes crab-leg-left {
+  0% { margin-bottom: 0; }
+  100% { margin-bottom: 3px; }
+}
+@keyframes crab-leg-right {
+  0% { margin-bottom: 3px; }
+  100% { margin-bottom: 0; }
+}
+@keyframes crab-pupil-bounce {
+  0%,100% { transform: translate(0,0); }
+  30% { transform: translate(1px,1px); }
+  60% { transform: translate(-1px,0); }
+}
+@keyframes crab-sparkle {
+  0%,100% { opacity: .2; transform: scale(.65) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(18deg); }
+}
+
+@media (max-width: 620px) {
+  .fish-click-effect__fish { width: 72px; height: 72px; }
+  .cartoon-crab--click { width: 64px; height: 52px; }
+  .cartoon-crab--dance { width: 82px; height: 66px; }
+  .swim-fish-effect.dancing-crab { width: 100px; height: 82px; }
+}
+
+
+/* v25 - recomendados + tiktok */
+.social-strip, .menu-recos-wrap {
+  width: min(1180px, calc(100% - 32px));
+  margin: 22px auto 0;
+}
+.social-card, .menu-recos {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+  background: linear-gradient(180deg, rgba(5,18,22,.92), rgba(9,26,33,.92));
+  border: 1px solid rgba(62, 209, 241, .18);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 18px 36px rgba(0,0,0,.24);
+}
+.social-card__eyebrow {
+  display: inline-block;
+  color: #8cdff5;
+  font-weight: 700;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+}
+.social-card h2 { margin: 0 0 8px; font-size: clamp(1.4rem, 2vw, 2rem); }
+.reco-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.reco-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 176, 213, .14);
+  border: 1px solid rgba(84, 218, 245, .28);
+  color: #e9fbff;
+  font-weight: 700;
+}
+.reco-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.reco-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  color: #f5fbff;
+  text-decoration: none;
+}
+.reco-link span { color: #ffca58; font-weight: 800; white-space: nowrap; }
+.reco-link:hover { transform: translateY(-2px); border-color: rgba(84, 218, 245, .35); }
+.tiktok-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+  background: radial-gradient(circle at top left, rgba(35,221,235,.24), transparent 35%), radial-gradient(circle at bottom right, rgba(255,0,128,.2), transparent 35%), linear-gradient(135deg, #101319, #1b0d1a 55%, #111826);
+  border: 1px solid rgba(255,255,255,.08);
+  min-height: 100%;
+  justify-content: space-between;
+}
+.tiktok-card strong { display:block; font-size: 1.05rem; }
+.tiktok-card .tiktok-handle { display:block; color: #bdeffc; margin-top: 4px; }
+.tiktok-card .tiktok-go {
+  padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,.08); color:#fff; font-weight:700; white-space: nowrap;
+}
+.tiktok-icon {
+  width: 46px; height: 46px; border-radius: 14px; display:grid; place-items:center; font-size: 1.4rem;
+  background: linear-gradient(135deg, rgba(35,221,235,.9), rgba(255,0,128,.9)); box-shadow: 0 10px 18px rgba(0,0,0,.25);
+}
+.tiktok-card--mini { padding: 14px 16px; }
+.tiktok-card--mini .tiktok-go { display:none; }
+
+@media (max-width: 860px) {
+  .social-card, .menu-recos { grid-template-columns: 1fr; }
+  .social-strip, .menu-recos-wrap { width: min(1180px, calc(100% - 20px)); }
+}

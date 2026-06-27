@@ -65,3 +65,6 @@ V23:
 - Cangrejo más grande en interacciones.
 - Al agregar un plato, el cangrejo aparece bailando de izquierda a derecha con burbujas y notas.
 - Se actualizó script.js a v23 para evitar caché del navegador.
+
+
+- v25: se agregó bloque visual de recomendados de la casa y botón/enlace bonito a TikTok.

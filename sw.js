@@ -1,4 +1,4 @@
-// v23: limpiar caché y evitar versiones antiguas
+// v24: limpiar caché y evitar versiones antiguas
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.keys()

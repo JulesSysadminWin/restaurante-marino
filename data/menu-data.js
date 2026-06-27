@@ -14,7 +14,9 @@ const RESTAURANTE = {
   "horario": "9:30 a. m. a 4:00 p. m.",
   "metodosPago": "Yape, tarjeta y efectivo",
   "servicios": "Atención en mesas, reserva previa y recojo coordinado por WhatsApp",
-  "recomendados": ["Sopa salvaje", "Dúos marinos", "Causa acevichada"]
+  "recomendados": ["Sopa salvaje", "Dúos marinos", "Causa acevichada"],
+  "tiktok": "https://www.tiktok.com/@cevicheria.el.enc0",
+  "tiktokHandle": "@cevicheria.el.enc0"
 };
 
 const CATEGORIAS = [

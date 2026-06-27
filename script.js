@@ -47,11 +47,45 @@ function initCommon() {
     const msg = `Hola, quiero consultar la carta de ${RESTAURANTE.nombre}`;
     a.href = `https://wa.me/${numeroWhatsappSeguro()}?text=${encodeURIComponent(msg)}`;
   });
+  renderRecomendadosUI();
+}
+
+function obtenerPlatosRecomendados(){
+  const nombres = Array.isArray(RESTAURANTE.recomendados) ? RESTAURANTE.recomendados : [];
+  const wanted = nombres.map(n => normalizar(n));
+  return PLATOS.filter(p => wanted.some(w => normalizar(p.nombre).includes(w) || w.includes(normalizar(p.nombre))));
+}
+
+function renderRecomendadosUI(){
+  const pillContainers = $$("[data-recomendados-pill]");
+  const linkContainers = $$("[data-recomendados-links]");
+  const tiktokLinks = $$(".js-tiktok");
+  const recs = obtenerPlatosRecomendados();
+
+  pillContainers.forEach(cont => {
+    cont.innerHTML = recs.map(p => `<span class="reco-pill">⭐ ${p.nombre}</span>`).join("") || `<span class="reco-pill">⭐ ${RESTAURANTE.recomendados?.join(" · ") || "Recomendados"}</span>`;
+  });
+
+  linkContainers.forEach(cont => {
+    cont.innerHTML = recs.map(p => `<a class="reco-link" href="menu.html#${p.id}">${p.nombre}<span>${precio(p.precio) || "Consultar"}</span></a>`).join("");
+  });
+
+  tiktokLinks.forEach(a => {
+    const href = RESTAURANTE.tiktok || '#';
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    const handle = RESTAURANTE.tiktokHandle || '@encantomarino';
+    const handleEl = a.querySelector('.tiktok-handle');
+    if (handleEl) handleEl.textContent = handle;
+  });
 }
 
 function initHome() {
   const cont = $("#homeDestacados"); if (!cont) return;
-  cont.innerHTML = PLATOS.filter(p => p.destacado).slice(0,6).map(p => {
+  const recomendados = obtenerPlatosRecomendados();
+  const pool = [...recomendados, ...PLATOS.filter(p => p.destacado && !recomendados.some(r => r.id === p.id))].slice(0,6);
+  cont.innerHTML = pool.map(p => {
     const img = p.imagen || "assets/placeholder-plato.svg";
     const precioHtml = precio(p.precio) ? `<span class="price">${precio(p.precio)}</span>` : ``;
     return `<article class="dish-mini ${p.imagen ? "" : "sin-foto"}">
@@ -419,6 +453,30 @@ function initQrPopup(){
   modal.addEventListener("click", (ev)=>{ if(ev.target === modal) closeQr(); });
 }
 
+function createCrabMarkup(sizeClass = ""){
+  return `
+    <span class="cartoon-crab ${sizeClass}" aria-hidden="true">
+      <span class="cartoon-crab__leg cartoon-crab__leg--l1"></span>
+      <span class="cartoon-crab__leg cartoon-crab__leg--l2"></span>
+      <span class="cartoon-crab__leg cartoon-crab__leg--l3"></span>
+      <span class="cartoon-crab__leg cartoon-crab__leg--r1"></span>
+      <span class="cartoon-crab__leg cartoon-crab__leg--r2"></span>
+      <span class="cartoon-crab__leg cartoon-crab__leg--r3"></span>
+      <span class="cartoon-crab__claw cartoon-crab__claw--left"></span>
+      <span class="cartoon-crab__claw cartoon-crab__claw--right"></span>
+      <span class="cartoon-crab__arm cartoon-crab__arm--left"></span>
+      <span class="cartoon-crab__arm cartoon-crab__arm--right"></span>
+      <span class="cartoon-crab__body"></span>
+      <span class="cartoon-crab__eye cartoon-crab__eye--left"><span class="cartoon-crab__pupil"></span></span>
+      <span class="cartoon-crab__eye cartoon-crab__eye--right"><span class="cartoon-crab__pupil"></span></span>
+      <span class="cartoon-crab__cheek cartoon-crab__cheek--left"></span>
+      <span class="cartoon-crab__cheek cartoon-crab__cheek--right"></span>
+      <span class="cartoon-crab__mouth"></span>
+      <span class="cartoon-crab__spark cartoon-crab__spark--1">✦</span>
+      <span class="cartoon-crab__spark cartoon-crab__spark--2">✦</span>
+    </span>`;
+}
+
 function createFishRipple(x,y){
   const wrap = document.createElement("div");
   wrap.className = "fish-click-effect";
@@ -426,7 +484,7 @@ function createFishRipple(x,y){
   wrap.style.top = `${y}px`;
   const fish = document.createElement("div");
   fish.className = "fish-click-effect__fish";
-  fish.textContent = "🦀";
+  fish.innerHTML = createCrabMarkup("cartoon-crab--click");
   wrap.appendChild(fish);
   for(let i=0;i<4;i++){
     const b = document.createElement("span");
@@ -472,8 +530,8 @@ function initMoveFx(){
 function animateAddFish(){
   const crab = document.createElement("div");
   crab.className = "swim-fish-effect dancing-crab";
-  crab.textContent = "🦀";
-  crab.style.top = `${38 + Math.random()*42}%`;
+  crab.innerHTML = createCrabMarkup("cartoon-crab--dance");
+  crab.style.top = `${34 + Math.random()*40}%`;
 
   for(let i=0;i<7;i++){
     const bubble = document.createElement("span");
